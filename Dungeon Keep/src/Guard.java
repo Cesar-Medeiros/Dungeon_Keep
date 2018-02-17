@@ -1,5 +1,5 @@
 
-public class Guard extends Personage {
+public class Guard extends MoveObj {
 
 	private char movements[] = {
 			'A', 'S', 'S', 'S', 
@@ -12,24 +12,10 @@ public class Guard extends Personage {
 	private static int moveIndex = 0;
 	
 	public Guard() {
-		this.posX = 8;
-		this.posY = 1;
-	}
-	
-	public char[] getMovements() {
-		return movements;
-	}
-	
-	public void setMovements(char movements[]) {
-		this.movements = movements;
+		super(8,1,'G');
 	}
 	
 	public char nextMove() {
-		
-		moveIndex++;
-		if (moveIndex == 24) {
-			moveIndex = 1;
-		}
-		return movements[moveIndex - 1];
+		return movements[(moveIndex++) % 24];
 	}
 }
