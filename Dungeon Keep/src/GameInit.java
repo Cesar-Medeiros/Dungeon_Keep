@@ -16,13 +16,13 @@ public class GameInit {
 				level = new Level1();
 				level.setup();
 				state = State.GAME;
+				level.draw();
 				break;
 			}
 
 			case GAME: {
 				if (System.currentTimeMillis() % 100 == 0) {
 					level.update();
-					cleanScreen();
 					level.draw();
 					
 					if (level.gameOver())
@@ -54,12 +54,7 @@ public class GameInit {
 
 	}
 
-	private static void cleanScreen() {
-		// Clear Screen
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
-	}
-	
+
 
 	
 }

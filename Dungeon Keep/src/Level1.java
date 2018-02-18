@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Level1 extends Level{
@@ -37,6 +36,7 @@ public class Level1 extends Level{
 
 	@Override
 	public void draw() {
+		cleanScreen();
 		board.printBoard(lever, guard, hero);
 	}
 

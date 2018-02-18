@@ -3,12 +3,22 @@ import java.util.Random;
 
 public class Level2 extends Level{
 	
+	//Hero
 	private MoveObj hero;
-	private MoveObj ogre;
-	private Random rand;
-	private long futureTime;
 	private boolean pickedKey;
 	
+	//Ogre
+	private MoveObj ogre;
+	private MoveObj club;
+	
+	//Util
+	private Random rand;
+	private long futureTime;
+	
+	
+	private static final char keySymbol = 'k';
+	private static final char doorSymbol = 'I';
+	private static final char exitSymbol = 'S';
 	
 	private static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -22,7 +32,6 @@ public class Level2 extends Level{
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 	};
 	
-	
 	@Override
 	public String toString() {
 		return "Level2";
@@ -31,23 +40,37 @@ public class Level2 extends Level{
 	
 	@Override
 	public void setup() {
+		//Super class
 		board = new Board(boardMap);
-		hero = new MoveObj(1,7, 'H');
-		ogre = new MoveObj(4,1, 'O');
+		
+		//Hero
+		hero = new MoveObj(1,7, 'H', 'K');
+		pickedKey = false;
+		
+		//Ogre
+		ogre = new MoveObj(4,1, 'O', '$');
+		club = new MoveObj(4,1, '*', '$');
+		
+		//Util
 		rand = new Random();
 		futureTime = System.currentTimeMillis() + 1000;
-		pickedKey = false;
+		
 	}
+	
 	
 	@Override
 	public void draw() {
-		board.printBoard(hero, ogre);
+		cleanScreen();
+		board.printBoard(hero, club, ogre);
 	}
+	
 	
 	@Override
 	public void update() {
+		
 		char direction = 0;
 		boolean successMove = false;
+		
 		try {
 			if(System.in.available() != 0) {
 				direction = (char) System.in.read();
@@ -58,56 +81,87 @@ public class Level2 extends Level{
 		}
 			
 		if(System.currentTimeMillis() > futureTime) {
-			char ogreDirection = randDir();
-			board.moveCharacter(ogre, ogreDirection);
+			char ogreDirection;
+			do{
+				ogreDirection = randDir();
+			} while(! board.moveCharacter(ogre, ogreDirection));
+			
+			
+			club.setPosX(ogre.getPosX());
+			club.setPosY(ogre.getPosY());
+			
+			char clubDirection;
+			do{
+				clubDirection = randDir();
+			} while(! board.moveCharacter(club, clubDirection));
+			
+			
+			
 			futureTime = System.currentTimeMillis() + 1000;
 		}
 		
-		if(hero.nearPos(ogre))
+		
+		
+		if(hero.nearPos(ogre) | hero.nearPos(club)) {
 			gameOver = true;
-	
-
+		}
+		
+		
 		if(onKey(hero)) {
-			hero.setSymbol('K');
+			hero.toSpecialSymbol();
 			pickKey();
 		}
 		
+		
 		if(onKey(ogre)) {
-			ogre.setSymbol('$');
+			ogre.toSpecialSymbol();
 		}
-		else ogre.setSymbol('O');
+		else {
+			ogre.toNormalSymbol();
+		}
 		
 		
-		if(Character.toUpperCase(direction) == 'A' && !successMove && 
-				pickedKey &&  onDoor())
-			openDoor();
+		if(onKey(club)) {
+			club.toSpecialSymbol();
+		}
+		else {
+			club.toNormalSymbol();
+		}
 		
-		if(onExit())
+		
+		if(Character.toUpperCase(direction) == 'A' && 
+				!successMove && pickedKey &&  onDoor(hero)) 
+		{
+			openDoor();		
+		}
+		
+		if(onExit(hero)) {
 			completed = true;
+		}
 		
 	}
 	
 	
 	public boolean onKey(MoveObj moveObj) {
-		return (moveObj.getPosX() == 7 && moveObj.getPosY() == 1);
+		return (boardMap[moveObj.getPosY()][moveObj.getPosX()] == keySymbol);
 	}
 	
-	public boolean onExit() {		
-		return (hero.getPosX() == 0 && hero.getPosY() == 1);
+	public boolean onExit(MoveObj moveObj) {		
+		return (boardMap[moveObj.getPosY()][moveObj.getPosX()] == exitSymbol);
 	}
 	
-	public boolean onDoor() {		
-		return (hero.getPosX() == 1 && hero.getPosY() == 1);
+	public boolean onDoor(MoveObj moveObj) {
+		return (boardMap[moveObj.getPosY()][moveObj.getPosX() - 1] == doorSymbol);
 	}
 	
 	public void openDoor() {
-		boardMap[1][0] = 'S';
+		board.substChar(doorSymbol, exitSymbol);
 	}
 	
 
 	public void pickKey() {
 		pickedKey = true;
-		boardMap[1][7] = ' ';
+		board.substChar(keySymbol, ' ');
 	}
 	
 	

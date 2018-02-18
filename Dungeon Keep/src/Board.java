@@ -10,8 +10,6 @@ public class Board {
 				board[i][j]=level[i][j];
 	}
 	
-	
-	
 	public Board(char[][] level) {
 		int V_SIZE = level.length;
 		int H_SIZE = level[0].length;
@@ -30,6 +28,19 @@ public class Board {
 		board[posY][posX] = element;
 	}
 	
+	public boolean substChar(char toSearch, char newChar) {
+		
+		for(int row = 0; row < boardBuffer.length; row++) {
+			for(int col = 0; col < boardBuffer[row].length; col++) {
+				if(boardBuffer[row][col] == toSearch) {
+					boardBuffer[row][col] = newChar;
+					return true;
+				}
+			}	
+		}
+		
+		return false;
+	}
 	
 	public void printBoard(MoveObj... characters) {
 		
