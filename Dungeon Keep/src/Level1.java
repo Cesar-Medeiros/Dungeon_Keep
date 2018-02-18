@@ -1,12 +1,12 @@
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Level1 extends Level{
 
 	private MoveObj hero;
 	private Guard guard;
 	private MoveObj lever;
-	
-	private long futureTime;
+	private Scanner scan;
 	
 	private static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -32,7 +32,7 @@ public class Level1 extends Level{
 		hero = new MoveObj(1,1, 'H');
 		guard = new Guard();
 		lever = new MoveObj(7, 8, 'k');
-		futureTime = System.currentTimeMillis() + 1000;
+		scan = new Scanner(System.in);
 	}
 
 	@Override
@@ -52,19 +52,9 @@ public class Level1 extends Level{
 			return;
 		}
 		
-		try {
-			if(System.in.available() != 0) {
-				char direction = (char) System.in.read();
-				board.moveCharacter(hero, direction);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		if(System.currentTimeMillis() > futureTime) {
-			board.moveCharacter(guard, guard.nextMove());
-			futureTime = System.currentTimeMillis() + 1000;
-		}
+		char direction = scan.next().charAt(0);		
+		board.moveCharacter(hero, direction);
+		board.moveCharacter(guard, guard.nextMove());
 		
 		if (hero.collision(lever)) {
 			openDoors();

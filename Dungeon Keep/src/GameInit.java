@@ -21,9 +21,10 @@ public class GameInit {
 
 			case GAME: {
 				if (System.currentTimeMillis() % 100 == 0) {
-					cleanScreen();
 					level.update();
+					cleanScreen();
 					level.draw();
+					
 					if (level.gameOver())
 						state = State.GAMEOVER;
 
