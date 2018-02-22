@@ -1,22 +1,18 @@
 package dkeep.logic;
 import java.io.IOException;
-import java.util.Random;
-
-import dkeep.cli.IOInterface;
 import dkeep.cli.IOInterface.Direction;
 
 public class Level2 extends Level{
 	
 	//Hero
-	private MoveObj hero;
+	private Hero hero;
 	private boolean pickedKey;
 	
 	//Ogre
-	private MoveObj ogre;
-	private MoveObj club;
+	private Ogre ogre;
 	
 	//Util
-	private Random rand;
+	
 	private long futureTime;
 	
 	
@@ -48,15 +44,13 @@ public class Level2 extends Level{
 		board = new Board(boardMap);
 		
 		//Hero
-		hero = new MoveObj(1,7, 'H', 'K');
+		hero = new Hero(1,7, 'H', 'K');
 		pickedKey = false;
 		
 		//Ogre
-		ogre = new MoveObj(4,1, 'O', '$');
-		club = new MoveObj(4,1, '*', '$');
+		ogre = new Ogre();
 		
 		//Util
-		rand = new Random();
 		futureTime = System.currentTimeMillis() + 1000;
 		
 	}
@@ -65,7 +59,7 @@ public class Level2 extends Level{
 	@Override
 	public void draw() {
 		cleanScreen();
-		board.printBoard(hero, club, ogre);
+		board.printBoard(hero, ogre);
 	}
 	
 	
@@ -77,36 +71,20 @@ public class Level2 extends Level{
 		
 		try {
 			if(System.in.available() != 0) {
-				direction = IOInterface.getDirection();
-				successMove = board.moveCharacter(hero, direction);
+				hero.move(board);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 			
 		if(System.currentTimeMillis() > futureTime) {
-			Direction ogreDirection;
-			do {
-				ogreDirection = randDir();
-			} while(! board.moveCharacter(ogre, ogreDirection));
-			
-			
-			club.setPosX(ogre.getPosX());
-			club.setPosY(ogre.getPosY());
-			
-			Direction clubDirection;
-			do {
-				clubDirection = randDir();
-			} while(! board.moveCharacter(club, clubDirection));
-			
-			
-			
+			ogre.move(board);
 			futureTime = System.currentTimeMillis() + 1000;
 		}
 		
 		
 		
-		if(hero.nearPos(ogre) || hero.nearPos(club)) {
+		if(hero.nearPos(ogre) || hero.nearPos(ogre.getClub())) {
 			gameOver = true;
 		}
 		
@@ -125,11 +103,11 @@ public class Level2 extends Level{
 		}
 		
 		
-		if(onKey(club)) {
-			club.toSpecialSymbol();
+		if(onKey(ogre.getClub())) {
+			ogre.getClub().toSpecialSymbol();
 		}
 		else {
-			club.toNormalSymbol();
+			ogre.getClub().toNormalSymbol();
 		}
 		
 		
@@ -169,14 +147,5 @@ public class Level2 extends Level{
 	}
 	
 	
-	private Direction randDir() {
-		switch(rand.nextInt(4)) {
-		case 0: return Direction.RIGHT;
-		case 1: return Direction.UP;
-		case 2: return Direction.LEFT;
-		case 3: return Direction.DOWN;
-		default: return Direction.NONE;
-		}
-	}
 
 }

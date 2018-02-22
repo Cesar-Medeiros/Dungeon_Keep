@@ -1,12 +1,9 @@
 package dkeep.logic;
-import java.util.Scanner;
 
-import dkeep.cli.IOInterface;
-import dkeep.cli.IOInterface.Direction;
 
 public class Level1 extends Level{
 
-	private MoveObj hero;
+	private Hero hero;
 	private Guard guard;
 	private MoveObj lever;
 	
@@ -31,7 +28,7 @@ public class Level1 extends Level{
 	@Override
 	public void setup() {
 		board = new Board(boardMap);
-		hero = new MoveObj(1,1, 'H');
+		hero = new Hero(1,1, 'H');
 		guard = new Guard();
 		lever = new MoveObj(7, 8, 'k');
 	}
@@ -54,9 +51,8 @@ public class Level1 extends Level{
 			return;
 		}
 		
-		Direction direction = IOInterface.getDirection();
-		board.moveCharacter(hero, direction);
-		board.moveCharacter(guard, guard.nextMove());
+		hero.move(board);
+		guard.move(board);
 		
 		if (hero.collision(lever)) {
 			openDoors();

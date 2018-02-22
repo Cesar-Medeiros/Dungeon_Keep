@@ -2,6 +2,9 @@ package dkeep.cli;
 
 import java.util.Scanner;
 
+import dkeep.logic.Board;
+import dkeep.logic.MoveObj;
+
 public class CLI extends IOInterface {
 
 	private static Scanner scan = new Scanner(System.in);
@@ -23,6 +26,26 @@ public class CLI extends IOInterface {
 		default:
 			return Direction.NONE;
 		}
+	}
+	
+
+	public static void printBoard(Board board, MoveObj... characters) {
+		
+		board.loadLevel();
+		
+		for(MoveObj character : characters) {
+			board.setElement(character.getPosX(), character.getPosY(), character.getSymbol());
+		}
+		
+		for(char[] row : board.getBoard()) {
+			for(char cell : row) {
+				System.out.print(cell + " ");
+			}
+			System.out.print("\n");
+		}
+		
+		System.out.print("\nKey: ");
+		
 	}
 	
 	

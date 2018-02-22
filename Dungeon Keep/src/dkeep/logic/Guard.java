@@ -18,7 +18,12 @@ public class Guard extends MoveObj {
 		super(8,1,'G');
 	}
 	
-	public Direction nextMove() {
+	private Direction nextMove() {
 		return movements[(moveIndex++) % 24];
+	}
+	
+	public void move(Board board) {
+		Direction direction = nextMove();
+		moveCharacter(board, direction);
 	}
 }

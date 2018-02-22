@@ -1,28 +1,28 @@
 package dkeep.logic;
 
+import dkeep.cli.IOInterface.Direction;
+
 public class MoveObj {
 
 	protected int posX;
 	protected int posY;
-	protected char symbol;
+	protected char currentSymbol;
 	protected char symbol1;
 	protected char symbol2;
 
 	public MoveObj(int posX, int posY, char symbol) {
-		super();
 		this.posX = posX;
 		this.posY = posY;
-		this.symbol = symbol;	
+		this.currentSymbol = symbol;	
 		this.symbol1 = symbol;
 		this.symbol2 = ' ';
 		
 	}
 	
 	public MoveObj(int posX, int posY, char symbol, char symbol2) {
-		super();
 		this.posX = posX;
 		this.posY = posY;
-		this.symbol = symbol;
+		this.currentSymbol = symbol;
 		this.symbol1 = symbol;
 		this.symbol2 = symbol2;
 	}
@@ -44,19 +44,19 @@ public class MoveObj {
 	}
 
 	public char getSymbol() {
-		return symbol;
+		return currentSymbol;
 	}
 	
 	public void setSymbol(char symbol) {
-		this.symbol = symbol;
+		this.currentSymbol = symbol;
 	}
 	
 	public void toNormalSymbol() {
-		this.symbol = this.symbol1;
+		this.currentSymbol = this.symbol1;
 	}
 	
 	public void toSpecialSymbol() {
-		this.symbol = this.symbol2;
+		this.currentSymbol = this.symbol2;
 	}
 	
 	public boolean nearPos(MoveObj obj) {
@@ -70,4 +70,56 @@ public class MoveObj {
 		return (posX == obj.getPosX() && posY == obj.getPosY());
 	}
 	
+	public boolean moveCharacter(Board board, Direction direction) {
+		
+		MoveObj character = this;
+		
+		switch(direction) {		
+		case UP: {
+			char element = board.getElement(character.getPosX(), character.getPosY() - 1);
+			
+			if( element != 'X' && element != 'I') {
+				character.setPosY(character.getPosY()-1);
+				return true;
+			}
+			return false;
+		}
+		
+		
+		case DOWN: {
+			char element = board.getElement(character.getPosX(), character.getPosY() + 1);
+			
+			if( element != 'X' && element != 'I') {
+				character.setPosY(character.getPosY()+1);
+				return true;
+			}
+			return false;
+		}
+		
+		
+		case LEFT: {
+			char element = board.getElement(character.getPosX() - 1, character.getPosY());
+			
+			if( element != 'X' && element != 'I') {
+				character.setPosX(character.getPosX()-1);
+				return true;
+			}
+			return false;
+		}
+		
+		
+		case RIGHT: {
+			char element = board.getElement(character.getPosX() + 1, character.getPosY());
+			
+			if( element != 'X' && element != 'I') {
+				character.setPosX(character.getPosX()+1);
+				return true;
+			}
+			return false;
+		}
+		
+		default: return false;
+		}
+		
+	}
 }

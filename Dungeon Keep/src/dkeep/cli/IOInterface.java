@@ -1,5 +1,7 @@
 package dkeep.cli;
 
+import dkeep.logic.Board;
+import dkeep.logic.MoveObj;
 
 public abstract class IOInterface {
 
@@ -23,6 +25,16 @@ public abstract class IOInterface {
 			return CLI.getDirection();
 		default: 
 			return Direction.NONE;
+		}
+	}
+	
+	
+	public static void printBoard(Board board, MoveObj... characters) {
+		switch(currentInterface) {
+		case CLI:
+			CLI.printBoard(board, characters);
+			break;
+		default: break;
 		}
 	}
 }
