@@ -1,5 +1,9 @@
+package dkeep.logic;
 import java.io.IOException;
 import java.util.Random;
+
+import dkeep.cli.IOInterface;
+import dkeep.cli.IOInterface.Direction;
 
 public class Level2 extends Level{
 	
@@ -68,12 +72,12 @@ public class Level2 extends Level{
 	@Override
 	public void update() {
 		
-		char direction = 0;
+		Direction direction = Direction.NONE;
 		boolean successMove = false;
 		
 		try {
 			if(System.in.available() != 0) {
-				direction = (char) System.in.read();
+				direction = IOInterface.getDirection();
 				successMove = board.moveCharacter(hero, direction);
 			}
 		} catch (IOException e) {
@@ -81,8 +85,8 @@ public class Level2 extends Level{
 		}
 			
 		if(System.currentTimeMillis() > futureTime) {
-			char ogreDirection;
-			do{
+			Direction ogreDirection;
+			do {
 				ogreDirection = randDir();
 			} while(! board.moveCharacter(ogre, ogreDirection));
 			
@@ -90,8 +94,8 @@ public class Level2 extends Level{
 			club.setPosX(ogre.getPosX());
 			club.setPosY(ogre.getPosY());
 			
-			char clubDirection;
-			do{
+			Direction clubDirection;
+			do {
 				clubDirection = randDir();
 			} while(! board.moveCharacter(club, clubDirection));
 			
@@ -102,7 +106,7 @@ public class Level2 extends Level{
 		
 		
 		
-		if(hero.nearPos(ogre) | hero.nearPos(club)) {
+		if(hero.nearPos(ogre) || hero.nearPos(club)) {
 			gameOver = true;
 		}
 		
@@ -129,7 +133,7 @@ public class Level2 extends Level{
 		}
 		
 		
-		if(Character.toUpperCase(direction) == 'A' && 
+		if(direction == Direction.LEFT && 
 				!successMove && pickedKey &&  onDoor(hero)) 
 		{
 			openDoor();		
@@ -165,13 +169,13 @@ public class Level2 extends Level{
 	}
 	
 	
-	private char randDir() {
+	private Direction randDir() {
 		switch(rand.nextInt(4)) {
-		case 0: return 'D';
-		case 1: return 'W';
-		case 2: return 'A';
-		case 3: return 'S';
-		default: return 0;
+		case 0: return Direction.RIGHT;
+		case 1: return Direction.UP;
+		case 2: return Direction.LEFT;
+		case 3: return Direction.DOWN;
+		default: return Direction.NONE;
 		}
 	}
 

@@ -1,3 +1,5 @@
+package dkeep.logic;
+
 public abstract class Level {
 
 	protected boolean gameOver;

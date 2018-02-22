@@ -1,11 +1,14 @@
+package dkeep.logic;
 import java.util.Scanner;
+
+import dkeep.cli.IOInterface;
+import dkeep.cli.IOInterface.Direction;
 
 public class Level1 extends Level{
 
 	private MoveObj hero;
 	private Guard guard;
 	private MoveObj lever;
-	private Scanner scan;
 	
 	private static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -31,7 +34,6 @@ public class Level1 extends Level{
 		hero = new MoveObj(1,1, 'H');
 		guard = new Guard();
 		lever = new MoveObj(7, 8, 'k');
-		scan = new Scanner(System.in);
 	}
 
 	@Override
@@ -52,7 +54,7 @@ public class Level1 extends Level{
 			return;
 		}
 		
-		char direction = scan.next().charAt(0);		
+		Direction direction = IOInterface.getDirection();
 		board.moveCharacter(hero, direction);
 		board.moveCharacter(guard, guard.nextMove());
 		

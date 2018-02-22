@@ -1,3 +1,8 @@
+package dkeep.cli;
+import dkeep.logic.Level;
+import dkeep.logic.Level1;
+import dkeep.logic.Level2;
+
 public class GameInit {
 	
 	private static enum State {
@@ -9,6 +14,8 @@ public class GameInit {
 		Level level = null;
 		boolean endGame = false;
 		
+		IOInterface.setInterface(IOInterface.Interface.CLI);
+	
 		while (!endGame) {
 			switch (state) {
 

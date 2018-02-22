@@ -1,3 +1,7 @@
+package dkeep.logic;
+
+import dkeep.cli.IOInterface.Direction;
+
 public class Board {
 	
 	private char[][] board;
@@ -62,12 +66,10 @@ public class Board {
 	
 	
 	
-	public boolean moveCharacter(MoveObj character, char direction) {
-		
-		direction = Character.toUpperCase(direction);
-		
+	public boolean moveCharacter(MoveObj character, Direction direction) {
+				
 		switch(direction) {		
-		case 'W': {
+		case UP: {
 			char element = getElement(character.getPosX(), character.getPosY() - 1);
 			
 			if( element != 'X' && element != 'I') {
@@ -78,7 +80,7 @@ public class Board {
 		}
 		
 		
-		case 'S': {
+		case DOWN: {
 			char element = getElement(character.getPosX(), character.getPosY() + 1);
 			
 			if( element != 'X' && element != 'I') {
@@ -89,7 +91,7 @@ public class Board {
 		}
 		
 		
-		case 'A': {
+		case LEFT: {
 			char element = getElement(character.getPosX() - 1, character.getPosY());
 			
 			if( element != 'X' && element != 'I') {
@@ -100,7 +102,7 @@ public class Board {
 		}
 		
 		
-		case 'D': {
+		case RIGHT: {
 			char element = getElement(character.getPosX() + 1, character.getPosY());
 			
 			if( element != 'X' && element != 'I') {
