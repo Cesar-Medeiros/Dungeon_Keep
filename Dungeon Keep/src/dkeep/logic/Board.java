@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import dkeep.cli.IOInterface;
+
 public class Board {
 	
 	private char[][] board;
@@ -51,9 +53,18 @@ public class Board {
 				}
 			}	
 		}
-		
 		return false;
 	}
 	
+	public void draw(MoveObj[] objs) {
+		
+		loadLevel();
+		
+		for(MoveObj obj : objs) {
+			setElement(obj.getPosX(), obj.getPosY(), obj.getSymbol());
+		}
+		
+		IOInterface.printBoard(this);
+	}
 
 }

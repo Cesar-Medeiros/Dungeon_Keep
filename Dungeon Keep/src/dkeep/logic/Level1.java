@@ -1,7 +1,5 @@
 package dkeep.logic;
 
-import dkeep.cli.IOInterface;
-
 public class Level1 extends Level{
 
 	private Hero hero;
@@ -32,12 +30,19 @@ public class Level1 extends Level{
 		hero = new Hero(1,1);
 		guard = new Guard();
 		lever = new MoveObj(7, 8, 'k');
+		
+		int memory = 3; //Lever Guard Hero
+		levelObjs = new MoveObj[memory];
+		
+		levelObjs[0] = lever;
+		levelObjs[1] = guard;
+		levelObjs[2] = hero;
 	}
 
 	@Override
 	public void draw() {
 		cleanScreen();		
-		IOInterface.printBoard(board, lever, guard, hero);
+		board.draw(levelObjs);
 	}
 
 	@Override

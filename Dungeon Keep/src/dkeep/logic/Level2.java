@@ -1,21 +1,25 @@
 package dkeep.logic;
 
-import dkeep.cli.IOInterface;
+import java.util.Vector;
 import dkeep.cli.IOInterface.Direction;
 
 public class Level2 extends Level{
 	
 	//Hero
-	private Hero hero;
-	private boolean pickedKey;
+	private Hero hero;	
 	
 	//Ogre
-	private Ogre ogre;
+	private Vector<Ogre> ogres;
+	
+	//Club
+	private MoveObj club;
 	
 	
 	private static final char keySymbol = 'k';
 	private static final char doorSymbol = 'I';
 	private static final char exitSymbol = 'S';
+	
+	private static final int numOgres = 5;
 	
 	private static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -42,53 +46,89 @@ public class Level2 extends Level{
 		
 		//Hero
 		hero = new Hero(1,7);
-		pickedKey = false;
+		
+		//Club
+		club = new MoveObj(1,6, '*');
 		
 		//Ogre
-		ogre = new Ogre(4,1);
+		ogres = new Vector<Ogre>();
+		for(int i = 0; i < numOgres; i++) {
+			Ogre ogre = new Ogre(4,1);
+			ogres.addElement(ogre);
+		}
 		
+		//Level
+		int memory = 1 + 1 + 2*ogres.size();
+		levelObjs = new MoveObj[memory];
+		
+		int offset = 0;
+		
+		levelObjs[offset] = club; offset++;
+		levelObjs[offset] = hero; offset++;
+		
+		
+		for(int i = 0; i < ogres.size(); i++) {
+			levelObjs[i + offset] = ogres.elementAt(i).getClub();
+		}
+		offset +=ogres.size();
+		
+		for(int i = 0; i < ogres.size(); i++) {
+			levelObjs[i + offset] = ogres.elementAt(i);
+		}
+		
+
 	}
 	
 	
 	@Override
 	public void draw() {
 		cleanScreen();
-		IOInterface.printBoard(board, hero, ogre.getClub(), ogre);
+		board.draw(levelObjs);
 	}
 	
 	
 	@Override
 	public void update() {
 		
-		Direction direction = hero.move(board);
+		Direction heroDirection = hero.move(board);
+		
+		for(Ogre ogre: ogres) {
+			ogre.move(board);
 			
-		ogre.move(board);
-		
-		if(hero.nearPos(ogre) || hero.nearPos(ogre.getClub())) {
-			gameOver = true;
+			if(hero.nearPos(ogre)) {
+				if(hero.isArmed()) ogre.stun(2);
+				else gameOver = true;
+			}
+			
+			if(hero.nearPos(ogre.getClub()) && !ogre.isStunned()) {
+				gameOver = true;
+			}
+			
+			
+			if(onKey(ogre))
+				ogre.setSymbol(Ogre.overKeySymbol);
+			else if(ogre.isStunned())
+				ogre.setSymbol(Ogre.stunnedSymbol);
+			else 
+				ogre.setSymbol(Ogre.ogreSymbol);
+			
+			
+			if(onKey(ogre.getClub()))
+				ogre.getClub().setSymbol(Ogre.overKeySymbol);
+			else
+				ogre.getClub().setSymbol(Ogre.clubSymbol);
 		}
-		
+
 		
 		if(onKey(hero)) {
-			hero.toSpecialSymbol();
+			hero.setSymbol(Hero.withKeySymbol);
 			pickKey();
-		}
-		
-		
-		if(onKey(ogre)) {
-			ogre.toSpecialSymbol();
-		}
-		else {
-			ogre.toNormalSymbol();
-		}
-		
-		
-		if(onKey(ogre.getClub())) {
-			ogre.getClub().toSpecialSymbol();
-		}
-		else {
-			ogre.getClub().toNormalSymbol();
-		}
+		}		
+
+		if(onClub(hero)) {
+			hero.setSymbol(Hero.armedSymbol);
+			pickClub();
+		}		
 		
 		if(onExit(hero)) {
 			completed = true;
@@ -96,18 +136,22 @@ public class Level2 extends Level{
 		}
 		
 		
-		if(direction == Direction.LEFT && pickedKey && onDoor(hero)) 
+		if(heroDirection == Direction.LEFT 
+				&& (hero.getSymbol() == 'K' || hero.getSymbol() == 'A') 
+				&& onDoor(hero)) 
 		{
 			openDoor();		
 		}
-		
-
 		
 	}
 	
 	
 	public boolean onKey(MoveObj moveObj) {
 		return (boardMap[moveObj.getPosY()][moveObj.getPosX()] == keySymbol);
+	}
+	
+	public boolean onClub(MoveObj moveObj) {
+		return moveObj.getPosX() == club.getPosX() && moveObj.getPosY() == club.getPosY();
 	}
 	
 	public boolean onExit(MoveObj moveObj) {		
@@ -124,8 +168,12 @@ public class Level2 extends Level{
 	
 
 	public void pickKey() {
-		pickedKey = true;
 		board.substChar(keySymbol, ' ');
+	}
+	
+	public void pickClub() {
+		club.setSymbol(' ');
+		hero.pickClub();
 	}
 	
 	

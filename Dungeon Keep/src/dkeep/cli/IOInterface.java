@@ -1,7 +1,6 @@
 package dkeep.cli;
 
 import dkeep.logic.Board;
-import dkeep.logic.MoveObj;
 
 public abstract class IOInterface {
 
@@ -30,10 +29,10 @@ public abstract class IOInterface {
 	}
 	
 	
-	public static void printBoard(Board board, MoveObj... characters) {
+	public static void printBoard(Board board) {
 		switch(currentInterface) {
 		case CLI:
-			CLI.printBoard(board, characters);
+			CLI.printBoard(board);
 			break;
 		default: break;
 		}

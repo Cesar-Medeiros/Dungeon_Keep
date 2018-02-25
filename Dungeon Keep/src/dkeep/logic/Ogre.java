@@ -12,15 +12,21 @@ import static dkeep.cli.IOInterface.Direction.DOWN;
 
 public class Ogre extends MoveObj {
 
-	
+	private int stun;
 	private MoveObj club;
 	private Random rand;
 	
+	public static final char ogreSymbol = 'O';
+	public static final char overKeySymbol = '$';
+	public static final char stunnedSymbol = '8';
+	public static final char clubSymbol = '*';
+	
 	
 	public Ogre(int posX, int posY) {
-		super(posX, posY, 'O', '$');
+		super(posX, posY, ogreSymbol);
 		rand = new Random();
-		club = new MoveObj(posX, posY, '*', '$');
+		club = new MoveObj(posX, posY, clubSymbol);
+		stun = 0;
 	}
 	
 	private Direction nextMove() {
@@ -51,6 +57,12 @@ public class Ogre extends MoveObj {
 
 	public Direction move(Board board) {
 		
+		
+		if(isStunned()) {
+			decreaseStun();
+			return NONE;
+		}
+		
 		Direction direction = move(board, this);
 		
 		club.setPosX(this.posX);
@@ -60,5 +72,25 @@ public class Ogre extends MoveObj {
 		move(board, club);
 		return direction;
 		
+	}
+	
+public void decreaseStun(){
+	if(stun == 0){
+		currentSymbol = ogreSymbol;
+	}
+	else{
+		stun--;
+	}
+}
+
+	public boolean isStunned() {
+		return stun != 0;
+	}
+
+	public void stun(int turns) {
+		System.out.println("Old Symbol: " + currentSymbol);
+		stun = turns;
+		currentSymbol = stunnedSymbol;
+		System.out.println("New Symbol: " + currentSymbol);
 	}
 }

@@ -7,24 +7,12 @@ public class MoveObj {
 	protected int posX;
 	protected int posY;
 	protected char currentSymbol;
-	protected char symbol1;
-	protected char symbol2;
 
 	public MoveObj(int posX, int posY, char symbol) {
 		this.posX = posX;
 		this.posY = posY;
 		this.currentSymbol = symbol;	
-		this.symbol1 = symbol;
-		this.symbol2 = ' ';
 		
-	}
-	
-	public MoveObj(int posX, int posY, char symbol, char symbol2) {
-		this.posX = posX;
-		this.posY = posY;
-		this.currentSymbol = symbol;
-		this.symbol1 = symbol;
-		this.symbol2 = symbol2;
 	}
 	
 	public int getPosX() {
@@ -51,19 +39,10 @@ public class MoveObj {
 		this.currentSymbol = symbol;
 	}
 	
-	public void toNormalSymbol() {
-		this.currentSymbol = this.symbol1;
-	}
-	
-	public void toSpecialSymbol() {
-		this.currentSymbol = this.symbol2;
-	}
-	
 	public boolean nearPos(MoveObj obj) {
 		int deltaPosX = Math.abs(this.posX - obj.posX);
 		int deltaPosY = Math.abs(this.posY - obj.posY);
-		
-		return	((deltaPosX ^ deltaPosY) == 1  && (deltaPosX | deltaPosY) == 1);
+		return	(deltaPosX + deltaPosY) <= 1;
 	}
 	
 	public boolean collision(MoveObj obj) {

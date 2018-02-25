@@ -5,6 +5,8 @@ public abstract class Level {
 	protected boolean gameOver;
 	protected boolean completed;
 	protected Board board;
+	MoveObj[] levelObjs;
+	
 	
 	public abstract void setup();
 	public abstract void draw();

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import dkeep.logic.Board;
-import dkeep.logic.MoveObj;
 
 public class CLI extends IOInterface {
 
@@ -36,13 +35,7 @@ public class CLI extends IOInterface {
 	}
 	
 
-	public static void printBoard(Board board, MoveObj... characters) {
-		
-		board.loadLevel();
-		
-		for(MoveObj character : characters) {
-			board.setElement(character.getPosX(), character.getPosY(), character.getSymbol());
-		}
+	public static void printBoard(Board board) {
 		
 		for(char[] row : board.getBoard()) {
 			for(char cell : row) {

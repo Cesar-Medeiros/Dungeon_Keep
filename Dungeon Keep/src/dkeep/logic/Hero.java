@@ -6,14 +6,16 @@ import static dkeep.cli.IOInterface.Direction.NONE;
 
 public class Hero extends MoveObj{
 
-	
-	private boolean hasClub;
+	private boolean club;
 	private Direction direction;
 	
+	public static final char heroSymbol = 'H';
+	public static final char withKeySymbol = 'K';
+	public static final char armedSymbol = 'A';
 	
 	public Hero(int posX, int posY) {
-		super(posX, posY, 'H', 'K');
-		hasClub = false;
+		super(posX, posY, heroSymbol);
+		club = false;
 		direction = NONE;
 	}
 	
@@ -21,6 +23,14 @@ public class Hero extends MoveObj{
 		direction = IOInterface.getDirection();
 		moveCharacter(board, direction);
 		return direction;
+	}
+
+	public boolean isArmed(){
+		return club;
+	}
+
+	public void pickClub(){
+		club = true;
 	}
 	
 }
