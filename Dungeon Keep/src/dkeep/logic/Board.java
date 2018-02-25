@@ -1,13 +1,30 @@
 package dkeep.logic;
 
-import dkeep.cli.IOInterface;
-
 public class Board {
 	
 	private char[][] board;
 	private char[][] boardBuffer;
 
 
+	
+	public char[][] getBoard() {
+		return board;
+	}
+
+	
+	public char getElement(int posX, int posY) {
+		return board[posY][posX];
+	}
+	
+
+	public void setElement(int posX, int posY, char element) {
+		board[posY][posX] = element;
+	}
+	
+	
+	
+	
+	
 	public void loadLevel() {
 		char[][] level = boardBuffer;
 		for(int i=0; i<level.length; i++)
@@ -24,20 +41,6 @@ public class Board {
 	}
 	
 	
-	
-	public char[][] getBoard() {
-		return board;
-	}
-
-	public char getElement(int posX, int posY) {
-		return board[posY][posX];
-	}
-	
-
-	public void setElement(int posX, int posY, char element) {
-		board[posY][posX] = element;
-	}
-	
 	public boolean substChar(char toSearch, char newChar) {
 		
 		for(int row = 0; row < boardBuffer.length; row++) {
@@ -51,13 +54,6 @@ public class Board {
 		
 		return false;
 	}
-	
-	
-	public void printBoard(MoveObj... characters) {
-		IOInterface.printBoard(this, characters);
-	}
-	
-	
 	
 
 }

@@ -1,5 +1,6 @@
 package dkeep.cli;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import dkeep.logic.Board;
@@ -10,6 +11,12 @@ public class CLI extends IOInterface {
 	private static Scanner scan = new Scanner(System.in);
 
 	public static Direction getDirection() {
+		
+//		try {
+//			if(System.in.available() == 0) return Direction.NONE;
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		
 		char direction = scan.next().charAt(0);
 		direction = Character.toUpperCase(direction);

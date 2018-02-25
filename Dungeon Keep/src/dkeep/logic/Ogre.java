@@ -3,28 +3,33 @@ package dkeep.logic;
 import java.util.Random;
 
 import dkeep.cli.IOInterface.Direction;
+import static dkeep.cli.IOInterface.Direction.NONE;
+import static dkeep.cli.IOInterface.Direction.RIGHT;
+import static dkeep.cli.IOInterface.Direction.LEFT;
+import static dkeep.cli.IOInterface.Direction.UP;
+import static dkeep.cli.IOInterface.Direction.DOWN;
+
 
 public class Ogre extends MoveObj {
 
 	
 	private MoveObj club;
-	private Direction clubDirection;
 	private Random rand;
 	
-	public Ogre() {
-		super(8,1,'O', '$');
+	
+	public Ogre(int posX, int posY) {
+		super(posX, posY, 'O', '$');
 		rand = new Random();
-		club = new MoveObj(4,1, '*', '$');
-		clubDirection = Direction.NONE;
+		club = new MoveObj(posX, posY, '*', '$');
 	}
 	
 	private Direction nextMove() {
 		switch(rand.nextInt(4)) {
-		case 0: return Direction.RIGHT;
-		case 1: return Direction.UP;
-		case 2: return Direction.LEFT;
-		case 3: return Direction.DOWN;
-		default: return Direction.NONE;
+		case 0: return RIGHT;
+		case 1: return UP;
+		case 2: return LEFT;
+		case 3: return DOWN;
+		default: return NONE;
 		}
 	}
 	
@@ -34,22 +39,26 @@ public class Ogre extends MoveObj {
 		return club;
 	}
 
-	public void move(Board board) {
+	private Direction move(Board board, MoveObj obj){
 		Direction direction;
 		
 		do {
 			direction = nextMove();
-		} while(! moveCharacter(board, direction));
+		} while(! obj.moveCharacter(board, direction));
+
+		return direction;
+	}
+
+	public Direction move(Board board) {
 		
-		
+		Direction direction = move(board, this);
 		
 		club.setPosX(this.posX);
 		club.setPosY(this.posY);
 		
 		
-		do {
-			clubDirection = nextMove();
-		} while(! club.moveCharacter(board, clubDirection));
+		move(board, club);
+		return direction;
 		
 	}
 }

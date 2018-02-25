@@ -15,6 +15,7 @@ public abstract class IOInterface {
 	
 	private static Interface currentInterface = null;
 		
+	
 	public static void setInterface(Interface currentInterface) {
 		IOInterface.currentInterface = currentInterface;
 	}

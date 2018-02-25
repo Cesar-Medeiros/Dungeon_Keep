@@ -29,11 +29,14 @@ public class GameInit {
 
 			case GAME: {
 				if (System.currentTimeMillis() % 100 == 0) {
-					level.update();
 					level.draw();
 					
-					if (level.gameOver())
+					if (level.gameOver()){
 						state = State.GAMEOVER;
+						break;
+					}
+
+					level.update();
 
 					if (level.completed()) {
 						if(level.toString() == "Level1") {
@@ -41,11 +44,12 @@ public class GameInit {
 							level.setup();
 						}
 						else if(level.toString() == "Level2") {
+							level.draw();
 							System.out.println("You won!");
 							endGame = true;
 						}
-						
 					}
+
 				}
 				break;
 			}

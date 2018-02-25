@@ -1,6 +1,8 @@
 package dkeep.logic;
+
 import dkeep.cli.IOInterface;
 import dkeep.cli.IOInterface.Direction;
+import static dkeep.cli.IOInterface.Direction.NONE;
 
 public class Hero extends MoveObj{
 
@@ -8,22 +10,17 @@ public class Hero extends MoveObj{
 	private boolean hasClub;
 	private Direction direction;
 	
-	public Hero(int posX, int posY, char symbol) {
-		super(posX, posY, symbol);
+	
+	public Hero(int posX, int posY) {
+		super(posX, posY, 'H', 'K');
 		hasClub = false;
-		direction = Direction.NONE;
+		direction = NONE;
 	}
 	
-	
-	public Hero(int posX, int posY, char symbol, char symbol2) {
-		super(posX, posY, symbol, symbol2);
-		hasClub = false;
-		direction = Direction.NONE;
-	}
-	
-	public void move(Board board) {
+	public Direction move(Board board) {
 		direction = IOInterface.getDirection();
 		moveCharacter(board, direction);
+		return direction;
 	}
 	
 }

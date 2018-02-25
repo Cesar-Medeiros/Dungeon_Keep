@@ -1,16 +1,21 @@
 package dkeep.logic;
 
 import dkeep.cli.IOInterface.Direction;
+import static dkeep.cli.IOInterface.Direction.RIGHT;
+import static dkeep.cli.IOInterface.Direction.LEFT;
+import static dkeep.cli.IOInterface.Direction.UP;
+import static dkeep.cli.IOInterface.Direction.DOWN;
+
 
 public class Guard extends MoveObj {
 
 	private Direction movements[] = {
-			Direction.LEFT, Direction.DOWN, Direction.DOWN, Direction.DOWN, 
-			Direction.DOWN, Direction.LEFT, Direction.LEFT, Direction.LEFT,
-			Direction.LEFT, Direction.LEFT, Direction.LEFT, Direction.DOWN,
-			Direction.RIGHT, Direction.RIGHT, Direction.RIGHT, Direction.RIGHT,
-			Direction.RIGHT, Direction.RIGHT, Direction.RIGHT, Direction.UP,
-			Direction.UP, Direction.UP, Direction.UP, Direction.UP
+			LEFT, 	DOWN,	DOWN,	DOWN, 
+			DOWN, 	LEFT, 	LEFT, 	LEFT,
+			LEFT, 	LEFT,	LEFT, 	DOWN,
+			RIGHT, 	RIGHT, 	RIGHT, 	RIGHT,
+			RIGHT,	RIGHT, 	RIGHT, 	UP,
+			UP, 	UP, 	UP, 	UP
 	};
 	private static int moveIndex = 0;
 	

@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import dkeep.cli.IOInterface;
 
 public class Level1 extends Level{
 
@@ -28,19 +29,28 @@ public class Level1 extends Level{
 	@Override
 	public void setup() {
 		board = new Board(boardMap);
-		hero = new Hero(1,1, 'H');
+		hero = new Hero(1,1);
 		guard = new Guard();
 		lever = new MoveObj(7, 8, 'k');
 	}
 
 	@Override
 	public void draw() {
-		cleanScreen();
-		board.printBoard(lever, guard, hero);
+		cleanScreen();		
+		IOInterface.printBoard(board, lever, guard, hero);
 	}
 
 	@Override
 	public void update() {
+		
+		hero.move(board);
+		
+		guard.move(board);
+	
+		
+		if (hero.collision(lever)) {
+			openDoors();
+		}
 		
 		if (onStairs()) {
 			completed = true;
@@ -50,14 +60,6 @@ public class Level1 extends Level{
 			gameOver = true;
 			return;
 		}
-		
-		hero.move(board);
-		guard.move(board);
-		
-		if (hero.collision(lever)) {
-			openDoors();
-		}
-		
 		
 	}
 

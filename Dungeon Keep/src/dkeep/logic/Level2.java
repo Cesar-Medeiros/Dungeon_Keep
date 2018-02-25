@@ -1,5 +1,6 @@
 package dkeep.logic;
-import java.io.IOException;
+
+import dkeep.cli.IOInterface;
 import dkeep.cli.IOInterface.Direction;
 
 public class Level2 extends Level{
@@ -10,10 +11,6 @@ public class Level2 extends Level{
 	
 	//Ogre
 	private Ogre ogre;
-	
-	//Util
-	
-	private long futureTime;
 	
 	
 	private static final char keySymbol = 'k';
@@ -44,14 +41,11 @@ public class Level2 extends Level{
 		board = new Board(boardMap);
 		
 		//Hero
-		hero = new Hero(1,7, 'H', 'K');
+		hero = new Hero(1,7);
 		pickedKey = false;
 		
 		//Ogre
-		ogre = new Ogre();
-		
-		//Util
-		futureTime = System.currentTimeMillis() + 1000;
+		ogre = new Ogre(4,1);
 		
 	}
 	
@@ -59,30 +53,16 @@ public class Level2 extends Level{
 	@Override
 	public void draw() {
 		cleanScreen();
-		board.printBoard(hero, ogre);
+		IOInterface.printBoard(board, hero, ogre.getClub(), ogre);
 	}
 	
 	
 	@Override
 	public void update() {
 		
-		Direction direction = Direction.NONE;
-		boolean successMove = false;
-		
-		try {
-			if(System.in.available() != 0) {
-				hero.move(board);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Direction direction = hero.move(board);
 			
-		if(System.currentTimeMillis() > futureTime) {
-			ogre.move(board);
-			futureTime = System.currentTimeMillis() + 1000;
-		}
-		
-		
+		ogre.move(board);
 		
 		if(hero.nearPos(ogre) || hero.nearPos(ogre.getClub())) {
 			gameOver = true;
@@ -110,16 +90,18 @@ public class Level2 extends Level{
 			ogre.getClub().toNormalSymbol();
 		}
 		
+		if(onExit(hero)) {
+			completed = true;
+			return;
+		}
 		
-		if(direction == Direction.LEFT && 
-				!successMove && pickedKey &&  onDoor(hero)) 
+		
+		if(direction == Direction.LEFT && pickedKey && onDoor(hero)) 
 		{
 			openDoor();		
 		}
 		
-		if(onExit(hero)) {
-			completed = true;
-		}
+
 		
 	}
 	
