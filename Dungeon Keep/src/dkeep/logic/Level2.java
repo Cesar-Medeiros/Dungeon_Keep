@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import java.util.Random;
 import java.util.Vector;
 import dkeep.cli.IOInterface.Direction;
 
@@ -19,7 +20,7 @@ public class Level2 extends Level{
 	private static final char doorSymbol = 'I';
 	private static final char exitSymbol = 'S';
 	
-	private static final int numOgres = 5;
+	private static final int numOgres = new Random().nextInt(6) + 1;
 	
 	private static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -97,10 +98,11 @@ public class Level2 extends Level{
 			
 			if(hero.nearPos(ogre)) {
 				if(hero.isArmed()) ogre.stun(2);
-				else gameOver = true;
+				else if(!ogre.isStunned())
+					gameOver = true;
 			}
 			
-			if(hero.nearPos(ogre.getClub()) && !ogre.isStunned()) {
+			if(hero.nearPos(ogre.getClub())) {
 				gameOver = true;
 			}
 			

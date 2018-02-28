@@ -57,40 +57,36 @@ public class Ogre extends MoveObj {
 
 	public Direction move(Board board) {
 		
+		Direction direction = NONE;
 		
-		if(isStunned()) {
-			decreaseStun();
-			return NONE;
+		if(!isStunned()) {
+			direction = move(board, this);
 		}
-		
-		Direction direction = move(board, this);
+		else decreaseStun();
 		
 		club.setPosX(this.posX);
 		club.setPosY(this.posY);
 		
-		
-		move(board, club);
+		move(board, club);	
+
 		return direction;
 		
 	}
-	
-public void decreaseStun(){
-	if(stun == 0){
-		currentSymbol = ogreSymbol;
+
+	public void decreaseStun() {
+		if (stun == 0) {
+			currentSymbol = ogreSymbol;
+		} else {
+			stun--;
+		}
 	}
-	else{
-		stun--;
-	}
-}
 
 	public boolean isStunned() {
 		return stun != 0;
 	}
 
 	public void stun(int turns) {
-		System.out.println("Old Symbol: " + currentSymbol);
 		stun = turns;
 		currentSymbol = stunnedSymbol;
-		System.out.println("New Symbol: " + currentSymbol);
 	}
 }
