@@ -1,8 +1,12 @@
-package dkeep.logic;
+package dkeep.logic.level;
 
 import java.util.Random;
 import java.util.Vector;
 import dkeep.cli.IOInterface.Direction;
+import dkeep.logic.Board;
+import dkeep.logic.Hero;
+import dkeep.logic.MoveObj;
+import dkeep.logic.Ogre;
 
 public class Level2 extends Level{
 	

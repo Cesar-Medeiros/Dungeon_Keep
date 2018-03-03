@@ -1,7 +1,5 @@
 package dkeep.cli;
-import dkeep.logic.Level;
-import dkeep.logic.Level1;
-import dkeep.logic.Level2;
+import dkeep.logic.level.*;
 
 public class GameInit {
 	
@@ -64,8 +62,4 @@ public class GameInit {
 		}
 
 	}
-
-
-
-	
 }

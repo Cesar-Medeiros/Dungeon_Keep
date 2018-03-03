@@ -1,6 +1,11 @@
 package dkeep.cli;
 
 import dkeep.logic.Board;
+import static dkeep.cli.IOInterface.Direction.UP;
+import static dkeep.cli.IOInterface.Direction.RIGHT;
+import static dkeep.cli.IOInterface.Direction.DOWN;
+import static dkeep.cli.IOInterface.Direction.LEFT;
+import static dkeep.cli.IOInterface.Direction.NONE;
 
 public abstract class IOInterface {
 
@@ -24,10 +29,24 @@ public abstract class IOInterface {
 		case CLI:
 			return CLI.getDirection();
 		default: 
-			return Direction.NONE;
+			return NONE;
 		}
 	}
 	
+	public static Direction revertDirection(Direction dir) {
+		switch(dir) {
+		case UP:
+			return DOWN;
+		case RIGHT:
+			return LEFT;
+		case DOWN:
+			return UP;
+		case LEFT:
+			return RIGHT;
+		default:
+			return NONE;
+		}
+	}
 	
 	public static void printBoard(Board board) {
 		switch(currentInterface) {
