@@ -73,6 +73,7 @@ public class GameInit {
 	public State getState() {
 		return state;
 	}
+<<<<<<< HEAD
 
 	public int getiLevel() {
 		return iLevel;
@@ -92,4 +93,6 @@ public class GameInit {
 		game.GameCycle();	
 
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/Cesar-Medeiros/LPOO1718_T5G5
 }
