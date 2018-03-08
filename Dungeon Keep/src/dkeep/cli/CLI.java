@@ -1,13 +1,12 @@
 package dkeep.cli;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
 import dkeep.logic.Board;
 
 public class CLI extends IOInterface {
-
-	private static Scanner scan = new Scanner(System.in);
 
 	public static Direction getDirection() {
 		
@@ -16,9 +15,14 @@ public class CLI extends IOInterface {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-		
+		Scanner scan = new Scanner(System.in);
 		char direction = scan.next().charAt(0);
 		direction = Character.toUpperCase(direction);
+		System.out.println(direction);
+		return convertToDirection(direction);
+	}
+	
+	public static Direction convertToDirection(char direction) {
 		
 		switch(direction) {
 		case 'W':

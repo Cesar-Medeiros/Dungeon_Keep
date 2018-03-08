@@ -34,6 +34,7 @@ public class Board {
 				board[i][j]=level[i][j];
 	}
 	
+	
 	public Board(char[][] level) {
 		int V_SIZE = level.length;
 		int H_SIZE = level[0].length;
@@ -56,15 +57,26 @@ public class Board {
 		return false;
 	}
 	
-	public void draw(MoveObj[] objs) {
-		
+	public void fillBoard(MoveObj[] objs) {
 		loadLevel();
-		
 		for(MoveObj obj : objs) {
 			setElement(obj.getPosX(), obj.getPosY(), obj.getSymbol());
 		}
-		
+	}
+	
+	public void draw(MoveObj[] objs) {
+		fillBoard(objs);
 		IOInterface.printBoard(this);
 	}
-
+	
+	public void openDoors() {
+		for(char [] row : boardBuffer) {
+			if(row[0] == 'I')
+				row[0] = 'S';
+		}
+	}
+	
+	public boolean onStairs(MoveObj obj) {
+		return board[obj.getPosY()][obj.getPosX()] == 'S';
+	}
 }

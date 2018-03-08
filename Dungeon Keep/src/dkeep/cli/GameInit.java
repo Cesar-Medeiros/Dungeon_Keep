@@ -1,71 +1,95 @@
 package dkeep.cli;
-import dkeep.logic.Level;
-import dkeep.logic.Level1;
-import dkeep.logic.Level2;
+import dkeep.logic.level.*;
 
 public class GameInit {
 	
-	private static enum State {
-		START, GAME, GAMEOVER
+	public static enum State {
+		START, GAME, GAMEOVER, WON
 	};
 
-	public static void main(String[] args) {
-		State state = State.START;
-		Level level = null;
-		boolean endGame = false;
-		
-		IOInterface.setInterface(IOInterface.Interface.CLI);
+	private State state = State.START;
+	private Level levels[] = null;
+	private int iLevel = 0;
+	private Level level = null;
+	private boolean endGame = false;
 	
+	public GameInit(){
+		levels = new Level[] {new Level1(), new Level2()};
+		IOInterface.setInterface(IOInterface.Interface.CLI);
+	}
+	
+	public void GameCycle() {		
 		while (!endGame) {
-			switch (state) {
+			StateMachine();
+		}
+	}
+	
+	public void StateMachine() {
+		level = levels[iLevel];
+		switch (state) {
 
-			case START: {
-				level = new Level1();
-				level.setup();
-				state = State.GAME;
-				level.draw();
-				break;
-			}
-
-			case GAME: {
-				if (System.currentTimeMillis() % 100 == 0) {
-					level.draw();
-					
-					if (level.gameOver()){
-						state = State.GAMEOVER;
-						break;
-					}
-
-					level.update();
-
-					if (level.completed()) {
-						if(level.toString() == "Level1") {
-							level = new Level2();
-							level.setup();
-						}
-						else if(level.toString() == "Level2") {
-							level.draw();
-							System.out.println("You won!");
-							endGame = true;
-						}
-					}
-
-				}
-				break;
-			}
-			
-			case GAMEOVER: {
-				endGame = true;
-				System.out.println("You were captured ... Game over!");
-				break;
-			}
-
-			}
+		case START: {
+			level.setup();
+			state = State.GAME;
+			level.draw();
+			break;
 		}
 
+		case GAME: {
+				level.draw();
+				
+				if (level.gameOver()){
+					state = State.GAMEOVER;
+					break;
+				}
+
+				level.update();
+
+				if (level.completed()) {
+					iLevel++;
+					state = State.START;
+					if(iLevel == levels.length) {
+						state = State.WON;
+					}
+				}
+			break;
+		}
+		
+		case GAMEOVER: {
+			endGame = true;
+			System.out.println("You were captured ... Game over!");
+			break;
+		}
+		
+		case WON:{
+			endGame = true;
+			System.out.println("You won!");
+			break;
+		}
+
+		}
+	}
+	
+	public State getState() {
+		return state;
 	}
 
+	public int getiLevel() {
+		return iLevel;
+	}
 
-
+	public boolean isEndGame() {
+		return endGame;
+	}
 	
+	public Level getLevel() {
+		return level;
+	}
+
+	public static void main(String[] args) {
+
+		GameInit game = new GameInit();
+		game.GameCycle();	
+
+	}
 }

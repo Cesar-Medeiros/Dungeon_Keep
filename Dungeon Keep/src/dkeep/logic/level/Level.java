@@ -1,4 +1,7 @@
-package dkeep.logic;
+package dkeep.logic.level;
+
+import dkeep.logic.Board;
+import dkeep.logic.MoveObj;
 
 public abstract class Level {
 
