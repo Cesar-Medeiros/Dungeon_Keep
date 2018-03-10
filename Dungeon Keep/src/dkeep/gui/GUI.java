@@ -105,7 +105,7 @@ public class GUI extends JFrame {
 		optionsPanel.add(lblGuardPersonality, gbc_lblGuardPersonality);
 		
 		JComboBox guardPersCombo = new JComboBox();
-		guardPersCombo.setModel(new DefaultComboBoxModel(new String[] {"Rockie", "Drunken", "Suspicious"}));
+		guardPersCombo.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		GridBagConstraints gbc_guardPersCombo = new GridBagConstraints();
 		gbc_guardPersCombo.insets = new Insets(0, 0, 0, 5);
 		gbc_guardPersCombo.fill = GridBagConstraints.HORIZONTAL;

@@ -11,7 +11,7 @@ import dkeep.logic.Ogre;
 public class Level2 extends Level{
 	
 	//Hero
-	private Hero hero;	
+	private Hero hero;
 	
 	//Ogre
 	private Vector<Ogre> ogres;
@@ -38,6 +38,8 @@ public class Level2 extends Level{
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 	};
 	
+
+
 	@Override
 	public String toString() {
 		return "Level2";
@@ -127,7 +129,6 @@ public class Level2 extends Level{
 
 		
 		if(onKey(hero)) {
-			hero.setSymbol(Hero.withKeySymbol);
 			pickKey();
 		}		
 
@@ -141,19 +142,19 @@ public class Level2 extends Level{
 			return;
 		}
 		
-		
-		if(heroDirection == Direction.LEFT 
-				&& (hero.getSymbol() == 'K' || hero.getSymbol() == 'A') 
-				&& onDoor(hero)) 
-		{
-			openDoor();		
-		}
-		
+		hero.tryExit(heroDirection, this);
 	}
 	
 	
 	public boolean onKey(MoveObj moveObj) {
-		return (boardMap[moveObj.getPosY()][moveObj.getPosX()] == keySymbol);
+		
+		boolean onKeyPos = (boardMap[moveObj.getPosY()][moveObj.getPosX()] == keySymbol);
+		
+		if (onKeyPos && moveObj instanceof Hero) {
+			((Hero) moveObj).hasKey();
+		}
+		
+		return onKeyPos;
 	}
 	
 	public boolean onClub(MoveObj moveObj) {
@@ -164,6 +165,26 @@ public class Level2 extends Level{
 		return (boardMap[moveObj.getPosY()][moveObj.getPosX()] == exitSymbol);
 	}
 	
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
+
+
+	public void setOgres(Vector<Ogre> ogres) {
+		this.ogres = ogres;
+	}
+
+
+	public void setClub(MoveObj club) {
+		this.club = club;
+	}
+
+
+	public static void setBoardMap(char[][] boardMap) {
+		Level2.boardMap = boardMap;
+	}
+
+
 	public boolean onDoor(MoveObj moveObj) {
 		return (boardMap[moveObj.getPosY()][moveObj.getPosX() - 1] == doorSymbol);
 	}
@@ -181,7 +202,4 @@ public class Level2 extends Level{
 		club.setSymbol(' ');
 		hero.pickClub();
 	}
-	
-	
-
 }
