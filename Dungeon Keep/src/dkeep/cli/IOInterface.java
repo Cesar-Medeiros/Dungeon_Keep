@@ -9,7 +9,7 @@ import static dkeep.cli.IOInterface.Direction.NONE;
 
 public abstract class IOInterface {
 
-	protected static enum Interface {
+	public static enum Interface {
 		CLI, GRAPHICS
 	};
 	
@@ -28,6 +28,8 @@ public abstract class IOInterface {
 		switch(currentInterface) {
 		case CLI:
 			return CLI.getDirection();
+		case GRAPHICS:
+			return Graphic.getDirection();
 		default: 
 			return NONE;
 		}
@@ -52,6 +54,9 @@ public abstract class IOInterface {
 		switch(currentInterface) {
 		case CLI:
 			CLI.printBoard(board);
+			break;
+		case GRAPHICS:
+			Graphic.printBoard(board);
 			break;
 		default: break;
 		}

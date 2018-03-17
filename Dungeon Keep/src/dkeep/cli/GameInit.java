@@ -13,9 +13,9 @@ public class GameInit {
 	private Level level = null;
 	private boolean endGame = false;
 	
-	public GameInit(){
+	public GameInit(IOInterface.Interface ioInterface){
 		levels = new Level[] {new Level1(), new Level2()};
-		IOInterface.setInterface(IOInterface.Interface.CLI);
+		IOInterface.setInterface(ioInterface);
 	}
 	
 	public void GameCycle() {		
@@ -25,6 +25,7 @@ public class GameInit {
 	}
 	
 	public void StateMachine() {
+		if(endGame) return;
 		level = levels[iLevel];
 		switch (state) {
 
@@ -36,14 +37,12 @@ public class GameInit {
 		}
 
 		case GAME: {
-				level.draw();
+				level.update();
 				
 				if (level.gameOver()){
 					state = State.GAMEOVER;
-					break;
 				}
 
-				level.update();
 
 				if (level.completed()) {
 					iLevel++;
@@ -52,6 +51,8 @@ public class GameInit {
 						state = State.WON;
 					}
 				}
+				level.draw();
+				
 			break;
 		}
 		
@@ -69,6 +70,7 @@ public class GameInit {
 
 		}
 	}
+
 	
 	public State getState() {
 		return state;
@@ -84,12 +86,5 @@ public class GameInit {
 	
 	public Level getLevel() {
 		return level;
-	}
-
-	public static void main(String[] args) {
-
-		GameInit game = new GameInit();
-		game.GameCycle();	
-
 	}
 }

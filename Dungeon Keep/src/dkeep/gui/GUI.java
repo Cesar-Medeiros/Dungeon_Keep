@@ -1,29 +1,39 @@
 package dkeep.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JTextArea;
-import javax.swing.DropMode;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
+import java.awt.event.ActionListener;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import dkeep.cli.Graphic;
+import dkeep.cli.IOInterface;
+import dkeep.cli.IOInterface.Direction;
 
 public class GUI extends JFrame {
 
+
+	
 	private JPanel contentPane;
 	private JTextField numOgresText;
+	private JComboBox guardPersCombo;
+	private JLabel lblGameStatus;
+	private GameState gamePanel;
+	private JButton upButton;
+	private JButton leftButton;
+	private JButton downButton;
+	private JButton rightButton;
+
 
 	/**
 	 * Launch the application.
@@ -40,7 +50,39 @@ public class GUI extends JFrame {
 			}
 		});
 	}
+	
+	protected void initializeGame() {
 
+		String numOgresStr = numOgresText.getText();
+		int numOgres;
+		try {
+			numOgres = Integer.parseInt(numOgresStr);
+		} catch (NumberFormatException e) {
+			lblGameStatus.setText("Invalid number of ogres.");
+			return;
+		}
+		
+		int guard = guardPersCombo.getSelectedIndex();
+		
+		lblGameStatus.setText("You can play now.");
+		
+		upButton.setEnabled(true);
+		leftButton.setEnabled(true);
+		downButton.setEnabled(true);
+		rightButton.setEnabled(true);
+		gamePanel.start();
+	}
+	
+	
+	protected void directionButtonPressed(Direction direction) {
+		Graphic.addDirection(direction);
+		gamePanel.update();
+		gamePanel.draw();
+		
+	}
+	
+	
+	
 	/**
 	 * Create the frame.
 	 */
@@ -104,7 +146,7 @@ public class GUI extends JFrame {
 		gbc_lblGuardPersonality.gridy = 1;
 		optionsPanel.add(lblGuardPersonality, gbc_lblGuardPersonality);
 		
-		JComboBox guardPersCombo = new JComboBox();
+		guardPersCombo = new JComboBox();
 		guardPersCombo.setModel(new DefaultComboBoxModel(new String[] {"Rockie", "Drunken", "Suspicious"}));
 		GridBagConstraints gbc_guardPersCombo = new GridBagConstraints();
 		gbc_guardPersCombo.insets = new Insets(0, 0, 0, 5);
@@ -113,7 +155,7 @@ public class GUI extends JFrame {
 		gbc_guardPersCombo.gridy = 1;
 		optionsPanel.add(guardPersCombo, gbc_guardPersCombo);
 		
-		JPanel gamePanel = new JPanel();
+		gamePanel = new GameState();
 		GridBagConstraints gbc_gamePanel = new GridBagConstraints();
 		gbc_gamePanel.insets = new Insets(0, 0, 5, 5);
 		gbc_gamePanel.fill = GridBagConstraints.BOTH;
@@ -126,18 +168,6 @@ public class GUI extends JFrame {
 		gbl_gamePanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_gamePanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		gamePanel.setLayout(gbl_gamePanel);
-		
-		JTextArea gameConsole = new JTextArea();
-		gameConsole.setText("||||||||||||||||||||||\r\n" + 
-				"||||||||||||||||||||||\r\n" + 
-				"||||||||||||||||||||||\r\n" + 
-				"||||||||||||||||||||||");
-		gameConsole.setFont(new Font("Arial Black", Font.PLAIN, 60));
-		GridBagConstraints gbc_gameConsole = new GridBagConstraints();
-		gbc_gameConsole.fill = GridBagConstraints.BOTH;
-		gbc_gameConsole.gridx = 0;
-		gbc_gameConsole.gridy = 0;
-		gamePanel.add(gameConsole, gbc_gameConsole);
 		
 		JPanel controlPanel = new JPanel();
 		GridBagConstraints gbc_controlPanel = new GridBagConstraints();
@@ -154,6 +184,11 @@ public class GUI extends JFrame {
 		controlPanel.setLayout(gbl_controlPanel);
 		
 		JButton newGameButton = new JButton("New Game");
+		newGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				initializeGame();
+			}
+		});
 		GridBagConstraints gbc_newGameButton = new GridBagConstraints();
 		gbc_newGameButton.fill = GridBagConstraints.BOTH;
 		gbc_newGameButton.gridwidth = 2;
@@ -162,7 +197,12 @@ public class GUI extends JFrame {
 		gbc_newGameButton.gridy = 0;
 		controlPanel.add(newGameButton, gbc_newGameButton);
 		
-		JButton upButton = new JButton("Up");
+		upButton = new JButton("Up");
+		upButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				directionButtonPressed(Direction.UP);
+			}
+		});
 		upButton.setEnabled(false);
 		GridBagConstraints gbc_upButton = new GridBagConstraints();
 		gbc_upButton.fill = GridBagConstraints.HORIZONTAL;
@@ -172,7 +212,12 @@ public class GUI extends JFrame {
 		gbc_upButton.gridy = 4;
 		controlPanel.add(upButton, gbc_upButton);
 		
-		JButton leftButton = new JButton("Left");
+		leftButton = new JButton("Left");
+		leftButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				directionButtonPressed(Direction.LEFT);
+			}
+		});
 		leftButton.setEnabled(false);
 		GridBagConstraints gbc_leftButton = new GridBagConstraints();
 		gbc_leftButton.fill = GridBagConstraints.HORIZONTAL;
@@ -182,7 +227,12 @@ public class GUI extends JFrame {
 		gbc_leftButton.gridy = 5;
 		controlPanel.add(leftButton, gbc_leftButton);
 		
-		JButton rightButton = new JButton("Right");
+		rightButton = new JButton("Right");
+		rightButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				directionButtonPressed(Direction.RIGHT);
+			}
+		});
 		rightButton.setEnabled(false);
 		GridBagConstraints gbc_rightButton = new GridBagConstraints();
 		gbc_rightButton.fill = GridBagConstraints.HORIZONTAL;
@@ -192,7 +242,12 @@ public class GUI extends JFrame {
 		gbc_rightButton.gridy = 5;
 		controlPanel.add(rightButton, gbc_rightButton);
 		
-		JButton downButton = new JButton("Down");
+		downButton = new JButton("Down");
+		downButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				directionButtonPressed(Direction.DOWN);
+			}
+		});
 		downButton.setEnabled(false);
 		GridBagConstraints gbc_downButton = new GridBagConstraints();
 		gbc_downButton.gridwidth = 2;
@@ -203,6 +258,11 @@ public class GUI extends JFrame {
 		controlPanel.add(downButton, gbc_downButton);
 		
 		JButton exitButton = new JButton("Exit");
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 		GridBagConstraints gbc_exitButton = new GridBagConstraints();
 		gbc_exitButton.insets = new Insets(5, 0, 0, 0);
 		gbc_exitButton.gridwidth = 2;
@@ -211,7 +271,7 @@ public class GUI extends JFrame {
 		gbc_exitButton.gridy = 10;
 		controlPanel.add(exitButton, gbc_exitButton);
 		
-		JLabel lblGameStatus = new JLabel("You can start a new game.");
+		lblGameStatus = new JLabel("You can start a new game.");
 		GridBagConstraints gbc_lblGameStatus = new GridBagConstraints();
 		gbc_lblGameStatus.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblGameStatus.insets = new Insets(5, 0, 0, 5);
@@ -219,5 +279,6 @@ public class GUI extends JFrame {
 		gbc_lblGameStatus.gridy = 2;
 		contentPane.add(lblGameStatus, gbc_lblGameStatus);
 	}
+
 
 }

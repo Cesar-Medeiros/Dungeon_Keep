@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import org.junit.Test;
 import dkeep.cli.GameInit;
 import dkeep.cli.GameInit.State;
+import dkeep.cli.IOInterface;
 import dkeep.logic.level.Level;
 
 public class TestGameLogic {
@@ -24,7 +25,7 @@ public class TestGameLogic {
 	@Test(timeout = 1000)
 	public void test() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, IOException {
 		
-		game = new GameInit();
+		game = new GameInit(IOInterface.Interface.CLI);
 		assertEquals(State.START, game.getState());
 		assertEquals(0, game.getiLevel());
 		assertFalse(game.isEndGame());
