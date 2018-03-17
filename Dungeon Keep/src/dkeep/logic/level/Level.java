@@ -10,6 +10,13 @@ public abstract class Level {
 	protected Board board;
 	MoveObj[] levelObjs;
 	
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+	
+	public void setObjs(MoveObj[] objs) {
+		this.levelObjs = objs;
+	}
 	
 	public abstract void setup();
 	public abstract void draw();
