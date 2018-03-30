@@ -55,13 +55,21 @@ public class GamePanel extends JPanel{
 	
 	private void configure(){
 		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		
+		gamePanel = new JPanel();
+		gbc.insets = new Insets(0, 0, 5, 5);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		add(gamePanel, gbc);
+		
 		JPanel controlPanel = new JPanel();
-		GridBagConstraints gbc_controlPanel = new GridBagConstraints();
-		gbc_controlPanel.insets = new Insets(0, 5, 5, 0);
-		gbc_controlPanel.fill = GridBagConstraints.BOTH;
-		gbc_controlPanel.gridx = 1;
-		gbc_controlPanel.gridy = 1;
-		add(controlPanel, gbc_controlPanel);
+		gbc.insets = new Insets(0, 5, 5, 0);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		add(controlPanel, gbc);
+		
 		GridBagLayout gbl_controlPanel = new GridBagLayout();
 		gbl_controlPanel.columnWidths = new int[]{50, 50, 50, 50};
 		gbl_controlPanel.rowHeights = new int[] {30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30};
@@ -69,99 +77,56 @@ public class GamePanel extends JPanel{
 		gbl_controlPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		controlPanel.setLayout(gbl_controlPanel);
 		
-		gamePanel = new JPanel();
-		GridBagConstraints gbc_gamePanel = new GridBagConstraints();
-		gbc_gamePanel.insets = new Insets(0, 0, 5, 5);
-		gbc_gamePanel.fill = GridBagConstraints.BOTH;
-		gbc_gamePanel.gridx = 0;
-		gbc_gamePanel.gridy = 1;
-		add(gamePanel, gbc_gamePanel);
 
-		
-		loadSaveButton = new JButton("Load|Save");
-		GridBagConstraints gbc_loadSaveButton = new GridBagConstraints();
-		gbc_loadSaveButton.fill = GridBagConstraints.BOTH;
-		gbc_loadSaveButton.gridwidth = 2;
-		gbc_loadSaveButton.insets = new Insets(0, 0, 5, 5);
-		gbc_loadSaveButton.gridx = 1;
-		gbc_loadSaveButton.gridy = 1;
-		controlPanel.add(loadSaveButton, gbc_loadSaveButton);
-		
-		newGameButton = new JButton("New Game");
-		GridBagConstraints gbc_newGameButton = new GridBagConstraints();
-		gbc_newGameButton.fill = GridBagConstraints.BOTH;
-		gbc_newGameButton.gridwidth = 2;
-		gbc_newGameButton.insets = new Insets(0, 0, 5, 5);
-		gbc_newGameButton.gridx = 1;
-		gbc_newGameButton.gridy = 0;
-		controlPanel.add(newGameButton, gbc_newGameButton);
+		gbc.gridwidth = 2;
+		gbc.insets = new Insets(0, 0, 5, 5);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		
 		
-		
-		upButton = new JButton("Up");
-		GridBagConstraints gbc_upButton = new GridBagConstraints();
-		gbc_upButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_upButton.gridwidth = 2;
-		gbc_upButton.insets = new Insets(0, 0, 5, 5);
-		gbc_upButton.gridx = 1;
-		gbc_upButton.gridy = 4;
-		controlPanel.add(upButton, gbc_upButton);
-		
-		
-		
-		leftButton = new JButton("Left");
-		GridBagConstraints gbc_leftButton = new GridBagConstraints();
-		gbc_leftButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_leftButton.gridwidth = 2;
-		gbc_leftButton.insets = new Insets(0, 0, 5, 5);
-		gbc_leftButton.gridx = 0;
-		gbc_leftButton.gridy = 5;
-		controlPanel.add(leftButton, gbc_leftButton);
-		
-		
-		
-		rightButton = new JButton("Right");
-		GridBagConstraints gbc_rightButton = new GridBagConstraints();
-		gbc_rightButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_rightButton.gridwidth = 2;
-		gbc_rightButton.insets = new Insets(0, 0, 5, 0);
-		gbc_rightButton.gridx = 2;
-		gbc_rightButton.gridy = 5;
-		controlPanel.add(rightButton, gbc_rightButton);
-		
-		
-		
-		downButton = new JButton("Down");
-		GridBagConstraints gbc_downButton = new GridBagConstraints();
-		gbc_downButton.gridwidth = 2;
-		gbc_downButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_downButton.insets = new Insets(0, 0, 5, 5);
-		gbc_downButton.gridx = 1;
-		gbc_downButton.gridy = 6;
-		controlPanel.add(downButton, gbc_downButton);
-		
-		
-		
-		exitButton = new JButton("Exit");
-		GridBagConstraints gbc_exitButton = new GridBagConstraints();
-		gbc_exitButton.insets = new Insets(5, 0, 0, 0);
-		gbc_exitButton.gridwidth = 2;
-		gbc_exitButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_exitButton.gridx = 1;
-		gbc_exitButton.gridy = 10;
-		controlPanel.add(exitButton, gbc_exitButton);
-		
-		
+		createButtons(controlPanel, gbc);
 		
 		lblGameStatus = new JLabel("You can start a new game.");
-		GridBagConstraints gbc_lblGameStatus = new GridBagConstraints();
-		gbc_lblGameStatus.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblGameStatus.insets = new Insets(5, 0, 0, 5);
-		gbc_lblGameStatus.gridx = 0;
-		gbc_lblGameStatus.gridy = 2;
-		add(lblGameStatus, gbc_lblGameStatus);
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		add(lblGameStatus, gbc);
 	}
 	
+	private void createButtons(JPanel controlPanel, GridBagConstraints gbc) {
+		newGameButton = new JButton("New Game");
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		controlPanel.add(newGameButton, gbc);
+		
+		loadSaveButton = new JButton("Load|Save");
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		controlPanel.add(loadSaveButton, gbc);
+		
+		upButton = new JButton("Up");
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		controlPanel.add(upButton, gbc);
+		
+		leftButton = new JButton("Left");
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		controlPanel.add(leftButton, gbc);
+		
+		downButton = new JButton("Down");
+		gbc.gridx = 1;
+		gbc.gridy = 6;
+		controlPanel.add(downButton, gbc);
+		
+		rightButton = new JButton("Right");
+		gbc.gridx = 2;
+		gbc.gridy = 5;
+		controlPanel.add(rightButton, gbc);
+	
+		exitButton = new JButton("Exit");
+		gbc.gridx = 1;
+		gbc.gridy = 10;
+		controlPanel.add(exitButton, gbc);
+	}
 	
 	private void registerListeners(){
 	

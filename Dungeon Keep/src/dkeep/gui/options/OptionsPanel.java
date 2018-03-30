@@ -22,6 +22,7 @@ import dkeep.logic.game.GameConfig;
 
 public class OptionsPanel extends JDialog {
 
+	JPanel contentPane;
 	JTextField numOgresText;
 	JComboBox<String> guardPersCombo;
 	JButton btnNewButton;
@@ -36,17 +37,18 @@ public class OptionsPanel extends JDialog {
 	public OptionsPanel() {
 		super(null, "Options", ModalityType.APPLICATION_MODAL);
 		setModal(true);
-
         setPreferredSize(PREFERREDSIZE);
+        
         //Center the frame
         setLocationRelativeTo(null);
-
+        
         //Display the window.
         pack();
-        
         setResizable(false);
-        test();
-        registerListeners();
+
+		configureLayout();
+		configure();
+		registerListeners();
 	}
 	
 	public static GameConfig getGameConfig() {
@@ -56,9 +58,8 @@ public class OptionsPanel extends JDialog {
 		return new GameConfig(dialog.getGuard(), dialog.getNumOgres());
     }
 	
-	
-	public void test() {
-		JPanel contentPane = new JPanel();
+	public void configureLayout() {
+		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -67,61 +68,56 @@ public class OptionsPanel extends JDialog {
 		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, Double.MIN_VALUE, 0.0};
 		contentPane.setLayout(gbl_contentPane);
+	}
+	
+	
+	public void configure() {		
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		
 		JLabel lblNumOgres = new JLabel("Number of Ogres");
-		GridBagConstraints gbc_lblNumOgres = new GridBagConstraints();
-		gbc_lblNumOgres.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNumOgres.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNumOgres.gridx = 0;
-		gbc_lblNumOgres.gridy = 0;
-		contentPane.add(lblNumOgres, gbc_lblNumOgres);
+		gbc.insets = new Insets(0, 0, 5, 5);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		contentPane.add(lblNumOgres, gbc);
 		
 		numOgresText = new JTextField();
-		GridBagConstraints gbc_numOgresText = new GridBagConstraints();
-		gbc_numOgresText.insets = new Insets(0, 0, 5, 50);
-		gbc_numOgresText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_numOgresText.gridx = 1;
-		gbc_numOgresText.gridy = 0;
-		contentPane.add(numOgresText, gbc_numOgresText);
+		gbc.insets = new Insets(0, 0, 5, 50);
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		contentPane.add(numOgresText, gbc);
 		numOgresText.setColumns(10);
 		
 		
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
-		GridBagConstraints gbc_lblGuardPersonality = new GridBagConstraints();
-		gbc_lblGuardPersonality.insets = new Insets(0, 0, 5, 5);
-		gbc_lblGuardPersonality.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblGuardPersonality.gridx = 0;
-		gbc_lblGuardPersonality.gridy = 1;
-		contentPane.add(lblGuardPersonality, gbc_lblGuardPersonality);
+		gbc.insets = new Insets(0, 0, 5, 5);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		contentPane.add(lblGuardPersonality, gbc);
 		
 		
 		guardPersCombo = new JComboBox<String>();
 		guardPersCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"Rockie", "Drunken", "Suspicious"}));
-		GridBagConstraints gbc_guardPersCombo = new GridBagConstraints();
-		gbc_guardPersCombo.insets = new Insets(0, 0, 5, 0);
-		gbc_guardPersCombo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_guardPersCombo.gridx = 1;
-		gbc_guardPersCombo.gridy = 1;
-		contentPane.add(guardPersCombo, gbc_guardPersCombo);
+		gbc.insets = new Insets(0, 0, 5, 0);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		contentPane.add(guardPersCombo, gbc);
 		
+		
+		gbc.gridwidth = 2;
+		lblGameStatus = new JLabel("Choose some options.");
+		gbc.insets = new Insets(5, 0, 0, 0);
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		add(lblGameStatus, gbc);
 		
 		btnNewButton = new JButton("Start !");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridwidth = 2;
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 2;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
-		
-		lblGameStatus = new JLabel("Choose some options.");
-		GridBagConstraints gbc_lblGameStatus = new GridBagConstraints();
-		gbc_lblGameStatus.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblGameStatus.gridwidth = 2;
-		gbc_lblGameStatus.insets = new Insets(5, 0, 0, 0);
-		gbc_lblGameStatus.gridx = 0;
-		gbc_lblGameStatus.gridy = 3;
-		add(lblGameStatus, gbc_lblGameStatus);
-		
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.insets = new Insets(0, 0, 0, 5);
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		contentPane.add(btnNewButton, gbc);
 	}
 	
 	

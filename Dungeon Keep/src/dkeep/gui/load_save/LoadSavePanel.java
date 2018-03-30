@@ -24,12 +24,6 @@ public class LoadSavePanel extends JDialog {
 	private final JPanel contentPane = new JPanel();
 	private DungeonKeep dk;
 	
-	
-	
-	public static void main(String[] args) {
-		LoadSavePanel.createAndShowGUI(null);
-	}
-	
 	public static DungeonKeep createAndShowGUI(DungeonKeep dk) {
 		LoadSavePanel dialog = new LoadSavePanel(dk);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -37,7 +31,6 @@ public class LoadSavePanel extends JDialog {
 		return dialog.dk;
 		
 	}
-
 
 	public LoadSavePanel(DungeonKeep dk) {
 		super(null, "Load and Save", ModalityType.APPLICATION_MODAL);

@@ -103,9 +103,9 @@ public class Level1 extends Level{
 	}
 
 	public void pickNextGuard() {
-		guard = guards[(++guardIndex) % 3];
+		guardIndex = (guardIndex + 1) % 3;
+		guard = guards[guardIndex];
 		levelObjs[1]  = guard;
-		guardIndex %= 3;
 	}
 
 
