@@ -1,56 +1,59 @@
 package dkeep.cli;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import dkeep.logic.Board;
+import dkeep.logic.game.DungeonKeep;
+import dkeep.logic.game.GameConfig;
+import dkeep.util.Input;
 
-public class CLI extends IOInterface {
-
-	public static Direction getDirection() {
+public class CLI{
+	
+	public static void createAndShowCLI(){
 		
-//		try {
-//			if(System.in.available() == 0) return Direction.NONE;
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		Scanner scan = new Scanner(System.in);
-		char direction = scan.next().charAt(0);
-		direction = Character.toUpperCase(direction);
-		System.out.println(direction);
-		return convertToDirection(direction);
-	}
-	
-	public static Direction convertToDirection(char direction) {
+		boolean newGame = true;
 		
-		switch(direction) {
-		case 'W':
-			return Direction.UP;
-		case 'A':
-			return Direction.LEFT;
-		case 'S':
-			return Direction.DOWN;
-		case 'D':
-			return Direction.RIGHT;
-		default:
-			return Direction.NONE;
-		}
-	}
-	
-
-	public static void printBoard(Board board) {
+		while(newGame) {
 		
-		for(char[] row : board.getBoard()) {
-			for(char cell : row) {
-				System.out.print(cell + " ");
+			newGame = false;
+			
+			int nOgres = 0;
+			int typeGuard = 0;
+			
+			
+			try{
+				System.out.print("Number of Ogres: ");
+				nOgres = scan.nextInt();
+				
+				System.out.println("");
+				
+				System.out.println("Type of guard: ");
+				System.out.println("1 - Rookie ");
+				System.out.println("2 - Drunken ");
+				System.out.println("3 - Suspicious");
+				System.out.print("Select: ");
+				typeGuard = scan.nextInt() - 1;
+				
+				System.out.println("");
 			}
-			System.out.print("\n");
+			catch(InputMismatchException  e) {
+				System.out.println("Invalid number inserted.");
+				newGame = true;
+				scan.nextLine();
+				continue;
+			}
+		
+			Input.setCliInput();
+			
+			DungeonKeep.runGame(new GameConfig(
+				typeGuard,
+				nOgres
+			));
+						
+			System.out.println("New Game (Y/N): ");
+			newGame = (Character.toUpperCase(scan.next().charAt(0)) == 'Y');
 		}
-		
-		System.out.print("\nKey: ");
-		
-	}
-	
-	
+		scan.close();
+	}	
 }

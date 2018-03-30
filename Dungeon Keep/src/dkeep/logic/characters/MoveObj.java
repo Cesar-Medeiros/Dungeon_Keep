@@ -1,9 +1,13 @@
-package dkeep.logic;
+package dkeep.logic.characters;
 
-import dkeep.cli.IOInterface.Direction;
+import java.io.Serializable;
 
-public class MoveObj {
+import dkeep.logic.board.Board;
+import dkeep.util.Direction;
 
+public class MoveObj implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	protected int posX;
 	protected int posY;
 	protected char currentSymbol;
@@ -53,52 +57,41 @@ public class MoveObj {
 		
 		MoveObj character = this;
 		
-		switch(direction) {		
-		case UP: {
-			char element = board.getElement(character.getPosX(), character.getPosY() - 1);
-			
-			if( element != 'X' && element != 'I') {
-				character.setPosY(character.getPosY()-1);
-				return true;
-			}
-			return false;
-		}
+		switch(direction) {	
 		
+		case UP: {
+			boolean canMove = board.canMoveTo(character.getPosX(), character.getPosY() - 1);
+			if(canMove) {
+				character.setPosY(character.getPosY()-1);
+			}
+			return canMove;
+		}
 		
 		case DOWN: {
-			char element = board.getElement(character.getPosX(), character.getPosY() + 1);
-			
-			if( element != 'X' && element != 'I') {
+			boolean canMove = board.canMoveTo(character.getPosX(), character.getPosY() + 1);
+			if(canMove) {
 				character.setPosY(character.getPosY()+1);
-				return true;
 			}
-			return false;
+			return canMove;
 		}
-		
 		
 		case LEFT: {
-			char element = board.getElement(character.getPosX() - 1, character.getPosY());
-			
-			if( element != 'X' && element != 'I') {
+			boolean canMove = board.canMoveTo(character.getPosX() - 1, character.getPosY());
+			if(canMove) {
 				character.setPosX(character.getPosX()-1);
-				return true;
 			}
-			return false;
+			return canMove;
 		}
-		
-		
+				
 		case RIGHT: {
-			char element = board.getElement(character.getPosX() + 1, character.getPosY());
-			
-			if( element != 'X' && element != 'I') {
+			boolean canMove = board.canMoveTo(character.getPosX() + 1, character.getPosY());
+			if(canMove) {
 				character.setPosX(character.getPosX()+1);
-				return true;
 			}
-			return false;
+			return canMove;
 		}
 		
 		default: return false;
-		}
-		
+		}	
 	}
 }

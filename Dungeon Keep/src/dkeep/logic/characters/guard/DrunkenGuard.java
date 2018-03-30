@@ -1,18 +1,20 @@
-package dkeep.logic.guard;
+package dkeep.logic.characters.guard;
 
 import java.util.Random;
-import dkeep.cli.IOInterface.Direction;
-import static dkeep.cli.IOInterface.Direction.NONE;
 
+import dkeep.logic.characters.util.Movement;
+import dkeep.util.Direction;
+import static dkeep.util.Direction.NONE;
 
 public class DrunkenGuard extends Guard {
 
+	private static final long serialVersionUID = 1L;
 	private Random rand;	
 	private boolean reversed;
 	
-	public DrunkenGuard(int posX, int posY)
+	public DrunkenGuard(int posX, int posY, Movement movement)
 	{
-		super(posX, posY);
+		super(posX, posY, movement);
 		rand = new Random();
 		reversed = false;
 	}
@@ -23,7 +25,6 @@ public class DrunkenGuard extends Guard {
 		Direction direction = NONE;
 		
 		int chance = rand.nextInt(100);
-		System.out.println(chance);
 
 		if (active) {
 			
@@ -48,9 +49,9 @@ public class DrunkenGuard extends Guard {
 		if(!active)	return direction;
 		
 		if (reversed) {
-			direction = getNextDirR();
+			direction = movement.getNextR();
 		} else {
-			direction = getNextDir();
+			direction = movement.getNext();
 		}
 		
 		return direction;

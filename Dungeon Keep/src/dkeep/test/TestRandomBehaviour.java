@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import dkeep.logic.Board;
-import dkeep.logic.Hero;
-import dkeep.logic.Ogre;
+import dkeep.logic.board.Board;
+import dkeep.logic.characters.Ogre;
+
 
 public class TestRandomBehaviour {
 
@@ -59,17 +59,10 @@ public class TestRandomBehaviour {
 		Board board = new Board(boardMap);
 		Ogre ogre = new Ogre(3, 1);
 		
-		
-		
 		boolean top = false, left = false, bottom = false, right = false;
 		
 		
 		while(!top || !left || !bottom || !right) {
-			
-			
-			
-			int clubPosX = ogre.getClub().getPosX();
-			int clubPosY = ogre.getClub().getPosY();
 			
 			ogre.move(board);
 			

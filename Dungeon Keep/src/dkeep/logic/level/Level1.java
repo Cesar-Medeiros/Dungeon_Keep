@@ -1,24 +1,43 @@
 package dkeep.logic.level;
 
-import dkeep.logic.Board;
-import dkeep.logic.Hero;
-import dkeep.logic.MoveObj;
-import dkeep.logic.guard.DrunkenGuard;
-import dkeep.logic.guard.Guard;
-import dkeep.logic.guard.RookieGuard;
-import dkeep.logic.guard.SuspiciousGuard;
+import static dkeep.util.Direction.DOWN;
+import static dkeep.util.Direction.LEFT;
+import static dkeep.util.Direction.RIGHT;
+import static dkeep.util.Direction.UP;
+
+import java.util.Arrays;
+
+import dkeep.logic.board.Board;
+import dkeep.logic.characters.Hero;
+import dkeep.logic.characters.MoveObj;
+import dkeep.logic.characters.guard.DrunkenGuard;
+import dkeep.logic.characters.guard.Guard;
+import dkeep.logic.characters.guard.RookieGuard;
+import dkeep.logic.characters.guard.SuspiciousGuard;
+import dkeep.logic.characters.util.Movement;
 
 public class Level1 extends Level{
 
+	private static final long serialVersionUID = 1L;
 	private Hero hero;
 	private Guard[] guards;
 	private Guard guard;
 	private MoveObj lever;
-	private int guardIndex;
+	private int guardIndex;	//TODO: Option GUI sequential guard
+		
+	
+	private Movement movement =  new Movement(Arrays.asList(
+			LEFT, 	DOWN,	DOWN,	DOWN, 
+			DOWN, 	LEFT, 	LEFT, 	LEFT, 
+			LEFT, 	LEFT,	LEFT, 	DOWN,
+			RIGHT, 	RIGHT, 	RIGHT, 	RIGHT,
+			RIGHT,	RIGHT, 	RIGHT, 	UP,
+			UP, 	UP, 	UP, 	UP
+	));
 	
 	private static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-		{'X', ' ', ' ', ' ', 'I', ' ','X' ,' ' , ' ', 'X'},
+		{'X', ' ', ' ', ' ', 'I', ' ', 'X' ,' ', ' ', 'X'},
 		{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
 		{'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
 		{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
@@ -29,43 +48,39 @@ public class Level1 extends Level{
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 	};
 	
-	@Override
-	public String toString() {
-		return "Level1";
-	}
 	
+	public Level1(int guardIndex) {
+		super(new Board(boardMap));
+		this.guardIndex = guardIndex;		
+	}
+
+
 	@Override
 	public void setup() {
 
-		board = new Board(boardMap);
 		hero = new Hero(1,1);
-
-		guards = new Guard[3];
-		guards[0] = new RookieGuard(8,1);
-		guards[1] = new DrunkenGuard(8,1);
-		guards[2] = new SuspiciousGuard(8,1);
-		guardIndex = 0;
-		guard = guards[guardIndex];
 		
+		guards = new Guard[] {
+				new RookieGuard(8,1, movement),
+				new DrunkenGuard(8,1, movement),
+				new SuspiciousGuard(8,1, movement)
+			};
+		
+		guard = guards[guardIndex];
 		lever = new MoveObj(7, 8, 'k');
 
-		int memory = 3; //Lever Guard Hero
-		levelObjs = new MoveObj[memory];
-
-		levelObjs[0] = lever;
-		levelObjs[1] = guard;
-		levelObjs[2] = hero;
+		levelObjs = new MoveObj[] {
+				lever,
+				guard,
+				hero
+		};
+		//TODO: Better relation to the super class
+		
 	}
-
-	@Override
-	public void draw() {
-		cleanScreen();
-		board.draw(levelObjs);
-	}
+	
 
 	@Override
 	public void update() {
-		System.out.println(guardIndex);
 		hero.move(board);
 		guard.move(board);
 
@@ -77,7 +92,7 @@ public class Level1 extends Level{
 			board.openDoors();
 		}
 
-		if (board.onStairs(hero)) {
+		if (board.onDoor(hero)) {
 			completed = true;
 			return;
 
@@ -92,5 +107,7 @@ public class Level1 extends Level{
 		levelObjs[1]  = guard;
 		guardIndex %= 3;
 	}
+
+
 
 }

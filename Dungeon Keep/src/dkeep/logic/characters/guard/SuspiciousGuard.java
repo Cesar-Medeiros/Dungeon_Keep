@@ -1,18 +1,20 @@
-package dkeep.logic.guard;
+package dkeep.logic.characters.guard;
 
 import java.util.Random;
-import dkeep.cli.IOInterface.Direction;
 
+import dkeep.logic.characters.util.Movement;
+import dkeep.util.Direction;
 
 public class SuspiciousGuard extends Guard {
 	
+	private static final long serialVersionUID = 1L;
 	private Random rand;
 	private int numRounds;
 	private boolean reversed;
 	
-	public SuspiciousGuard(int posX, int posY)
+	public SuspiciousGuard(int posX, int posY, Movement movement)
 	{
-		super(posX, posY);
+		super(posX, posY, movement);
 		rand = new Random();
 		numRounds = rand.nextInt(10);
 		reversed = false;
@@ -31,9 +33,9 @@ public class SuspiciousGuard extends Guard {
 		
 		
 		if (reversed) {
-			direction = getNextDirR();
+			direction = movement.getNextR();
 		} else {
-			direction = getNextDir();
+			direction = movement.getNext();
 		}
 		
 		return direction;

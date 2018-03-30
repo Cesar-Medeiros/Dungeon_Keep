@@ -1,14 +1,23 @@
 package dkeep.logic.level;
 
-import dkeep.logic.Board;
-import dkeep.logic.MoveObj;
+import java.io.Serializable;
 
-public abstract class Level {
+import dkeep.logic.board.Board;
+import dkeep.logic.characters.MoveObj;
+import dkeep.logic.game.GameGraphics;
 
+public abstract class Level implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	protected boolean gameOver;
 	protected boolean completed;
 	protected Board board;
-	MoveObj[] levelObjs;
+	protected MoveObj[] levelObjs;
+	
+	
+	Level(Board board){
+		this.board = board;
+	}
 	
 	public void setBoard(Board board) {
 		this.board = board;
@@ -19,19 +28,15 @@ public abstract class Level {
 	}
 	
 	public abstract void setup();
-	public abstract void draw();
 	public abstract void update();
 	
 	public boolean gameOver() {return gameOver;}
 	public boolean completed() {return completed;}
+
 	
-	@Override
-	public abstract String toString();
-	
-	protected static void cleanScreen() {
-		// Clear Screen
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
+	public void render(GameGraphics gameGraphics){
+		board.fillBoard(levelObjs);
+		gameGraphics.getBoardRenderer().render(board, gameGraphics);
 	}
 	
 }

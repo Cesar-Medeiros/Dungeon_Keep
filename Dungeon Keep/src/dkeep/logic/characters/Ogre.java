@@ -1,17 +1,20 @@
-package dkeep.logic;
+package dkeep.logic.characters;
 
 import java.util.Random;
 
-import dkeep.cli.IOInterface.Direction;
-import static dkeep.cli.IOInterface.Direction.NONE;
-import static dkeep.cli.IOInterface.Direction.RIGHT;
-import static dkeep.cli.IOInterface.Direction.LEFT;
-import static dkeep.cli.IOInterface.Direction.UP;
-import static dkeep.cli.IOInterface.Direction.DOWN;
+import dkeep.logic.board.Board;
+import dkeep.util.Direction;
+
+import static dkeep.util.Direction.NONE;
+import static dkeep.util.Direction.RIGHT;
+import static dkeep.util.Direction.LEFT;
+import static dkeep.util.Direction.UP;
+import static dkeep.util.Direction.DOWN;
 
 
 public class Ogre extends MoveObj {
 
+	private static final long serialVersionUID = 1L;
 	private int stun;
 	private MoveObj club;
 	private Random rand;

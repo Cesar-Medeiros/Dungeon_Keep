@@ -1,13 +1,13 @@
-package dkeep.logic;
+package dkeep.logic.characters;
 
-import dkeep.cli.IOInterface;
-import dkeep.cli.IOInterface.Direction;
-import dkeep.logic.level.Level2;
-
-import static dkeep.cli.IOInterface.Direction.NONE;
+import dkeep.logic.board.Board;
+import dkeep.util.Direction;
+import dkeep.util.Input;
+import static dkeep.util.Direction.NONE;
 
 public class Hero extends MoveObj{
 
+	private static final long serialVersionUID = 1L;
 	private boolean hasKey;
 	private boolean club;
 	private Direction direction;
@@ -24,7 +24,7 @@ public class Hero extends MoveObj{
 	}
 	
 	public Direction move(Board board) {
-		direction = IOInterface.getDirection();
+		direction = Input.getDirection();
 		moveCharacter(board, direction);
 		return direction;
 	}
@@ -40,15 +40,5 @@ public class Hero extends MoveObj{
 	
 	public void pickClub() {
 		club = true;
-	}
-	
-	public boolean tryExit(Direction dir, Level2 lvl) {
-		if (dir == Direction.LEFT && (currentSymbol == 'K' || currentSymbol == 'A') && lvl.onDoor(this)) {
-			lvl.openDoor();
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 }

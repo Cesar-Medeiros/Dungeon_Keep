@@ -1,20 +1,24 @@
 package dkeep.logic.level;
 
-import java.util.Random;
 import java.util.Vector;
-import dkeep.cli.IOInterface.Direction;
-import dkeep.logic.Board;
-import dkeep.logic.Hero;
-import dkeep.logic.MoveObj;
-import dkeep.logic.Ogre;
+
+import dkeep.logic.board.Board;
+import dkeep.logic.characters.Hero;
+import dkeep.logic.characters.MoveObj;
+import dkeep.logic.characters.Ogre;
+import dkeep.util.Direction;
+
 
 public class Level2 extends Level{
 	
+	private static final long serialVersionUID = 1L;
+
 	//Hero
 	private Hero hero;
 	
 	//Ogre
 	private Vector<Ogre> ogres;
+	private int numOgres;
 	
 	//Club
 	private MoveObj club;
@@ -24,7 +28,7 @@ public class Level2 extends Level{
 	private static final char doorSymbol = 'I';
 	private static final char exitSymbol = 'S';
 	
-	private static final int numOgres = new Random().nextInt(6) + 1;
+	
 	
 	private static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -39,18 +43,15 @@ public class Level2 extends Level{
 	};
 	
 
-
-	@Override
-	public String toString() {
-		return "Level2";
+	
+	public Level2(int numOgres) {
+		super(new Board(boardMap));
+		this.numOgres = numOgres;
 	}
 	
 	
 	@Override
 	public void setup() {
-		//Super class
-		board = new Board(boardMap);
-		
 		//Hero
 		hero = new Hero(1,7);
 		
@@ -82,17 +83,7 @@ public class Level2 extends Level{
 		for(int i = 0; i < ogres.size(); i++) {
 			levelObjs[i + offset] = ogres.elementAt(i);
 		}
-		
-
 	}
-	
-	
-	@Override
-	public void draw() {
-		cleanScreen();
-		board.draw(levelObjs);
-	}
-	
 	
 	@Override
 	public void update() {
@@ -142,7 +133,7 @@ public class Level2 extends Level{
 			return;
 		}
 		
-		hero.tryExit(heroDirection, this);
+		//hero.tryExit(heroDirection, this);
 	}
 	
 	
@@ -202,4 +193,5 @@ public class Level2 extends Level{
 		club.setSymbol(' ');
 		hero.pickClub();
 	}
+	
 }
