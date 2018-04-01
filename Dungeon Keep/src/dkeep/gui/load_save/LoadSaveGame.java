@@ -13,14 +13,13 @@ import dkeep.logic.game.DungeonKeep;
 
 public class LoadSaveGame {
 	
-	public static void save(DungeonKeep dk) {
+	public static void save(DungeonKeep dk, String savename) {
 		try {
-			OutputStream fileOut = new FileOutputStream("1.save");
+			OutputStream fileOut = new FileOutputStream("SaveGame/" + savename + ".save");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(dk);
 			out.close();
 			fileOut.close();
-			 System.out.printf("Serialized data is saved in 1.save");
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -30,16 +29,15 @@ public class LoadSaveGame {
 	}
 	
 	
-	public static DungeonKeep load(DungeonKeep dk) {
+	public static DungeonKeep load(DungeonKeep dk, String loadname) {
 		
 		InputStream fileIn;
 		try {
-			fileIn = new FileInputStream("1.save");
+			fileIn = new FileInputStream("SaveGame/" + loadname + ".save");
 			ObjectInputStream out = new ObjectInputStream(fileIn);
 			dk = (DungeonKeep) out.readObject();
 			out.close();
 			fileIn.close();
-			System.err.println("Deserialized data was load from 1.save");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

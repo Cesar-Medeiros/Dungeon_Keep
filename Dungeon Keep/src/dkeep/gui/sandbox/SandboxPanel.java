@@ -121,72 +121,13 @@ public class SandboxPanel extends JDialog {
 		gbc_canvasPanel.gridx = 0;
 		gbc_canvasPanel.gridy = 1;
 		add(canvasPanel, gbc_canvasPanel);
-
-		wallBtn = new JButton();
-		wallBtn.setIcon(new ImageIcon(wall));
-		wallBtn.setMinimumSize(new Dimension(50,50));
-		wallBtn.setPreferredSize(new Dimension(50,50));
-		GridBagConstraints gbc_wallBtn = new GridBagConstraints();
-		gbc_wallBtn.gridwidth = 2;
-		gbc_wallBtn.insets = new Insets(0, 0, 5, 5);
-		gbc_wallBtn.gridx = 0;
-		gbc_wallBtn.gridy = 3;
-		elementsPanel.add(wallBtn, gbc_wallBtn);
 		
-		heroBtn = new JButton();
-		heroBtn.setIcon(new ImageIcon(hero));
-		heroBtn.setMinimumSize(new Dimension(50,50));
-		heroBtn.setPreferredSize(new Dimension(50,50));
-		GridBagConstraints gbc_heroBtn = new GridBagConstraints();
-		gbc_heroBtn.gridwidth = 2;
-		gbc_heroBtn.insets = new Insets(0, 0, 5, 5);
-		gbc_heroBtn.gridx = 0;
-		gbc_heroBtn.gridy = 4;
-		elementsPanel.add(heroBtn, gbc_heroBtn);
-		
-		guardBtn = new JButton();
-		guardBtn.setIcon(new ImageIcon(guard));
-		guardBtn.setMinimumSize(new Dimension(50,50));
-		guardBtn.setPreferredSize(new Dimension(50,50));
-		GridBagConstraints gbc_guardBtn = new GridBagConstraints();
-		gbc_guardBtn.gridwidth = 2;
-		gbc_guardBtn.insets = new Insets(0, 0, 5, 0);
-		gbc_guardBtn.gridx = 1;
-		gbc_guardBtn.gridy = 4;
-		elementsPanel.add(guardBtn, gbc_guardBtn);
-		
-		closedDoorBtn = new JButton();
-		closedDoorBtn.setIcon(new ImageIcon(closedDoor));
-		closedDoorBtn.setMinimumSize(new Dimension(50,50));
-		closedDoorBtn.setPreferredSize(new Dimension(50,50));
-		GridBagConstraints gbc_closedDoorBtn = new GridBagConstraints();
-		gbc_closedDoorBtn.gridwidth = 2;
-		gbc_closedDoorBtn.insets = new Insets(0, 0, 5, 5);
-		gbc_closedDoorBtn.gridx = 0;
-		gbc_closedDoorBtn.gridy = 5;
-		elementsPanel.add(closedDoorBtn, gbc_closedDoorBtn);
-		
-		openDoorBtn = new JButton();
-		openDoorBtn.setIcon(new ImageIcon(openDoor));
-		openDoorBtn.setMinimumSize(new Dimension(50,50));
-		openDoorBtn.setPreferredSize(new Dimension(50,50));
-		GridBagConstraints gbc_openDoorBtn = new GridBagConstraints();
-		gbc_openDoorBtn.gridwidth = 2;
-		gbc_openDoorBtn.insets = new Insets(0, 0, 5, 0);
-		gbc_openDoorBtn.gridx = 1;
-		gbc_openDoorBtn.gridy = 5;
-		elementsPanel.add(openDoorBtn, gbc_openDoorBtn);
-		
-		keyBtn = new JButton();
-		keyBtn.setIcon(new ImageIcon(key));
-		keyBtn.setMinimumSize(new Dimension(50,50));
-		keyBtn.setPreferredSize(new Dimension(50,50));
-		GridBagConstraints gbc_keyBtn = new GridBagConstraints();
-		gbc_keyBtn.gridwidth = 2;
-		gbc_keyBtn.insets = new Insets(0, 0, 5, 5);
-		gbc_keyBtn.gridx = 1;
-		gbc_keyBtn.gridy = 3;
-		elementsPanel.add(keyBtn, gbc_keyBtn);
+		wallBtn = newIconButton(0, 3, wall, elementsPanel);
+		heroBtn = newIconButton(0, 4, hero, elementsPanel);
+		guardBtn = newIconButton(1, 4, guard, elementsPanel);
+		closedDoorBtn = newIconButton(0, 5, closedDoor, elementsPanel);
+		openDoorBtn = newIconButton(1, 5, openDoor, elementsPanel);
+		keyBtn = newIconButton(1, 3, key, elementsPanel);
 		
 		dimensionSlider = new JSlider();
 		GridBagConstraints gbc_dimensionSlider = new GridBagConstraints();
@@ -198,7 +139,6 @@ public class SandboxPanel extends JDialog {
 		dimensionSlider.setMinimum(6);
 		dimensionSlider.setMaximum(20);
 		dimensionSlider.setValue(dimensionSlider.getMinimum());
-		
 		
 		saveBtn = new JButton("Save map");
 		GridBagConstraints gbc_saveBtn = new GridBagConstraints();
@@ -257,6 +197,20 @@ public class SandboxPanel extends JDialog {
 			}
 			
 		});
+	}
+	
+	public JButton newIconButton(int x, int y, Image image, JPanel elementsPanel) {
+		JButton button = new JButton();
+		button.setIcon(new ImageIcon(image));
+		button.setMinimumSize(new Dimension(50,50));
+		button.setPreferredSize(new Dimension(50,50));
+		GridBagConstraints gbc_btn = new GridBagConstraints();
+		gbc_btn.gridwidth = 2;
+		gbc_btn.insets = new Insets(0, 0, 5, 5);
+		gbc_btn.gridx = x;
+		gbc_btn.gridy = y;
+		elementsPanel.add(button, gbc_btn);
+		return button;
 	}
 	
 	public int getBoardWidth() {
