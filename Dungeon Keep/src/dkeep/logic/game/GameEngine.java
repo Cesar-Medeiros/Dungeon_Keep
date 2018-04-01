@@ -2,6 +2,7 @@ package dkeep.logic.game;
 
 import java.io.Serializable;
 
+import dkeep.logic.level.CustomLevel2;
 import dkeep.logic.level.Level;
 import dkeep.logic.level.Level1;
 import dkeep.logic.level.Level2;
@@ -27,7 +28,7 @@ public class GameEngine implements Serializable{
 
 		levels = new Level[] {
 			new Level1(gameConfig.getTypeGuard()),
-			new Level2(gameConfig.getNumOgres())
+			(gameConfig.getCustomLevel() == null)? new Level2(gameConfig.getNumOgres()) : new CustomLevel2(gameConfig.getCustomLevel()),
 		};
 	}
 

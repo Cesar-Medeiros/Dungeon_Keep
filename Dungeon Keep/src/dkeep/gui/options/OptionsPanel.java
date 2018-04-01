@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import dkeep.gui.sandbox.SandboxController;
 import dkeep.logic.game.GameConfig;
 
 //TODO: When close window - Error occur
@@ -26,9 +27,11 @@ public class OptionsPanel extends JDialog {
 	JTextField numOgresText;
 	JComboBox<String> guardPersCombo;
 	JButton btnNewButton;
+	JButton btnCreateMap;
 	JLabel lblGameStatus;
 	int nOgres;
 	int typeGuard;
+	char[][] customLevel;
 	
 	
 	public static final Dimension PREFERREDSIZE = new Dimension(300,185);
@@ -38,24 +41,25 @@ public class OptionsPanel extends JDialog {
 		super(null, "Options", ModalityType.APPLICATION_MODAL);
 		setModal(true);
         setPreferredSize(PREFERREDSIZE);
-        
+
         //Center the frame
         setLocationRelativeTo(null);
         
         //Display the window.
         pack();
         setResizable(false);
-
+        
 		configureLayout();
 		configure();
 		registerListeners();
+		
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setVisible(true);
 	}
 	
 	public static GameConfig getGameConfig() {
 		OptionsPanel dialog = new OptionsPanel();
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setVisible(true);
-		return new GameConfig(dialog.getGuard(), dialog.getNumOgres());
+		return new GameConfig(dialog.getGuard(), dialog.getNumOgres(), dialog.customLevel);
     }
 	
 	public void configureLayout() {
@@ -104,6 +108,17 @@ public class OptionsPanel extends JDialog {
 		gbc.gridy = 1;
 		contentPane.add(guardPersCombo, gbc);
 		
+		gbc.fill = GridBagConstraints.NONE;
+		btnNewButton = new JButton("Start !");
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		contentPane.add(btnNewButton, gbc);
+		
+		
+		btnCreateMap = new JButton("Create map");
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		contentPane.add(btnCreateMap, gbc);
 		
 		gbc.gridwidth = 2;
 		lblGameStatus = new JLabel("Choose some options.");
@@ -112,12 +127,7 @@ public class OptionsPanel extends JDialog {
 		gbc.gridy = 3;
 		add(lblGameStatus, gbc);
 		
-		btnNewButton = new JButton("Start !");
-		gbc.fill = GridBagConstraints.NONE;
-		gbc.insets = new Insets(0, 0, 0, 5);
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		contentPane.add(btnNewButton, gbc);
+
 	}
 	
 	
@@ -127,6 +137,12 @@ public class OptionsPanel extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if(processOptions()) 
 					dispose();
+			}
+		});
+		
+		btnCreateMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				customLevel = SandboxController.getCustomLevel();
 			}
 		});
 	}

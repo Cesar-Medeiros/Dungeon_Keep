@@ -15,10 +15,6 @@ public abstract class Level implements Serializable{
 	protected MoveObj[] levelObjs;
 	
 	
-	Level(Board board){
-		this.board = board;
-	}
-	
 	public void setBoard(Board board) {
 		this.board = board;
 	}

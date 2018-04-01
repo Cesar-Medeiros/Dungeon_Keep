@@ -50,7 +50,7 @@ public class Level1 extends Level{
 	
 	
 	public Level1(int guardIndex) {
-		super(new Board(boardMap));
+		setBoard(new Board(boardMap));
 		this.guardIndex = guardIndex;		
 	}
 

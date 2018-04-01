@@ -11,6 +11,10 @@ public class Board implements Serializable{
 	private char[][] board;
 	private char[][] boardBuffer;
 	
+	public static final char wallSymbol = 'X';
+	public static final char floorSymbol = ' ';
+	public static final char closeDoorSymbol = 'I';
+	public static final char openDoorSymbol = 'S';
 
 	private void setElement(int posX, int posY, char element) {
 		board[posY][posX] = element;
@@ -63,13 +67,13 @@ public class Board implements Serializable{
 
 	public void openDoors() {
 		for(char [] row : boardBuffer) {
-			if(row[0] == 'I')
-				row[0] = 'S';
+			if(row[0] == closeDoorSymbol)
+				row[0] = openDoorSymbol;
 		}
 	}
 	
 	public boolean onDoor(MoveObj obj) {
-		return board[obj.getPosY()][obj.getPosX()] == 'S';
+		return board[obj.getPosY()][obj.getPosX()] == openDoorSymbol;
 	}
 	
 	public int getNumCol() {
@@ -103,6 +107,6 @@ public class Board implements Serializable{
 	
 	public boolean canMoveTo(int posX, int posY) {
 		char element = getElement(posX, posY);
-		return (element != 'X' && element != 'I');
+		return (element != wallSymbol && element != closeDoorSymbol);
 	}
 }

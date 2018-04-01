@@ -4,10 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import dkeep.gui.menu.MenuController;
-import dkeep.gui.menu.MenuPanel;
-
 
 public class MainJFrame extends JFrame {
 
@@ -17,9 +14,8 @@ public class MainJFrame extends JFrame {
 	
 	public MainJFrame() {
 		super("Dungeon Keep");
-		
-		MenuPanel menu = new MenuPanel(new MenuController(this));
-		this.setContentPane(menu);
+		MenuController menuController = new MenuController(this);
+		this.setContentPane(menuController.getMainPanel());
 	}
 	
 	public static void createAndShowGUI() {

@@ -14,7 +14,6 @@ public class MenuPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnPlay;
-	private JButton btnSandbox;
 	private JButton btnExit;
 	private MenuController controller;
 	
@@ -48,21 +47,12 @@ public class MenuPanel extends JPanel{
 		add(btnPlay, gbc_btnPlay);
 		
 		
-		btnSandbox = new JButton("Sandbox");
-		GridBagConstraints gbc_btnSandbox = new GridBagConstraints();
-		gbc_btnSandbox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnSandbox.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSandbox.gridx = 2;
-		gbc_btnSandbox.gridy = 3;
-		add(btnSandbox, gbc_btnSandbox);
-		
-		
 		btnExit = new JButton("Exit");
 		GridBagConstraints gbc_btnExit = new GridBagConstraints();
 		gbc_btnExit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnExit.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnExit.gridx = 2;
-		gbc_btnExit.gridy = 4;
+		gbc_btnExit.gridy = 3;
 		add(btnExit, gbc_btnExit);
 	}
 	
@@ -75,11 +65,6 @@ public class MenuPanel extends JPanel{
 			}
 		});
 		
-		btnSandbox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controller.pressSandBox();
-			}
-		});
 
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

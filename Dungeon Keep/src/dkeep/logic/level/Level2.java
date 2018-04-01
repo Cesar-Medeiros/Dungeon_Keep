@@ -14,14 +14,14 @@ public class Level2 extends Level{
 	private static final long serialVersionUID = 1L;
 
 	//Hero
-	private Hero hero;
+	protected Hero hero;
 	
 	//Ogre
-	private Vector<Ogre> ogres;
-	private int numOgres;
+	protected Vector<Ogre> ogres;
+	protected int numOgres;
 	
 	//Club
-	private MoveObj club;
+	protected MoveObj club;
 	
 	
 	private static final char keySymbol = 'k';
@@ -30,7 +30,7 @@ public class Level2 extends Level{
 	
 	
 	
-	private static char[][] boardMap = new char[][] {
+	protected static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
 		{'I', ' ', ' ', ' ', ' ', ' ',' ' , 'k' ,'X'},
 		{'X', ' ', ' ', ' ', ' ', ' ',' ' , ' ' ,'X'},
@@ -45,10 +45,12 @@ public class Level2 extends Level{
 
 	
 	public Level2(int numOgres) {
-		super(new Board(boardMap));
+		setBoard(new Board(boardMap));
 		this.numOgres = numOgres;
 	}
-	
+
+	public Level2() {
+	}
 	
 	@Override
 	public void setup() {
@@ -65,7 +67,10 @@ public class Level2 extends Level{
 			ogres.addElement(ogre);
 		}
 		
-		//Level
+		pushElements();
+	}
+	
+	public void pushElements() {
 		int memory = 1 + 1 + 2*ogres.size();
 		levelObjs = new MoveObj[memory];
 		
@@ -103,7 +108,7 @@ public class Level2 extends Level{
 				gameOver = true;
 			}
 			
-			
+
 			if(onKey(ogre))
 				ogre.setSymbol(Ogre.overKeySymbol);
 			else if(ogre.isStunned())
@@ -139,7 +144,7 @@ public class Level2 extends Level{
 	
 	public boolean onKey(MoveObj moveObj) {
 		
-		boolean onKeyPos = (boardMap[moveObj.getPosY()][moveObj.getPosX()] == keySymbol);
+		boolean onKeyPos = (board.getElement(moveObj.getPosX(), moveObj.getPosY()) == keySymbol);
 		
 		if (onKeyPos && moveObj instanceof Hero) {
 			((Hero) moveObj).hasKey();
@@ -153,7 +158,7 @@ public class Level2 extends Level{
 	}
 	
 	public boolean onExit(MoveObj moveObj) {		
-		return (boardMap[moveObj.getPosY()][moveObj.getPosX()] == exitSymbol);
+		return(board.getElement(moveObj.getPosX(), moveObj.getPosY()) == exitSymbol);
 	}
 	
 	public void setHero(Hero hero) {
@@ -177,7 +182,7 @@ public class Level2 extends Level{
 
 
 	public boolean onDoor(MoveObj moveObj) {
-		return (boardMap[moveObj.getPosY()][moveObj.getPosX() - 1] == doorSymbol);
+		return(board.getElement(moveObj.getPosX() - 1, moveObj.getPosY()) == doorSymbol);
 	}
 	
 	public void openDoor() {

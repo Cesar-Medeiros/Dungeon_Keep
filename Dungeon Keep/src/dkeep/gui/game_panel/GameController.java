@@ -19,26 +19,20 @@ public class GameController implements KeyListener {
 	BoardRenderer boardRenderer = new BoardRendererGUI(); 
 	GameGraphics gameGraphics;
 	
-	
 	public GameController(){
 		gamePanel = new GamePanel(this);
 	}
 	
+	public void newGame() {
+		GameConfig gameConfig = OptionsPanel.getGameConfig();
+		dk = new DungeonKeep(gameConfig);
+		update();
+	}
 	
 	public void initializeGame() {
-		
-		GameConfig gameConfig = OptionsPanel.getGameConfig();
-		
 		gamePanel.enableButtons();
-		
 		loadGameGraphics();
 		Input.setGraphicInput();
-		dk = new DungeonKeep(new GameConfig(
-				gameConfig.getTypeGuard(),
-				gameConfig.getNumOgres()
-			)
-		);
-		update();
 	}
 			
 	public void directionPressed(Direction direction) {
@@ -46,12 +40,33 @@ public class GameController implements KeyListener {
 		update();
 	}
 	
+	//TODO: When game is over disable buttons
 	public void update() {
 		dk.update();
 		dk.render(gameGraphics);
 		gamePanel.setGameStatus(dk.getState());
 	}
-			
+		
+	
+
+	public void loadSave() {
+		dk = LoadSavePanel.createAndShowGUI(dk);
+	}
+	
+	
+	public void loadGameGraphics() {
+		gameGraphics = new GameGraphics(
+				gamePanel.getGameSize(),
+				gamePanel.getGameGraphics(),
+				boardRenderer
+			);
+		
+		if(dk != null)
+			dk.render(gameGraphics);
+	}
+	
+	
+	
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -84,25 +99,5 @@ public class GameController implements KeyListener {
 	public GamePanel getGamePanel() {
 		return gamePanel;
 	}
-
-
-	public void loadSave() {
-		
-		dk = LoadSavePanel.createAndShowGUI(dk);
-		Input.setGraphicInput();
-		dk.render(gameGraphics);
-	}
-	
-	public void loadGameGraphics() {
-		gameGraphics = new GameGraphics(
-				gamePanel.getGameSize(),
-				gamePanel.getGameGraphics(),
-				boardRenderer
-			);
-		
-		if(dk != null)
-			dk.render(gameGraphics);
-	}
-	
 
 }
