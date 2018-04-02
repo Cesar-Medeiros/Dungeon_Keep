@@ -3,8 +3,8 @@ package dkeep.logic.level;
 import java.io.Serializable;
 
 import dkeep.logic.board.Board;
+import dkeep.logic.board.BoardRenderer;
 import dkeep.logic.characters.MoveObj;
-import dkeep.logic.game.GameGraphics;
 
 public abstract class Level implements Serializable{
 
@@ -30,9 +30,9 @@ public abstract class Level implements Serializable{
 	public boolean completed() {return completed;}
 
 	
-	public void render(GameGraphics gameGraphics){
+	public void render(BoardRenderer boardRenderer){
 		board.fillBoard(levelObjs);
-		gameGraphics.getBoardRenderer().render(board, gameGraphics);
+		boardRenderer.render(board);
 	}
 	
 }

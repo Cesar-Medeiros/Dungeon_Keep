@@ -6,8 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.Timer;
-
 import dkeep.logic.board.Board;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Ogre;
@@ -18,31 +16,16 @@ public class SandboxController implements MouseListener, MouseMotionListener{
 	private Image selectedImg;
 	private char selectedElem;
 	private char[][] boardMap;
-	private int side = 6;
-//	private Timer createTimer;
+	private int side;
 	
 
 
 	public static char[][] getCustomLevel() {
-		SandboxController sbc = new SandboxController();
-		for(int j = 0; j < sbc.boardMap.length; j++) {
-			for(int i = 0; i < sbc.boardMap[j].length; i++) {
-				System.err.print(sbc.boardMap[j][i] + " ");
-			}
-		System.err.print("\n");
-		}
-		
+		SandboxController sbc = new SandboxController();		
 		return sbc.boardMap;
 	}
 	
 	public SandboxController() {
-//		createTimer = new Timer(10, new ActionListener() {
-//		    public void actionPerformed(ActionEvent evt) {
-//		    	createBoard();
-//		    }
-//		});
-//		createTimer.setRepeats(false);
-//		createTimer.start();
 		new SandboxPanel(this);
 	}
 	

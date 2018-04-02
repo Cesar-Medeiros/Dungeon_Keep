@@ -5,10 +5,8 @@ import java.awt.event.KeyListener;
 
 import dkeep.gui.load_save.LoadSavePanel;
 import dkeep.gui.options.OptionsPanel;
-import dkeep.logic.board.BoardRenderer;
 import dkeep.logic.game.DungeonKeep;
 import dkeep.logic.game.GameConfig;
-import dkeep.logic.game.GameGraphics;
 import dkeep.util.Direction;
 import dkeep.util.Input;
 
@@ -16,16 +14,17 @@ public class GameController implements KeyListener {
 	
 	GamePanel gamePanel;
 	DungeonKeep dk;
-	BoardRenderer boardRenderer = new BoardRendererGUI(); 
 	GameGraphics gameGraphics;
+	BoardRendererGUI boardRenderer;
 	
 	public GameController(){
 		gamePanel = new GamePanel(this);
+		boardRenderer = new BoardRendererGUI(gameGraphics); 
 	}
 	
 	public void newGame() {
 		GameConfig gameConfig = OptionsPanel.getGameConfig();
-		dk = new DungeonKeep(gameConfig);
+		dk = new DungeonKeep(gameConfig, boardRenderer);
 		update();
 	}
 	
@@ -40,32 +39,33 @@ public class GameController implements KeyListener {
 		update();
 	}
 	
-	//TODO: When game is over disable buttons
+	
 	public void update() {
 		dk.update();
-		dk.render(gameGraphics);
+		dk.render();
+		
 		gamePanel.setGameStatus(dk.getState());
+		if(dk.isEndGame()) gamePanel.disableButtons();
 	}
 		
 	
 
 	public void loadSave() {
 		dk = LoadSavePanel.createAndShowGUI(dk);
+		dk.setBoardRenderer(boardRenderer);
 	}
 	
 	
 	public void loadGameGraphics() {
-		gameGraphics = new GameGraphics(
+		boardRenderer.updateGameGraphics(new GameGraphics(
 				gamePanel.getGameSize(),
-				gamePanel.getGameGraphics(),
-				boardRenderer
+				gamePanel.getGameGraphics()
+				)
 			);
 		
 		if(dk != null)
-			dk.render(gameGraphics);
-	}
-	
-	
+			dk.render();
+	}	
 	
 	
 	@Override

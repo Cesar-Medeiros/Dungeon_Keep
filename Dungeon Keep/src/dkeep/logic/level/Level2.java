@@ -21,18 +21,12 @@ public class Level2 extends Level{
 	protected int numOgres;
 	
 	//Club
-	protected MoveObj club;
-	
-	
-	private static final char keySymbol = 'k';
-	private static final char doorSymbol = 'I';
-	private static final char exitSymbol = 'S';
-	
+	protected MoveObj club;	
 	
 	
 	protected static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-		{'I', ' ', ' ', ' ', ' ', ' ',' ' , 'k' ,'X'},
+		{'D', ' ', ' ', ' ', ' ', ' ',' ' , 'k' ,'X'},
 		{'X', ' ', ' ', ' ', ' ', ' ',' ' , ' ' ,'X'},
 		{'X', ' ', ' ', ' ', ' ', ' ',' ' , ' ' ,'X'},
 		{'X', ' ', ' ', ' ', ' ', ' ',' ' , ' ' ,'X'},
@@ -109,7 +103,7 @@ public class Level2 extends Level{
 			}
 			
 
-			if(onKey(ogre))
+			if(board.onKey(ogre))
 				ogre.setSymbol(Ogre.overKeySymbol);
 			else if(ogre.isStunned())
 				ogre.setSymbol(Ogre.stunnedSymbol);
@@ -117,86 +111,36 @@ public class Level2 extends Level{
 				ogre.setSymbol(Ogre.ogreSymbol);
 			
 			
-			if(onKey(ogre.getClub()))
+			if(board.onKey(ogre.getClub()))
 				ogre.getClub().setSymbol(Ogre.overKeySymbol);
 			else
 				ogre.getClub().setSymbol(Ogre.clubSymbol);
 		}
 
 		
-		if(onKey(hero)) {
-			pickKey();
+		if(board.onKey(hero)) {
+			board.pickKey();
+			hero.pickKey();
 		}		
 
 		if(onClub(hero)) {
-			hero.setSymbol(Hero.armedSymbol);
-			pickClub();
+			club.setSymbol(' ');
+			hero.pickClub();
 		}		
 		
-		if(onExit(hero)) {
+		if(board.onOpenDoor(hero)) {
 			completed = true;
 			return;
 		}
 		
-		//hero.tryExit(heroDirection, this);
-	}
-	
-	
-	public boolean onKey(MoveObj moveObj) {
-		
-		boolean onKeyPos = (board.getElement(moveObj.getPosX(), moveObj.getPosY()) == keySymbol);
-		
-		if (onKeyPos && moveObj instanceof Hero) {
-			((Hero) moveObj).hasKey();
+		if(board.onOpenablenDoor(hero,heroDirection) && hero.hasKey()) {
+			board.openDoors();
 		}
-		
-		return onKeyPos;
 	}
+	
 	
 	public boolean onClub(MoveObj moveObj) {
 		return moveObj.getPosX() == club.getPosX() && moveObj.getPosY() == club.getPosY();
-	}
-	
-	public boolean onExit(MoveObj moveObj) {		
-		return(board.getElement(moveObj.getPosX(), moveObj.getPosY()) == exitSymbol);
-	}
-	
-	public void setHero(Hero hero) {
-		this.hero = hero;
-	}
-
-
-	public void setOgres(Vector<Ogre> ogres) {
-		this.ogres = ogres;
-	}
-
-
-	public void setClub(MoveObj club) {
-		this.club = club;
-	}
-
-
-	public static void setBoardMap(char[][] boardMap) {
-		Level2.boardMap = boardMap;
-	}
-
-
-	public boolean onDoor(MoveObj moveObj) {
-		return(board.getElement(moveObj.getPosX() - 1, moveObj.getPosY()) == doorSymbol);
-	}
-	
-	public void openDoor() {
-		board.substChar(doorSymbol, exitSymbol);
-	}
-	
-
-	public void pickKey() {
-		board.substChar(keySymbol, ' ');
-	}
-	
-	public void pickClub() {
-		club.setSymbol(' ');
-		hero.pickClub();
 	}
 	
 }

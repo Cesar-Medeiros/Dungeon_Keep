@@ -70,46 +70,34 @@ public class LoadSavePanel extends JDialog {
 	}
 
 	private void configure() {
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.insets = new Insets(0, 0, 5, 5);
+		
 		
 		txtSaveName = new JTextField();
-		txtSaveName.setToolTipText("");
-		GridBagConstraints gbc_txtSaveName = new GridBagConstraints();
-		gbc_txtSaveName.insets = new Insets(0, 0, 5, 10);
-		gbc_txtSaveName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSaveName.gridx = 0;
-		gbc_txtSaveName.gridy = 0;
-		contentPane.add(txtSaveName, gbc_txtSaveName);
 		txtSaveName.setColumns(10);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		contentPane.add(txtSaveName, gbc);
 		
-				
 				
 		btnSave = new JButton("Save");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton.gridwidth = 1;
-		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 0;
-		contentPane.add(btnSave, gbc_btnNewButton);
-		
-		comboBoxLoadName = new JComboBox<String>();
-		GridBagConstraints gbc_comboBoxLoadName = new GridBagConstraints();
-		gbc_comboBoxLoadName.insets = new Insets(0, 0, 5, 10);
-		gbc_comboBoxLoadName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxLoadName.gridx = 0;
-		gbc_comboBoxLoadName.gridy = 1;
-		contentPane.add(comboBoxLoadName, gbc_comboBoxLoadName);
-		
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		contentPane.add(btnSave, gbc);
 		
 		
 		btnLoad = new JButton("Load");
-		GridBagConstraints gbc_btnNewButton1 = new GridBagConstraints();
-		gbc_btnNewButton1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton1.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton1.gridwidth = 1;
-		gbc_btnNewButton1.gridx = 1;
-		gbc_btnNewButton1.gridy = 1;
-		contentPane.add(btnLoad, gbc_btnNewButton1);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		contentPane.add(btnLoad, gbc);
+		
+		
+		comboBoxLoadName = new JComboBox<String>();
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		contentPane.add(comboBoxLoadName, gbc);
 	}
 
 	private void registerListeners() {

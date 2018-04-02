@@ -1,4 +1,4 @@
-package dkeep;
+package dkeep.cli;
 
 import dkeep.cli.CLI;
 

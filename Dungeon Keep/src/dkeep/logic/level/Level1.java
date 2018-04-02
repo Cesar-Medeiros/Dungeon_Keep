@@ -41,8 +41,8 @@ public class Level1 extends Level{
 		{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
 		{'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
 		{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
-		{'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+		{'D', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+		{'D', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
 		{'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X'},
 		{'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X'},
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
@@ -92,7 +92,7 @@ public class Level1 extends Level{
 			board.openDoors();
 		}
 
-		if (board.onDoor(hero)) {
+		if (board.onOpenDoor(hero)) {
 			completed = true;
 			return;
 

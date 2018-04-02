@@ -32,13 +32,18 @@ public class Hero extends MoveObj{
 	public boolean isArmed(){
 		return club;
 	}
-
-	public void hasKey() {
-		hasKey = true;
-		setSymbol(Hero.withKeySymbol);
-	}
 	
 	public void pickClub() {
+		setSymbol(armedSymbol);
 		club = true;
+	}
+
+	public void pickKey() {
+		hasKey = true;
+		setSymbol(withKeySymbol);
+	}
+
+	public boolean hasKey() {
+		return hasKey;
 	}
 }

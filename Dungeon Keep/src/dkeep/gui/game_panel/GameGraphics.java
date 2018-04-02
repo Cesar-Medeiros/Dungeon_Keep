@@ -1,29 +1,21 @@
-package dkeep.logic.game;
+package dkeep.gui.game_panel;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-
-import dkeep.logic.board.BoardRenderer;
 
 public class GameGraphics 
 {
 	private Dimension gamePanelDimension;
 	private Graphics g;
-	private BoardRenderer boardRenderer;
 	
-	public GameGraphics(Dimension gamePanelDimension, Graphics g, BoardRenderer boardRenderer) {
+	public GameGraphics(Dimension gamePanelDimension, Graphics g) {
 		this.gamePanelDimension = gamePanelDimension;
 		this.g = g;
-		this.boardRenderer = boardRenderer;
 	}
 	
 
 	public Graphics getGraphics() {
 		return g;
-	}
-	
-	public BoardRenderer getBoardRenderer() {
-		return boardRenderer;
 	}
 
 	public int getHeight() {

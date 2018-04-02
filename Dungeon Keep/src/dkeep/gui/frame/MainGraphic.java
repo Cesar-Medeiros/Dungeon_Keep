@@ -1,4 +1,4 @@
-package dkeep;
+package dkeep.gui.frame;
 
 import dkeep.gui.frame.MainJFrame;
 

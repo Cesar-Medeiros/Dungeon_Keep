@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 
 import dkeep.logic.board.Board;
 import dkeep.logic.board.BoardRenderer;
-import dkeep.logic.game.GameGraphics;
 
 public class BoardRendererGUI implements BoardRenderer{
 
@@ -20,9 +19,12 @@ public class BoardRendererGUI implements BoardRenderer{
 	private Image lever;
 	private Image closedDoor;
 	private Image openDoor;
-
-	public BoardRendererGUI() {
-
+	
+	GameGraphics gameGraphics;
+	
+	public BoardRendererGUI(GameGraphics gameGraphics) {
+		this.gameGraphics=gameGraphics;
+		
 		try {
 			wall = ImageIO.read(new File("res/Board/Wall.png"));
 			floor = ImageIO.read(new File("res/Board/Floor.png"));
@@ -35,12 +37,13 @@ public class BoardRendererGUI implements BoardRenderer{
 			System.err.println("Error: Could not load images");
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	
-	
-	public void render(Board board, GameGraphics gameGraphics) {
-
+	@Override
+	public void render(Board board) {
 		int minDimension = Math.min(gameGraphics.getHeight(), gameGraphics.getWidth());
 		int height = minDimension;
 		int width = minDimension;
@@ -79,7 +82,7 @@ public class BoardRendererGUI implements BoardRenderer{
 					arg0.drawImage(guardResized, sizeX * j, sizeY * i, null);
 					break;
 					
-				case 'I':
+				case 'I': case 'D':
 					arg0.drawImage(closedDoorResized, sizeX * j, sizeY * i, null);
 					break;
 					
@@ -97,5 +100,9 @@ public class BoardRendererGUI implements BoardRenderer{
 				}
 			}
 		}
+	}
+	
+	public void updateGameGraphics(GameGraphics gameGraphics) {
+		this.gameGraphics = gameGraphics;
 	}
 }

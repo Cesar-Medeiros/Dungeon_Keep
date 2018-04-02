@@ -46,10 +46,13 @@ public class CLI{
 		
 			Input.setCliInput();
 			
-			DungeonKeep.runGame(new GameConfig(
-				typeGuard,
-				nOgres
-			));
+			DungeonKeep dk = new DungeonKeep(new GameConfig(typeGuard,nOgres), new BoardRendererCLI());
+			
+			while(! dk.isEndGame()) {
+				dk.update();
+				dk.render();
+			}
+			System.out.println(dk.getState());
 						
 			System.out.println("New Game (Y/N): ");
 			newGame = (Character.toUpperCase(scan.next().charAt(0)) == 'Y');
