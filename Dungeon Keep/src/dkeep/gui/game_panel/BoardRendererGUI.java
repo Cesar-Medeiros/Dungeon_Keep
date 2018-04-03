@@ -9,30 +9,38 @@ import javax.imageio.ImageIO;
 
 import dkeep.logic.board.Board;
 import dkeep.logic.board.BoardRenderer;
+import dkeep.logic.characters.Hero;
+import dkeep.logic.characters.Ogre;
 
 public class BoardRendererGUI implements BoardRenderer{
 
 	private Image wall;
 	private Image floor;
 	private Image hero;
+	private Image heroA;
 	private Image guard;
 	private Image lever;
 	private Image closedDoor;
 	private Image openDoor;
+	private Image ogre;
+	private Image club;
 	
 	GameGraphics gameGraphics;
 	
 	public BoardRendererGUI(GameGraphics gameGraphics) {
 		this.gameGraphics=gameGraphics;
-		
 		try {
-			wall = ImageIO.read(new File("Dungeon Keep/res/Board/Wall.png"));
-			floor = ImageIO.read(new File("Dungeon Keep/res/Board/Floor.png"));
-			hero = ImageIO.read(new File("Dungeon Keep/res/Board/Hero.png"));
-			guard = ImageIO.read(new File("Dungeon Keep/res/Board/Guard.png"));
-			lever = ImageIO.read(new File("Dungeon Keep/res/Board/Lever.png"));
-			closedDoor = ImageIO.read(new File("Dungeon Keep/res/Board/ClosedDoor.png"));
-			openDoor = ImageIO.read(new File("Dungeon Keep/res/Board/OpenDoor.png"));
+			wall = ImageIO.read(new File("res/Board/Wall.png"));
+			floor = ImageIO.read(new File("res/Board/Floor.png"));
+			hero = ImageIO.read(new File("res/Board/Hero.png"));
+			guard = ImageIO.read(new File("res/Board/Guard.png"));
+			lever = ImageIO.read(new File("res/Board/Key.png"));
+			closedDoor = ImageIO.read(new File("res/Board/ClosedDoor.png"));
+			openDoor = ImageIO.read(new File("res/Board/OpenDoor.png"));
+			ogre = ImageIO.read(new File("res/Board/Ogre.png"));
+			club = ImageIO.read(new File("res/Board/Club.png"));
+			heroA= ImageIO.read(new File("res/Board/HeroA.png"));
+			
 		} catch (IOException e) {
 			System.err.println("Error: Could not load images");
 			e.printStackTrace();
@@ -62,40 +70,55 @@ public class BoardRendererGUI implements BoardRenderer{
 		Image openDoorResized = openDoor.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
 		Image leverResized = lever.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
 		Image guardResized = guard.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		
+		Image ogreResized = ogre.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image clubResized = club.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image heroAResized = heroA.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
 		Graphics arg0 = gameGraphics.getGraphics();
 		
 		
 		for (int j = 0; j < nRow; j++) {
 			for (int i = 0; i < nCol; i++) {
-				arg0.drawImage(floorResized, sizeX * j, sizeY * i, null);
-				switch(board.getElement(j, i)) {
-				case 'X': 
-					arg0.drawImage(wallResized, sizeX * j, sizeY * i, null);
+				arg0.drawImage(floorResized, sizeX * i, sizeY * j, null);
+				switch(board.getElement(i, j)) {
+				
+				case Board.wallSymbol: 
+					arg0.drawImage(wallResized, sizeX * i, sizeY * j, null);
 					break;
 					
-				case 'H': case 'K': case 'A':
-					arg0.drawImage(heroResized, sizeX * j, sizeY * i, null);
+				case Hero.heroSymbol: case 'K': 
+					arg0.drawImage(heroResized, sizeX * i, sizeY * j, null);
 					break;
 	
-				case 'G': case 'g': case 'O':
-					arg0.drawImage(guardResized, sizeX * j, sizeY * i, null);
+				case Hero.armedSymbol:
+					arg0.drawImage(heroAResized, sizeX * i, sizeY * j, null);
 					break;
 					
-				case 'I': case 'D':
-					arg0.drawImage(closedDoorResized, sizeX * j, sizeY * i, null);
+				case 'G': case 'g': 
+					arg0.drawImage(guardResized, sizeX * i, sizeY * j, null);
 					break;
 					
-				case 'S':
-					arg0.drawImage(openDoorResized, sizeX * j, sizeY * i, null);
+				case Ogre.ogreSymbol:
+					arg0.drawImage(ogreResized, sizeX * i, sizeY * j, null);
 					break;
 					
-				case 'k':
-					arg0.drawImage(leverResized, sizeX * j, sizeY * i, null);
+				case Ogre.clubSymbol:
+					arg0.drawImage(clubResized, sizeX * i, sizeY * j, null);
+					break;
+					
+				case Board.closeDoorSymbol: case Board.openableDoorSymbol:
+					arg0.drawImage(closedDoorResized, sizeX * i, sizeY * j, null);
+					break;
+					
+				case Board.openDoorSymbol:
+					arg0.drawImage(openDoorResized, sizeX * i, sizeY * j, null);
+					break;
+					
+				case Board.keySymbol:
+					arg0.drawImage(leverResized, sizeX * i, sizeY * j, null);
 					break;
 					
 				default: 
-					arg0.drawImage(floorResized, sizeX * j, sizeY * i, null);
+					arg0.drawImage(floorResized, sizeX * i, sizeY * j, null);
 					break;
 				}
 			}

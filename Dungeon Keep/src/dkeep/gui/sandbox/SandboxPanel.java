@@ -19,7 +19,12 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import dkeep.logic.board.Board;
+import dkeep.logic.characters.Hero;
+import dkeep.logic.characters.Ogre;
+
 import javax.swing.JSlider;
+import javax.swing.border.EmptyBorder;
 
 
 public class SandboxPanel extends JDialog {
@@ -27,7 +32,7 @@ public class SandboxPanel extends JDialog {
 	private JPanel canvasPanel;
 	private JButton wallBtn;
 	private JButton heroBtn;
-	private JButton guardBtn;
+	private JButton ogreBtn;
 	private JButton closedDoorBtn;
 	private JButton openDoorBtn;
 	private JButton keyBtn;
@@ -38,11 +43,11 @@ public class SandboxPanel extends JDialog {
     private Image wall;
     private Image floor;
     private Image hero;
-    private Image guard;
+    private Image ogre;
     private Image key;
     private Image closedDoor;
     private Image openDoor;
-	
+
 	
 	private SandboxController controller;
 	public static final Dimension PREFERREDSIZE = new Dimension(650,500);
@@ -61,11 +66,10 @@ public class SandboxPanel extends JDialog {
         
         this.controller = controller;
         this.controller.setSandboxPanel(this);
-		loadImages();
+        loadImages();
 		configureLayout();
 		configure();
 		registerListeners();
-		
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setVisible(true);
 	}
@@ -73,13 +77,13 @@ public class SandboxPanel extends JDialog {
 	
     public void loadImages() {
         try {
-            wall = ImageIO.read(new File("Dungeon Keep/res/Board/Wall.png"));
-            floor = ImageIO.read(new File("Dungeon Keep/res/Board/Floor.png"));
-            hero = ImageIO.read(new File("Dungeon Keep/res/Board/Hero.png"));
-            guard = ImageIO.read(new File("Dungeon Keep/res/Board/Guard.png"));
-            key = ImageIO.read(new File("Dungeon Keep/res/Board/Lever.png"));
-            closedDoor = ImageIO.read(new File("Dungeon Keep/res/Board/ClosedDoor.png"));
-            openDoor = ImageIO.read(new File("Dungeon Keep/res/Board/OpenDoor.png"));
+            wall = ImageIO.read(new File("res/Board/Wall.png"));
+            floor = ImageIO.read(new File("res/Board/Floor.png"));
+            hero = ImageIO.read(new File("res/Board/Hero.png"));
+            ogre = ImageIO.read(new File("res/Board/Ogre.png"));
+            key = ImageIO.read(new File("res/Board/Key.png"));
+            closedDoor = ImageIO.read(new File("res/Board/ClosedDoor.png"));
+            openDoor = ImageIO.read(new File("res/Board/OpenDoor.png"));
         } catch (IOException e) {
             System.err.println("Error: Could not load images");
             e.printStackTrace();
@@ -88,7 +92,7 @@ public class SandboxPanel extends JDialog {
 	
 
 	private void configureLayout() {
-		//setBorder(new EmptyBorder(20, 20, 20, 20));
+		((JPanel)getContentPane()).setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] {0, 0};
 		gbl_contentPane.rowHeights = new int[] {0, 0, 0};
@@ -124,7 +128,7 @@ public class SandboxPanel extends JDialog {
 		
 		wallBtn = newIconButton(0, 3, wall, elementsPanel);
 		heroBtn = newIconButton(0, 4, hero, elementsPanel);
-		guardBtn = newIconButton(1, 4, guard, elementsPanel);
+		ogreBtn = newIconButton(1, 4, ogre, elementsPanel);
 		closedDoorBtn = newIconButton(0, 5, closedDoor, elementsPanel);
 		openDoorBtn = newIconButton(1, 5, openDoor, elementsPanel);
 		keyBtn = newIconButton(1, 3, key, elementsPanel);
@@ -154,33 +158,40 @@ public class SandboxPanel extends JDialog {
 		
 		wallBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.selectWall(wall);
+				controller.selectElement(Board.wallSymbol);
 			}
 		});
 		
 
 		heroBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.selectHero(hero);
+				controller.selectElement(Hero.heroSymbol);
 			}
 		});
 		
-		guardBtn.addActionListener(new ActionListener() {
+		ogreBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.selectGuard(guard);
+				controller.selectElement(Ogre.ogreSymbol);
 			}
 		});
+
 		
 		closedDoorBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.selectDoor(closedDoor);
+				controller.selectElement(Board.closeDoorSymbol);
+			}
+		});
+		
+		openDoorBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.selectElement(Board.openableDoorSymbol);
 			}
 		});
 		
 		
 		keyBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.selectKey(key);
+				controller.selectElement(Board.keySymbol);
 			}
 		});
 		
@@ -213,24 +224,12 @@ public class SandboxPanel extends JDialog {
 		return button;
 	}
 	
-	public int getBoardWidth() {
-		return canvasPanel.getWidth();
-	}
-	
-	public int getBoardHeight() {
-		return canvasPanel.getHeight();
-	}
-	
 	public Graphics getBoardGrahics(){
 		return canvasPanel.getGraphics();
 	}
-
-	public Image getWall() {
-		return wall;
-	}
-
-	public Image getFloor() {
-		return floor;
+	
+	public Dimension getBoardSize(){
+		return canvasPanel.getSize();
 	}
 	
 }

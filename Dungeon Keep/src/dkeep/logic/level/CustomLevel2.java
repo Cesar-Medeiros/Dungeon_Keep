@@ -31,16 +31,8 @@ public class CustomLevel2 extends Level2 {
 					ogres.add(new Ogre(col, row));
 					break;
 					
-				case Board.closeDoorSymbol:
-					boardMap[row][col] =  Board.closeDoorSymbol;
-					break;
-					
-				case Board.floorSymbol:
-					boardMap[row][col] =  Board.floorSymbol;
-					break;
-					
-				case Board.wallSymbol:
-					boardMap[row][col] =  Board.wallSymbol;
+				default: 
+					boardMap[row][col] = gameMap[row][col];
 					break;
 			}
 		}
