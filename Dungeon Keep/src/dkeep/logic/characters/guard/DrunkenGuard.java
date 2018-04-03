@@ -58,14 +58,14 @@ public class DrunkenGuard extends Guard {
 	}
 
 	
-	protected void putToSleep()
+	public void putToSleep()
 	{
 		active = false;
 		currentSymbol = 'g';
 	}
 
 	
-	protected void wakeUp() 
+	public void wakeUp() 
 	{
 		active = true;
 		currentSymbol = 'G';

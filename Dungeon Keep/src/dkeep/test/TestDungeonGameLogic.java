@@ -1,15 +1,23 @@
 package dkeep.test;
 
+import static dkeep.util.Direction.LEFT;
 import static org.junit.Assert.*;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
 
 import org.junit.Test;
 
 import dkeep.logic.board.Board;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.MoveObj;
+import dkeep.logic.characters.guard.DrunkenGuard;
 import dkeep.logic.characters.guard.Guard;
 import dkeep.logic.characters.guard.RookieGuard;
+import dkeep.logic.characters.guard.SuspiciousGuard;
 import dkeep.logic.characters.util.Movement;
+import dkeep.logic.game.DungeonKeep;
+import dkeep.logic.game.GameConfig;
 import dkeep.logic.level.Level1;
 import dkeep.util.Direction;
 
@@ -91,13 +99,13 @@ public class TestDungeonGameLogic {
 
 		board.fillBoard(objs);
 		assertEquals('H', board.getElement(1, 2));
-		
+
 		boolean onOpenDoor = board.onOpenableDoor(hero, Direction.LEFT);
 		assertTrue(onOpenDoor);
-		
+
 		boolean successfulMove = board.canMoveTo(0, 2);
 		assertFalse(successfulMove);
-		
+
 		board.fillBoard(objs);
 		assertEquals('H', board.getElement(1, 2));
 		assertEquals('D', board.getElement(0, 2));
@@ -140,13 +148,111 @@ public class TestDungeonGameLogic {
 		lvl1.setObjs(objs);
 		board.fillBoard(objs);
 		assertEquals('H', board.getElement(1, 2));
-			
+
 		board.openDoors();
 		board.fillBoard(objs);
-		
+
 		boolean successfulMove = hero.moveCharacter(board, Direction.LEFT);
 		assertTrue(successfulMove);
-		
+
 		assertTrue(board.onOpenDoor(hero));
 	}		
+
+	@Test
+	public void testPutGuardToSleep() {
+
+		Level1 lvl1 = new Level1(1);
+
+		Board board = new Board(boardMap);
+		DrunkenGuard guard = new DrunkenGuard(1, 1, new Movement());
+		MoveObj[] objs = new MoveObj[] { guard };
+
+		lvl1.setObjs(objs);
+		board.fillBoard(objs);
+
+		assertTrue(guard.isActive());
+		assertSame('G', board.getElement(1, 1));
+
+		guard.putToSleep();
+		board.fillBoard(objs);
+
+		assertFalse(guard.isActive());
+		assertSame('g', board.getElement(1, 1));
+	}
+
+	@Test
+	public void testWakeUpGuard() {
+
+		Level1 lvl1 = new Level1(1);
+
+		Board board = new Board(boardMap);
+		DrunkenGuard guard = new DrunkenGuard(1, 1, new Movement());
+		MoveObj[] objs = new MoveObj[] { guard };
+
+		guard.putToSleep();
+		lvl1.setObjs(objs);
+		board.fillBoard(objs);
+
+		assertFalse(guard.isActive());
+		assertSame('g', board.getElement(1, 1));
+
+		guard.wakeUp();
+		board.fillBoard(objs);
+
+		assertTrue(guard.isActive());
+		assertSame('G', board.getElement(1, 1));
+	}
+
+	@Test
+	public void testMoveNearGuardWhileAsleep() {
+
+		DungeonKeep game = new DungeonKeep(new GameConfig(0, 0), null);
+		Level1 lvl1 = (Level1) game.getLevel();
+
+		Board board = new Board(boardMap);
+		Hero hero = new Hero(1,1);
+		DrunkenGuard guard = new DrunkenGuard(3, 1, new Movement());
+		MoveObj[] objs = new MoveObj[] { hero, guard };
+
+		guard.putToSleep();
+		lvl1.setObjs(objs);
+		board.fillBoard(objs);
+		assertEquals('H', board.getElement(1, 1));
+		assertEquals('g', board.getElement(3, 1));
+
+		game.update();
+		assertFalse(game.isEndGame());
+
+		hero.moveCharacter(board, Direction.RIGHT);
+		board.fillBoard(objs);
+		game.update();
+		assertFalse(lvl1.gameOver());
+	}
+
+	@Test
+	public void testGuardRevertPath() throws Exception {
+
+		Movement movements =  new Movement(Arrays.asList(LEFT));
+
+		Level1 lvl1 = new Level1(1);
+
+		Board board = new Board(boardMap);
+		SuspiciousGuard guard = new SuspiciousGuard(1, 1, movements);
+		MoveObj[] objs = new MoveObj[] { guard };
+
+		lvl1.setObjs(objs);
+		board.fillBoard(objs);
+		assertEquals('G', board.getElement(1, 1));
+
+		Field reversed = SuspiciousGuard.class.getDeclaredField("reversed");
+		reversed.setAccessible(true);
+		reversed.setBoolean(guard, true);
+		Field numRounds = SuspiciousGuard.class.getDeclaredField("numRounds");
+		numRounds.setAccessible(true);
+		numRounds.setInt(guard, 3);
+
+		guard.move(board);
+		board.fillBoard(objs);
+		assertEquals('G', board.getElement(2, 1));
+	}
 }

@@ -17,16 +17,16 @@ public class TestGameLogic {
 
 	@Test(timeout = 1000)
 	public void test() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, IOException {
-		
+
 		game = new DungeonKeep(new GameConfig(0, 0), null);
-		
+
 		assertEquals("Choose some options", game.getState());
 		assertFalse(game.isEndGame());
-		
+
 		game.update();
 		assertFalse(game.isEndGame());
 		assertEquals("You can play now.", game.getState());
-		
+
 		Field completed = Level.class.getDeclaredField("completed");
 		completed.setAccessible(true);
 		completed.set(game.getLevel(), true);
@@ -34,9 +34,9 @@ public class TestGameLogic {
 		completed.set(game.getLevel(), true);
 		game.update();
 		assertEquals("You won!", game.getState());
-		
+
 		game = new DungeonKeep(new GameConfig(0, 0), null);
-		
+
 		Field gameOver = Level.class.getDeclaredField("gameOver");
 		gameOver.setAccessible(true);
 		game.update();
