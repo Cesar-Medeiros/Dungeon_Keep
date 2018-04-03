@@ -2,7 +2,7 @@ package dkeep.logic.game;
 
 import java.io.Serializable;
 
-public class GameConfig implements Serializable{
+public class GameConfig implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int typeGuard;

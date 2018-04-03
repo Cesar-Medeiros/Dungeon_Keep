@@ -73,13 +73,13 @@ public class SandboxPanel extends JDialog {
 	
     public void loadImages() {
         try {
-            wall = ImageIO.read(new File("res/Board/Wall.png"));
-            floor = ImageIO.read(new File("res/Board/Floor.png"));
-            hero = ImageIO.read(new File("res/Board/Hero.png"));
-            guard = ImageIO.read(new File("res/Board/Guard.png"));
-            key = ImageIO.read(new File("res/Board/Lever.png"));
-            closedDoor = ImageIO.read(new File("res/Board/ClosedDoor.png"));
-            openDoor = ImageIO.read(new File("res/Board/OpenDoor.png"));
+            wall = ImageIO.read(new File("Dungeon Keep/res/Board/Wall.png"));
+            floor = ImageIO.read(new File("Dungeon Keep/res/Board/Floor.png"));
+            hero = ImageIO.read(new File("Dungeon Keep/res/Board/Hero.png"));
+            guard = ImageIO.read(new File("Dungeon Keep/res/Board/Guard.png"));
+            key = ImageIO.read(new File("Dungeon Keep/res/Board/Lever.png"));
+            closedDoor = ImageIO.read(new File("Dungeon Keep/res/Board/ClosedDoor.png"));
+            openDoor = ImageIO.read(new File("Dungeon Keep/res/Board/OpenDoor.png"));
         } catch (IOException e) {
             System.err.println("Error: Could not load images");
             e.printStackTrace();

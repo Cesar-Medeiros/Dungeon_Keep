@@ -36,8 +36,6 @@ public class Level2 extends Level{
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 	};
 	
-
-	
 	public Level2(int numOgres) {
 		setBoard(new Board(boardMap));
 		this.numOgres = numOgres;
@@ -126,14 +124,14 @@ public class Level2 extends Level{
 		if(onClub(hero)) {
 			club.setSymbol(' ');
 			hero.pickClub();
-		}		
+		}
 		
 		if(board.onOpenDoor(hero)) {
 			completed = true;
 			return;
 		}
 		
-		if(board.onOpenablenDoor(hero,heroDirection) && hero.hasKey()) {
+		if(board.onOpenableDoor(hero,heroDirection) && hero.hasKey()) {
 			board.openDoors();
 		}
 	}

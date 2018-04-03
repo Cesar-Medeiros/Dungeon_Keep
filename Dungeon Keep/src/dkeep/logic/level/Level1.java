@@ -107,7 +107,4 @@ public class Level1 extends Level{
 		guard = guards[guardIndex];
 		levelObjs[1]  = guard;
 	}
-
-
-
 }

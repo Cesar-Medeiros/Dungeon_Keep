@@ -20,8 +20,8 @@ public class TestKeepGameLogic {
 	char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X'},
 		{'X', ' ', ' ', ' ', 'X'},
-		{'I', ' ', ' ', ' ', 'X'},
-		{'I', 'k', ' ', ' ', 'X'},
+		{'D', ' ', ' ', ' ', 'X'},
+		{'D', 'k', ' ', ' ', 'X'},
 		{'X', 'X', 'X', 'X', 'X'}
 	};
 	
@@ -36,8 +36,8 @@ public class TestKeepGameLogic {
 		board.fillBoard(objs);
 		assertEquals('H', board.getElement(1, 1));
 		
-		boolean sucessfulMove = hero.moveCharacter(board, Direction.RIGHT);
-		assertTrue(sucessfulMove);
+		boolean successfulMove = hero.moveCharacter(board, Direction.RIGHT);
+		assertTrue(successfulMove);
 		assertTrue(hero.nearPos(ogre) || hero.collision(ogre));
 	}
 	
@@ -51,10 +51,11 @@ public class TestKeepGameLogic {
 		board.fillBoard(objs);
 		assertEquals('H', board.getElement(1, 2));
 		
-		boolean sucessfulMove = hero.moveCharacter(board, Direction.DOWN);
-		assertTrue(sucessfulMove);
+		boolean successfulMove = hero.moveCharacter(board, Direction.DOWN);
+		assertTrue(successfulMove);
 		
-		hero.hasKey();
+		hero.pickKey();
+		assertTrue(hero.hasKey());
 		assertSame(hero.getSymbol(), 'K');
 	}
 	
@@ -68,31 +69,33 @@ public class TestKeepGameLogic {
 		board.fillBoard(objs);
 		assertEquals('H', board.getElement(1, 2));
 		
-		boolean sucessfulMove = hero.moveCharacter(board, Direction.LEFT);
-		assertFalse(sucessfulMove);
+		boolean successfulMove = board.canMoveTo(0, 2);
+		assertFalse(successfulMove);
 	}
 	
 	@Test
 	public void testHeroMovesToExitDoorWithKey() {
 		
-		Level2 lvl = new Level2(1);
+		Level2 lvl2 = new Level2(1);
 		
 		Board board = new Board(boardMap);
-		Hero hero = new Hero(1,2);
+		Hero hero = new Hero(1,3);
 		MoveObj[] objs = new MoveObj[] { hero };
-		
-		Level2.setBoardMap(boardMap);
-		lvl.setBoard(board);
-		lvl.setObjs(objs);
-		
-		hero.hasKey();
+	
+		lvl2.setBoard(board);
+		lvl2.setObjs(objs);
 		board.fillBoard(objs);
-		assertEquals('K', board.getElement(1, 2));
+		assertEquals('H', board.getElement(1, 3));
 		
-		assertSame('I', board.getElement(0, 2));
-//		assertTrue(hero.tryExit(Direction.LEFT, lvl));
-//		board.fillBoard(objs);
-//		assertSame('S', board.getElement(0, 2));
+		hero.pickKey();
+		board.pickKey();
+		board.fillBoard(objs);
+		assertEquals('K', board.getElement(1, 3));
+		
+		assertSame('S', board.getElement(0, 3));
+		assertSame('S', board.getElement(0, 2));
+		assertTrue(board.canMoveTo(0, 3) && hero.hasKey());
+		assertTrue(board.canMoveTo(0, 2) && hero.hasKey());
 	}
 	
 	@Test
@@ -104,17 +107,17 @@ public class TestKeepGameLogic {
 		Hero hero = new Hero(1,2);
 		MoveObj[] objs = new MoveObj[] { hero };
 		
-		Level2.setBoardMap(boardMap);
 		lvl.setBoard(board);
 		lvl.setObjs(objs);
-		
-		hero.hasKey();
 		board.fillBoard(objs);
+		assertEquals('H', board.getElement(1, 3));
 		
-//		assertTrue(hero.tryExit(Direction.LEFT, lvl));
-//		board.fillBoard(objs);
-//		
-//		assertTrue(hero.moveCharacter(board, Direction.LEFT));
-//		assertTrue(lvl.onExit(hero));
-	}	
+		hero.pickKey();
+		board.pickKey();
+		board.fillBoard(objs);
+		assertEquals('K', board.getElement(1, 3));
+		
+		boolean successfulMove = hero.moveCharacter(board, Direction.LEFT);
+		assertTrue(successfulMove); 
+	}
 }

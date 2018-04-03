@@ -4,7 +4,7 @@ import java.io.Serializable;
 import dkeep.logic.characters.MoveObj;
 import dkeep.util.Direction;
 
-public class Board implements Serializable{
+public class Board implements Serializable {
 	
 
 	private static final long serialVersionUID = 1L;
@@ -46,7 +46,6 @@ public class Board implements Serializable{
 		}
 	}
 
-
 	public char getElement(int posX, int posY) {
 		if(board == null) {
 			return 0;
@@ -55,7 +54,6 @@ public class Board implements Serializable{
 			return board[posY][posX];
 		}
 	}
-	
 	
 	private boolean substChar(char toSearch, char newChar) {
 		
@@ -69,13 +67,9 @@ public class Board implements Serializable{
 		return false;
 	}
 	
-	
 	private void setElement(int posX, int posY, char element) {
 		board[posY][posX] = element;
 	}
-	
-	
-	
 	
 	public void loadLevel() {
 		char[][] level = boardBuffer;
@@ -92,7 +86,6 @@ public class Board implements Serializable{
 		return cloneBoard;
 	}
 	
-	
 	public void fillBoard(MoveObj[] objs) {
 		loadLevel();
 		for(MoveObj obj : objs) {
@@ -103,15 +96,17 @@ public class Board implements Serializable{
 	public void openDoors() {
 		substChar(openableDoorSymbol, openDoorSymbol);
 	}
+	
 	public void pickKey() {
 		substChar(keySymbol, ' ');
+		openDoors();
 	}
 	
 	public boolean onOpenDoor(MoveObj moveObj) {
 		return(getElement(moveObj.getPosX(), moveObj.getPosY()) == openDoorSymbol);
 	}
 
-	public boolean onOpenablenDoor(MoveObj moveObj, Direction direction) {
+	public boolean onOpenableDoor(MoveObj moveObj, Direction direction) {
 		
 		int x = moveObj.getPosX();
 		int y = moveObj.getPosY();
@@ -132,7 +127,6 @@ public class Board implements Serializable{
 		return onKeyPos;
 	}
 
-	
 	public boolean canMoveTo(int posX, int posY) {
 		if(posX < 0 || posX >= getNumCol() || posY < 0 || posY >= getNumRow()) return false;
 		

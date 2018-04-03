@@ -8,7 +8,7 @@ import dkeep.logic.level.Level;
 import dkeep.logic.level.Level1;
 import dkeep.logic.level.Level2;
 
-public class DungeonKeep implements Serializable{
+public class DungeonKeep implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
@@ -116,8 +116,11 @@ public class DungeonKeep implements Serializable{
 		return endGame;
 	}
 	
-	
 	public void setBoardRenderer(BoardRenderer boardRenderer) {
 		this.boardRenderer = boardRenderer;
+	}
+	
+	public Level getLevel() {
+		return levels[iLevel];
 	}
 }
