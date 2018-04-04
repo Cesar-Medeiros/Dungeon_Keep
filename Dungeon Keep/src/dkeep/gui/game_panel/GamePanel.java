@@ -14,10 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import dkeep.util.Direction;
 
 public class GamePanel extends JPanel{
+	
 	
 	private static final long serialVersionUID = 1L;
 	private JLabel lblGameStatus;
@@ -31,6 +31,7 @@ public class GamePanel extends JPanel{
 	private JButton exitButton;
 	private GameController controller;
 	
+
 	/**
 	 * @brief Game's panel constructor
 	 * @param controller Game's panel controller
@@ -66,7 +67,13 @@ public class GamePanel extends JPanel{
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 		
-		gamePanel = new JPanel();
+		gamePanel = new JPanel() {
+			 public void paintComponent(Graphics g)
+			    {
+			      super.paintComponent(g);
+			      controller.render(g);
+			    }
+		};
 		gbc.insets = new Insets(0, 0, 5, 5);
 		gbc.gridx = 0;
 		gbc.gridy = 1;
@@ -85,9 +92,11 @@ public class GamePanel extends JPanel{
 		gbl_controlPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		controlPanel.setLayout(gbl_controlPanel);
 		
+
 		gbc.gridwidth = 2;
 		gbc.insets = new Insets(0, 0, 5, 5);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
+		
 		
 		createButtons(controlPanel, gbc);
 		
@@ -139,6 +148,7 @@ public class GamePanel extends JPanel{
 		controlPanel.add(exitButton, gbc);
 	}
 	
+
 	/**
 	 * @brief Controls' panel buttons listeners registration
 	 *
@@ -202,7 +212,7 @@ public class GamePanel extends JPanel{
 		
 		this.addComponentListener(new ComponentAdapter() {
 		    public void componentResized(ComponentEvent e) {
-		    	controller.loadGameGraphics();
+		    	gamePanel.repaint();
 		    }
 		});
 	}
@@ -238,18 +248,10 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Returns game's panel graphics context
-	 * @return Game's panel graphics context
-	 */
-	public Graphics getGameGraphics() {
-		return gamePanel.getGraphics();
-	}
-	
-	/**
 	 * @brief Returns game's panel size
 	 * @return Game's panel size
 	 */
-	public Dimension getGameSize() {
+	public Dimension getBoardSize(){
 		return gamePanel.getSize();
 	}
 	

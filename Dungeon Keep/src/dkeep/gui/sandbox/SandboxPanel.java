@@ -18,8 +18,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import dkeep.gui.load_save.LoadSaveGame;
 import dkeep.logic.board.Board;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Ogre;
@@ -38,18 +36,22 @@ public class SandboxPanel extends JDialog {
 	private JButton openDoorBtn;
 	private JButton keyBtn;
 	private JButton saveBtn;
+	private JButton deleteBtn;
 	private JSlider dimensionSlider;
 	
+	
     private Image wall;
-    private Image floor;
+	private Image floor;
     private Image hero;
     private Image ogre;
     private Image key;
     private Image closedDoor;
     private Image openDoor;
 
+	
 	private SandboxController controller;
-	public static final Dimension PREFERREDSIZE = new Dimension(650,500);
+	public static final Dimension PREFERREDSIZE = new Dimension(800,500);
+	
 	
 	/**
 	 * @brief Sandbox's panel constructor
@@ -60,7 +62,10 @@ public class SandboxPanel extends JDialog {
 		setModal(true);
         setPreferredSize(PREFERREDSIZE);
 
+        //Center the frame
         setLocationRelativeTo(null);
+        
+        //Display the window.
         pack();
         
         this.controller = controller;
@@ -68,10 +73,14 @@ public class SandboxPanel extends JDialog {
         loadImages();
 		configureLayout();
 		configure();
+        this.controller.changeBoardSize(dimensionSlider.getValue());
+        this.controller.createBoard();
 		registerListeners();
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setVisible(true);
+
 	}
+	
 	
 	/**
 	 * @brief Loads all the required images for the sandbox
@@ -91,7 +100,7 @@ public class SandboxPanel extends JDialog {
         }
     }
 	
-    /**
+    	/**
 	 * @brief Sandbox's panel layout configuration
 	 */
 	private void configureLayout() {
@@ -125,7 +134,13 @@ public class SandboxPanel extends JDialog {
 		gbl_elementsPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		elementsPanel.setLayout(gbl_elementsPanel);
 		
-		canvasPanel = new JPanel();
+		canvasPanel = new JPanel() {
+			 public void paintComponent(Graphics g) {
+				 super.paintComponent(g);
+			     controller.render(g);
+			    }
+		};
+	
 		GridBagConstraints gbc_canvasPanel = new GridBagConstraints();
 		gbc_canvasPanel.insets = new Insets(0, 0, 5, 5);
 		gbc_canvasPanel.fill = GridBagConstraints.BOTH;
@@ -139,6 +154,7 @@ public class SandboxPanel extends JDialog {
 		closedDoorBtn = newIconButton(0, 5, closedDoor, elementsPanel);
 		openDoorBtn = newIconButton(1, 5, openDoor, elementsPanel);
 		keyBtn = newIconButton(1, 3, key, elementsPanel);
+		deleteBtn = newIconButton(1, 6, floor, elementsPanel);
 		
 		dimensionSlider = new JSlider();
 		GridBagConstraints gbc_dimensionSlider = new GridBagConstraints();
@@ -208,9 +224,16 @@ public class SandboxPanel extends JDialog {
 			}
 		});
 		
+		deleteBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.selectElement(Board.floorSymbol);
+			}
+		});
+		
 		saveBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				if(controller.isMapOK())
+					dispose();
 			}
 		});
 		
@@ -234,10 +257,10 @@ public class SandboxPanel extends JDialog {
 	public JButton newIconButton(int x, int y, Image image, JPanel elementsPanel) {
 		JButton button = new JButton();
 		button.setIcon(new ImageIcon(image));
-		button.setMinimumSize(new Dimension(50,50));
-		button.setPreferredSize(new Dimension(50,50));
+		button.setMinimumSize(new Dimension(70,70));
+		button.setPreferredSize(new Dimension(70,70));
 		GridBagConstraints gbc_btn = new GridBagConstraints();
-		gbc_btn.gridwidth = 2;
+		gbc_btn.gridwidth = 1;
 		gbc_btn.insets = new Insets(0, 0, 5, 5);
 		gbc_btn.gridx = x;
 		gbc_btn.gridy = y;
@@ -246,11 +269,10 @@ public class SandboxPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Returns the canvas's panel graphics
-	 * @return Canvas's panel graphics
+	 * @brief Repaint board area
 	 */
-	public Graphics getBoardGrahics(){
-		return canvasPanel.getGraphics();
+	public void repaint() {
+		canvasPanel.repaint();
 	}
 	
 	/**
@@ -260,4 +282,5 @@ public class SandboxPanel extends JDialog {
 	public Dimension getBoardSize(){
 		return canvasPanel.getSize();
 	}
+	
 }

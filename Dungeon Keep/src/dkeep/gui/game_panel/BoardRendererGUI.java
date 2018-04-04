@@ -33,8 +33,7 @@ public class BoardRendererGUI implements BoardRenderer{
 	 * 
 	 * Loads all necessary images for the game.
 	 */
-	public BoardRendererGUI(GameGraphics gameGraphics) {
-		this.gameGraphics = gameGraphics;
+	public BoardRendererGUI() {
 		try {
 			wall = ImageIO.read(new File("res/Board/Wall.png"));
 			floor = ImageIO.read(new File("res/Board/Floor.png"));
@@ -51,6 +50,8 @@ public class BoardRendererGUI implements BoardRenderer{
 			System.err.println("Error: Could not load images");
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	/**

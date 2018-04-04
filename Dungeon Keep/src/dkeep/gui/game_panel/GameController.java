@@ -1,7 +1,8 @@
 package dkeep.gui.game_panel;
 
+import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import dkeep.gui.load_save.LoadSavePanel;
 import dkeep.gui.options.OptionsPanel;
@@ -10,21 +11,22 @@ import dkeep.logic.game.GameConfig;
 import dkeep.util.Direction;
 import dkeep.util.Input;
 
-public class GameController implements KeyListener {
+public class GameController extends KeyAdapter {
 	
 	GamePanel gamePanel;
 	DungeonKeep dk;
 	GameGraphics gameGraphics;
 	BoardRendererGUI boardRenderer;
 	
+	
 	/**
 	 * @brief Game's controller constructor
 	 *
 	 * Creates a GamePanel to be controlled by itself.
 	 */
-	public GameController() {
+	public GameController(){
 		gamePanel = new GamePanel(this);
-		boardRenderer = new BoardRendererGUI(gameGraphics); 
+		boardRenderer = new BoardRendererGUI(); 
 	}
 	
 	/**
@@ -47,10 +49,10 @@ public class GameController implements KeyListener {
 	 */
 	public void initializeGame() {
 		gamePanel.enableButtons();
-		loadGameGraphics();
 		Input.setGraphicInput();
+		gamePanel.repaint();
 	}
-			
+	
 	/**
 	 * @brief Handles a direction input
 	 * @param direction Input direction
@@ -68,12 +70,12 @@ public class GameController implements KeyListener {
 	 */
 	public void update() {
 		dk.update();
-		dk.render();
-		
+		gamePanel.repaint();
 		gamePanel.setGameStatus(dk.getState());
 		if(dk.isEndGame()) gamePanel.disableButtons();
 	}
 		
+	
 	/**
 	 * @brief Creates load/save dialog box
 	 */
@@ -82,19 +84,18 @@ public class GameController implements KeyListener {
 		dk.setBoardRenderer(boardRenderer);
 	}
 	
+	
 	/**
-	 * @brief Updates game graphics
+	 * @brief render game graphics
+	 * @param g Graphics received from paintComponent
 	 */
-	public void loadGameGraphics() {
-		boardRenderer.updateGameGraphics(new GameGraphics(
-				gamePanel.getGameSize(),
-				gamePanel.getGameGraphics()
-				)
-			);
-		
-		if(dk != null)
+	public void render(Graphics g) {
+		if(dk != null) {
+			boardRenderer.updateGameGraphics(new GameGraphics(gamePanel.getBoardSize(), g));
 			dk.render();
+		}
 	}
+	
 	
 	/**
 	 * @brief Handles keyboard's key pressed events
@@ -120,26 +121,6 @@ public class GameController implements KeyListener {
 			directionPressed(Direction.RIGHT);
 			break;
 		}
-	}
-
-	/**
-	 * @brief Handles keyboard's key released events
-	 *
-	 * Not in use on the current version of the game.
-	 */
-	@Override
-	public void keyReleased(KeyEvent e) {	
-
-	}
-	
-	/**
-	 * @brief Handles keyboard's key typed events
-	 *
-	 * Not in use on the current version of the game.
-	 */
-	@Override
-	public void keyTyped(KeyEvent e) {
-
 	}
 	
 	/**
