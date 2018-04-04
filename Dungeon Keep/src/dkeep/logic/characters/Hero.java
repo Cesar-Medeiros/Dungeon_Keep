@@ -69,8 +69,9 @@ public class Hero extends MoveObj{
 	 * Hero's symbol is now 'K'.
 	 */
 	public void pickKey() {
+		if(getSymbol() != armedSymbol)
+			setSymbol(withKeySymbol);
 		hasKey = true;
-		setSymbol(withKeySymbol);
 	}
 
 	/**

@@ -25,20 +25,12 @@ public class GameGraphics
 	public Graphics getGraphics() {
 		return g;
 	}
-
-	/**
-	 * @brief Gets game's panel height
-	 * @return Game's panel height
-	 */
-	public int getHeight() {
-		return (int) gamePanelDimension.getHeight();
-	}
 	
 	/**
-	 * @brief Gets game's panel width
-	 * @return Game's panel width
+	 * @brief Gets game's panel dimension
+	 * @return Game's panel dimension
 	 */
-	public int getWidth() {
-		return (int) gamePanelDimension.getWidth();
+	public Dimension getSize() {
+		return gamePanelDimension;
 	}
 }
