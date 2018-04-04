@@ -7,8 +7,14 @@ import dkeep.logic.game.DungeonKeep;
 import dkeep.logic.game.GameConfig;
 import dkeep.util.Input;
 
-public class CLI{
+public class CLI {
 	
+	/**
+	 *	@brief Creates the game's console interface
+	 *
+	 *	Creates the game's command-line interface
+	 *	and requires user input for its configuration.
+	 */
 	public static void createAndShowCLI(){
 		
 		Scanner scan = new Scanner(System.in);

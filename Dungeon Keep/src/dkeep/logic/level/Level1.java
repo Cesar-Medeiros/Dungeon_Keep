@@ -24,8 +24,8 @@ public class Level1 extends Level{
 	private Guard guard;
 	private MoveObj lever;
 	private int guardIndex;	//TODO: Option GUI sequential guard
-		
-	
+
+
 	private Movement movement =  new Movement(Arrays.asList(
 			LEFT, 	DOWN,	DOWN,	DOWN, 
 			DOWN, 	LEFT, 	LEFT, 	LEFT, 
@@ -33,8 +33,8 @@ public class Level1 extends Level{
 			RIGHT, 	RIGHT, 	RIGHT, 	RIGHT,
 			RIGHT,	RIGHT, 	RIGHT, 	UP,
 			UP, 	UP, 	UP, 	UP
-	));
-	
+			));
+
 	private static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
 		{'X', ' ', ' ', ' ', 'I', ' ', 'X' ,' ', ' ', 'X'},
@@ -47,25 +47,30 @@ public class Level1 extends Level{
 		{'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X'},
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 	};
-	
-	
+
+	/**
+	 * @brief Dungeon level constructor
+	 * @param guardIndex Index of the type of guard
+	 */
 	public Level1(int guardIndex) {
 		setBoard(new Board(boardMap));
 		this.guardIndex = guardIndex;		
 	}
 
-
+	/**
+	 * @brief Creates level moving objects (Hero, Guards and Lever)
+	 */
 	@Override
 	public void setup() {
 
 		hero = new Hero(1,1);
-		
+
 		guards = new Guard[] {
 				new RookieGuard(8,1, movement),
 				new DrunkenGuard(8,1, movement),
 				new SuspiciousGuard(8,1, movement)
-			};
-		
+		};
+
 		guard = guards[guardIndex];
 		lever = new MoveObj(7, 8, 'k');
 
@@ -73,12 +78,15 @@ public class Level1 extends Level{
 				lever,
 				guard,
 				hero
-		};
-		//TODO: Better relation to the super class
-		
+		};		
 	}
-	
 
+	/**
+	 * @brief Updates dungeon level iteration
+	 * 
+	 * On every iteration, verifies if the hero has reached its
+	 * objectives or if somehow it got caught by the guard. 
+	 */
 	@Override
 	public void update() {
 		hero.move(board);
@@ -102,6 +110,9 @@ public class Level1 extends Level{
 		}
 	}
 
+	/**
+	 * @brief Changes to the next guard of the dungeon
+	 */
 	public void pickNextGuard() {
 		guardIndex = (guardIndex + 1) % 3;
 		guard = guards[guardIndex];

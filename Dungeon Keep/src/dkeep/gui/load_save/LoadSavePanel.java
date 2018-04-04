@@ -30,26 +30,30 @@ public class LoadSavePanel extends JDialog {
 	private JTextField txtSaveName;
 	private JComboBox<String> comboBoxLoadName;
 	
+	/**
+	 * @brief Creates and shows load/save dialog box
+	 * @param dk DungeonKeep's game
+	 * @return DungeonKeep game associated with the dialog box
+	 */
 	public static DungeonKeep createAndShowGUI(DungeonKeep dk) {
 		LoadSavePanel dialog = new LoadSavePanel(dk);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);
 		return dialog.dk;
-		
 	}
 
+	/**
+	 * @brief Load/save dialog box constructor
+	 * @param dk DungeonKeep's game
+	 */
 	public LoadSavePanel(DungeonKeep dk) {
 		super(null, "Load and Save", ModalityType.APPLICATION_MODAL);
 		setModal(true);
 	    setPreferredSize(PREFERREDSIZE);
 	    setResizable(false);
 	    
-	    //Center the frame
 	    setLocationRelativeTo(null);
-	
-	    //Display the window.
 	    pack();
-	    
 	    
 	    this.dk = dk;
 		configureLayout();
@@ -58,6 +62,9 @@ public class LoadSavePanel extends JDialog {
 		searchSaveGame();
 	}
 
+	/**
+	 * @brief Load/save dialog box layout configuration
+	 */
 	private void configureLayout() {
 		contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
 		setContentPane(contentPane);
@@ -69,6 +76,9 @@ public class LoadSavePanel extends JDialog {
 		contentPane.setLayout(gbl_contentPane);
 	}
 
+	/**
+	 * @brief Creates and configures dialog box buttons
+	 */
 	private void configure() {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -100,6 +110,12 @@ public class LoadSavePanel extends JDialog {
 		contentPane.add(comboBoxLoadName, gbc);
 	}
 
+	/**
+	 * @brief Dialog box buttons listeners registration
+	 *
+	 * Registers listeners for the interaction with the two buttons
+	 * on the dialog box (Save/Load).
+	 */
 	private void registerListeners() {
 		
 		btnSave.addActionListener(new ActionListener() {
@@ -114,9 +130,13 @@ public class LoadSavePanel extends JDialog {
 				dk = LoadSaveGame.load(dk, (String) comboBoxLoadName.getSelectedItem());
 			}
 		});
-		
 	}
 
+	/**
+	 * @brief Searches for existent saved game files
+	 * 
+	 * Saved game files are shown on the window's comboBox.
+	 */
 	private void searchSaveGame() {
 		File f =  new File("./SaveGame");
 		f.mkdir();
@@ -129,7 +149,6 @@ public class LoadSavePanel extends JDialog {
 		 if(comboBoxLoadName.getModel().getSize() == 0) 
 			 btnLoad.setEnabled(false);
 		 else btnLoad.setEnabled(true);
-		
 	}
-
 }
+

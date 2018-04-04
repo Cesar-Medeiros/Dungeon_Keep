@@ -3,7 +3,10 @@ package dkeep.util;
 public enum Direction {
 	UP, RIGHT, DOWN, LEFT, NONE;
 	
-	
+	/**
+	 * @brief Inverts a direction
+	 * @return Inverted direction
+	 */
 	public Direction revertDirection() {
 		switch(this) {
 		case UP:
@@ -19,6 +22,11 @@ public enum Direction {
 		}
 	}
 	
+	/**
+	 * @brief Gets direction from an input char
+	 * @param charD Input movement char
+	 * @return Returns the char's correspondent direction
+	 */
 	public static Direction charToDirection(char charD) {
 		charD = Character.toUpperCase(charD);
 		
@@ -34,8 +42,5 @@ public enum Direction {
 		default:
 			return Direction.NONE;
 		}
-	}
-	
+	}	
 };
-
-

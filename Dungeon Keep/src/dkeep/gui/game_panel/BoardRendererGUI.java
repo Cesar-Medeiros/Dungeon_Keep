@@ -27,8 +27,14 @@ public class BoardRendererGUI implements BoardRenderer{
 	
 	GameGraphics gameGraphics;
 	
+	/**
+	 * @brief GUI board renderer constructor
+	 * @param gamegraphics Game's graphics
+	 * 
+	 * Loads all necessary images for the game.
+	 */
 	public BoardRendererGUI(GameGraphics gameGraphics) {
-		this.gameGraphics=gameGraphics;
+		this.gameGraphics = gameGraphics;
 		try {
 			wall = ImageIO.read(new File("res/Board/Wall.png"));
 			floor = ImageIO.read(new File("res/Board/Floor.png"));
@@ -45,18 +51,21 @@ public class BoardRendererGUI implements BoardRenderer{
 			System.err.println("Error: Could not load images");
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
-	
+	/**
+	 * @brief Renders game graphics on the GUI
+	 * @param board Game board
+	 * 
+	 * Scales game images depending on the game's board dimension,
+	 * but maintaining its original ratio.
+	 */
 	@Override
 	public void render(Board board) {
 		int minDimension = Math.min(gameGraphics.getHeight(), gameGraphics.getWidth());
 		int height = minDimension;
 		int width = minDimension;
 		
-		//TODO: Se a board nao for quadrada a imagem fica deformada
 		int nCol = board.getNumCol();
 		int nRow = board.getNumRow();
 		
@@ -125,6 +134,13 @@ public class BoardRendererGUI implements BoardRenderer{
 		}
 	}
 	
+	/**
+	 * @brief Sets game's graphics
+	 * @param gameGraphics Game's graphics
+	 * 
+	 * Graphics are composed by the game's panel dimension 
+	 * and graphical components.
+	 */
 	public void updateGameGraphics(GameGraphics gameGraphics) {
 		this.gameGraphics = gameGraphics;
 	}

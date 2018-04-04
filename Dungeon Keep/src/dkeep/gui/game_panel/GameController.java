@@ -17,29 +17,55 @@ public class GameController implements KeyListener {
 	GameGraphics gameGraphics;
 	BoardRendererGUI boardRenderer;
 	
-	public GameController(){
+	/**
+	 * @brief Game's controller constructor
+	 *
+	 * Creates a GamePanel to be controlled by itself.
+	 */
+	public GameController() {
 		gamePanel = new GamePanel(this);
 		boardRenderer = new BoardRendererGUI(gameGraphics); 
 	}
 	
+	/**
+	 * @brief Creates a new game
+	 *
+	 * Creates a game based on the configuration chosen
+	 * on the dialog box OptionsPanel.
+	 */
 	public void newGame() {
 		GameConfig gameConfig = OptionsPanel.getGameConfig();
 		dk = new DungeonKeep(gameConfig, boardRenderer);
 		update();
 	}
 	
+	/**
+	 * @brief Initializes a new game
+	 *
+	 * Initializes a game, enabling buttons, loading game
+	 * graphics and setting the graphical input interface.
+	 */
 	public void initializeGame() {
 		gamePanel.enableButtons();
 		loadGameGraphics();
 		Input.setGraphicInput();
 	}
 			
+	/**
+	 * @brief Handles a direction input
+	 * @param direction Input direction
+	 *
+	 * Appends a direction input via the interface in use,
+	 * to a list of movements performed by the user.
+	 */
 	public void directionPressed(Direction direction) {
 		Input.addDirection(direction);
 		update();
 	}
 	
-	
+	/**
+	 * @brief Updates game's current state
+	 */
 	public void update() {
 		dk.update();
 		dk.render();
@@ -48,14 +74,17 @@ public class GameController implements KeyListener {
 		if(dk.isEndGame()) gamePanel.disableButtons();
 	}
 		
-	
-
+	/**
+	 * @brief Creates load/save dialog box
+	 */
 	public void loadSave() {
 		dk = LoadSavePanel.createAndShowGUI(dk);
 		dk.setBoardRenderer(boardRenderer);
 	}
 	
-	
+	/**
+	 * @brief Updates game graphics
+	 */
 	public void loadGameGraphics() {
 		boardRenderer.updateGameGraphics(new GameGraphics(
 				gamePanel.getGameSize(),
@@ -65,9 +94,16 @@ public class GameController implements KeyListener {
 		
 		if(dk != null)
 			dk.render();
-	}	
+	}
 	
-	
+	/**
+	 * @brief Handles keyboard's key pressed events
+	 * @param e KeyEvent received from the keyboard
+	 *
+	 * Receives events in result of a key being pressed
+	 * on the keyboard, handling those representing
+	 * meaningful movement keys for the game (W,A,S,D).
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
@@ -86,16 +122,30 @@ public class GameController implements KeyListener {
 		}
 	}
 
+	/**
+	 * @brief Handles keyboard's key released events
+	 *
+	 * Not in use on the current version of the game.
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {	
-		// not in use
+
 	}
 	
+	/**
+	 * @brief Handles keyboard's key typed events
+	 *
+	 * Not in use on the current version of the game.
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// not in use
+
 	}
 	
+	/**
+	 * @brief Returns the game's panel
+	 * @return Game's panel
+	 */
 	public GamePanel getGamePanel() {
 		return gamePanel;
 	}

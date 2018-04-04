@@ -10,7 +10,6 @@ import dkeep.logic.level.Level2;
 
 public class DungeonKeep implements Serializable {
 
-
 	private static final long serialVersionUID = 1L;
 
 	public static enum State {
@@ -23,7 +22,11 @@ public class DungeonKeep implements Serializable {
 	private boolean endGame;
 	private transient BoardRenderer boardRenderer;
 	
-
+	/**
+	 * @brief DungeonKeep constructor
+	 * @param gameConfig Game's configuration
+	 * @param boardRenderer Board renderer interface
+	 */
 	public DungeonKeep(GameConfig gameConfig, BoardRenderer boardRenderer) {
 		endGame = false;
 		state = State.START;
@@ -34,12 +37,22 @@ public class DungeonKeep implements Serializable {
 		};
 	}
 
+	/*
+	 * @brief Sets up and starts current game level
+	 */
 	public void start() {
 		Level level = levels[iLevel];
 		level.setup();
 		state = State.GAME;
 	}
 	
+	/**
+	 * @brief Updates levels' iterations
+	 * 
+	 * Checks on each iteration if level was completed,
+	 * case in which level is updated, and also if the
+	 * game is over.
+	 */
 	public void game() {
 		Level level = levels[iLevel];
 		level.update();
@@ -58,6 +71,9 @@ public class DungeonKeep implements Serializable {
 		}
 	}
 	
+	/*
+	 * @brief Updates game's state
+	 */
 	public void update() {
 
 		if (endGame) {
@@ -89,11 +105,18 @@ public class DungeonKeep implements Serializable {
 		}
 	}
 	
+	/**
+	 * @brief Renders level graphics
+	 */
 	public void render() {
-		if(state == State.WON) return;
+		if (state == State.WON) return;
 		levels[iLevel].render(boardRenderer);
 	}
 
+	/**
+	 * @brief Returns current game state
+	 * @return Game state as a string
+	 */
 	public String getState() {
 		switch(state) {
 		case START:
@@ -112,14 +135,26 @@ public class DungeonKeep implements Serializable {
 		}	
 	}
 
+	/**
+	 * @brief Checks for end of game 
+	 * @return Returns true if game is over, false otherwise
+	 */
 	public boolean isEndGame() {
 		return endGame;
 	}
 	
+	/**
+	 * @brief Sets board's renderer interface
+	 * @param boardRenderer Board's renderer interface
+	 */
 	public void setBoardRenderer(BoardRenderer boardRenderer) {
 		this.boardRenderer = boardRenderer;
 	}
 	
+	/**
+	 * @brief Returns current game level
+	 * @return Current game level
+	 */
 	public Level getLevel() {
 		return levels[iLevel];
 	}

@@ -21,9 +21,7 @@ import dkeep.logic.game.GameConfig;
 import dkeep.logic.level.Level1;
 import dkeep.util.Direction;
 
-
 public class TestDungeonGameLogic {
-
 
 	char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X'},

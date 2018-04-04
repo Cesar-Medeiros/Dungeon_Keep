@@ -14,11 +14,18 @@ public abstract class Level implements Serializable{
 	protected Board board;
 	protected MoveObj[] levelObjs;
 	
-	
+	/**
+	 * @brief Sets game board
+	 * @param board Game board
+	 */
 	public void setBoard(Board board) {
 		this.board = board;
 	}
 	
+	/**
+	 * @brief Sets level moving objects
+	 * @param objs Level moving objects
+	 */
 	public void setObjs(MoveObj[] objs) {
 		this.levelObjs = objs;
 	}
@@ -26,10 +33,26 @@ public abstract class Level implements Serializable{
 	public abstract void setup();
 	public abstract void update();
 	
-	public boolean gameOver() {return gameOver;}
-	public boolean completed() {return completed;}
-
+	/**
+	 * @brief Indicates if game is over
+	 * @return Returns true if game is over, false otherwise
+	 */
+	public boolean gameOver() {
+		return gameOver;
+	}
 	
+	/**
+	 * @brief Indicates if level is completed
+	 * @return Returns true if level is completed, false otherwise
+	 */
+	public boolean completed() {
+		return completed;
+	}
+
+	/**
+	 * @brief Renders game board through an interface
+	 * @param boardRenderer Selected interface
+	 */
 	public void render(BoardRenderer boardRenderer){
 		board.fillBoard(levelObjs);
 		boardRenderer.render(board);

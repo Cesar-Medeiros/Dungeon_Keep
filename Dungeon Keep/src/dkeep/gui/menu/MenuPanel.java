@@ -17,6 +17,10 @@ public class MenuPanel extends JPanel{
 	private JButton btnExit;
 	private MenuController controller;
 	
+	/**
+	 * @brief Menu's panel constructor
+	 * @param controller Menu's panel controller
+	 */
 	public MenuPanel(MenuController controller) {
 		configureLayout();
 		configure();
@@ -24,7 +28,9 @@ public class MenuPanel extends JPanel{
 		this.controller = controller;
 	}
 	
-	
+	/**
+	 * @brief Menu's panel layout configuration
+	 */
 	private void configureLayout() {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -35,7 +41,12 @@ public class MenuPanel extends JPanel{
 		setLayout(gbl_contentPane);
 	}
 	
-	
+	/**
+	 * @brief Menu's inner components configuration
+	 *
+	 * Creates and configures menu's panel inner control
+	 * buttons (Play & Exit).
+	 */
 	private void configure(){
 		
 		btnPlay = new JButton("Play");
@@ -56,7 +67,12 @@ public class MenuPanel extends JPanel{
 		add(btnExit, gbc_btnExit);
 	}
 	
-	
+	/**
+	 * @brief Menu's buttons listeners registration
+	 *
+	 * Registers listeners for the interaction with
+	 * the several buttons on the menu panel.
+	 */
 	private void registerListeners(){
 		
 		btnPlay.addActionListener(new ActionListener() {
@@ -65,14 +81,10 @@ public class MenuPanel extends JPanel{
 			}
 		});
 		
-
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controller.pressExit();
 			}
 		});
-			
 	}
-	
-	
 }

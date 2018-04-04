@@ -37,15 +37,18 @@ public class OptionsPanel extends JDialog {
 	public static final Dimension PREFERREDSIZE = new Dimension(300,185);
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * @brief Option's panel constructor
+	 *
+	 * Creates the panel to configure the game.
+	 */
 	public OptionsPanel() {
 		super(null, "Options", ModalityType.APPLICATION_MODAL);
 		setModal(true);
         setPreferredSize(PREFERREDSIZE);
 
-        //Center the frame
         setLocationRelativeTo(null);
         
-        //Display the window.
         pack();
         setResizable(false);
         
@@ -57,11 +60,20 @@ public class OptionsPanel extends JDialog {
         setVisible(true);
 	}
 	
+	/**
+	 * @brief Returns the game's configuration chosen on the dialog box
+	 * @return Game's configuration
+	 */
 	public static GameConfig getGameConfig() {
 		OptionsPanel dialog = new OptionsPanel();
 		return new GameConfig(dialog.getGuard(), dialog.getNumOgres(), dialog.customLevel);
     }
 	
+	/**
+	 * @brief Options' dialog box layout configuration
+	 *
+	 * Creates and configures the option's dialog box layout.
+	 */
 	public void configureLayout() {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -74,7 +86,12 @@ public class OptionsPanel extends JDialog {
 		contentPane.setLayout(gbl_contentPane);
 	}
 	
-	
+	/**
+	 * @brief Options' dialog box configuration
+	 *
+	 * Configures the option's dialog box for the user
+	 * to input the game configuration.
+	 */
 	public void configure() {		
 		
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -100,9 +117,9 @@ public class OptionsPanel extends JDialog {
 		gbc.gridy = 1;
 		contentPane.add(lblGuardPersonality, gbc);
 		
-		
+
 		guardPersCombo = new JComboBox<String>();
-		guardPersCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"Rockie", "Drunken", "Suspicious"}));
+		guardPersCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		gbc.insets = new Insets(0, 0, 5, 0);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
@@ -130,7 +147,12 @@ public class OptionsPanel extends JDialog {
 
 	}
 	
-	
+	/**
+	 * @brief Options' dialog box buttons listeners registration
+	 *
+	 * Registers listener for the buttons on the options panel
+	 * (start & createMap).
+	 */
 	private void registerListeners() {
 		
 		btnNewButton.addActionListener(new ActionListener() {
@@ -147,6 +169,13 @@ public class OptionsPanel extends JDialog {
 		});
 	}
 
+	/**
+	 * @brief Processes and tests options validity
+	 * @return Returns true if configuration is valid, false otherwise
+	 *
+	 * Requires the user to input the number of ogres for the game which,
+	 * by default, must fall in between 1-5.
+	 */
 	private boolean processOptions() {
 		try {
 			nOgres = getNumOgres();
@@ -162,16 +191,30 @@ public class OptionsPanel extends JDialog {
 		return true;
 	}
 
+	/**
+	 * @brief Returns the number of ogres selected
+	 * @return Number of ogres on the correspondent text field
+	 * @throws NumberFormatException Throws NumberFormatException
+	 * if it was not possible to parse the string into a valid integer.
+	 */
 	public int getNumOgres() throws NumberFormatException{
 		String numOgresStr = numOgresText.getText();
 		int numOgres = Integer.parseInt(numOgresStr);
 		return numOgres;
 	}
 	
+	/**
+	 * @brief Returns the type of guard selected
+	 * @return Type of guard retrieved from the guard's ComboBox
+	 */
 	public int getGuard(){
 		return guardPersCombo.getSelectedIndex();
 	}
 	
+	/**
+	 * @brief Sets the game's current state
+	 * @param text Game state
+	 */
 	public void setGameStatus(String text) {
 		lblGameStatus.setText(text);
 	}

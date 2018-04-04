@@ -17,25 +17,45 @@ public class Movement implements Serializable{
 	
 	private List<Boolean> passedBy;
 	
-	
+	/**
+	 * @brief Movement constructor
+	 * @param list List of movement directions
+	 * 
+	 * Also creates another list to keep track of the past movements.
+	 */
 	public Movement(List<Direction> list){
 		movement = new ArrayList<Direction>(list);
 		passedBy = new ArrayList<Boolean>(Collections.nCopies(list.size(), false));
 		moveIndex = 0;
 	}
 	
+	/**
+	 * @brief Movement constructor
+	 */
 	public Movement(){
 		movement = null;
 	}
 	
+	/**
+	 * @brief Pops movement's direction out of the list
+	 * @return Direction removed from the list
+	 */
 	public Direction pop() {
 		return movement.remove(movement.size() - 1);
 	}
 	
+	/**
+	 * @brief Adds movement's direction to the list
+	 * @param direction Direction to be inserted to the list
+	 */
 	public void push(Direction direction) {
 		movement.add(direction);
 	}
 	
+	/**
+	 * @brief Gets next movement's direction
+	 * @return Next direction present on the list
+	 */
 	public Direction getNext() {
 		Direction direction = Direction.NONE;
 		if(movement == null) {
@@ -57,6 +77,10 @@ public class Movement implements Serializable{
 		return direction;
 	}
 	
+	/**
+	 * @brief Gets next movement's inverted direction
+	 * @return Next direction present on the list, but inverted
+	 */
 	public Direction getNextR() {
 		Direction direction = Direction.NONE;
 		if(movement == null) return direction;
@@ -64,8 +88,6 @@ public class Movement implements Serializable{
 		if(moveIndex == movement.size()) {
 			moveIndex = 0;
 		}
-		
-
 		
 		passedBy.set(moveIndex, true);
 		moveIndex--;
@@ -75,11 +97,13 @@ public class Movement implements Serializable{
 		}
 		
 		direction = movement.get(moveIndex);
-		
-		
 		return direction.revertDirection();
 	}
 
+	/**
+	 * @brief Checks if guard is done with all its movements
+	 * @return Returns true if guard has finished turn, false otherwise
+	 */
 	public boolean passedByAll() {
 
 		for(Boolean b : passedBy) {
@@ -91,5 +115,6 @@ public class Movement implements Serializable{
 		
 		return (true && (moveIndex %  movement.size() == 0));
 	}	
-	
 }
+
+

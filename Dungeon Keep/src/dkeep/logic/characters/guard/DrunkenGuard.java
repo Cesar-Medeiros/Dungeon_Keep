@@ -12,14 +12,28 @@ public class DrunkenGuard extends Guard {
 	private Random rand;	
 	private boolean reversed;
 	
-	public DrunkenGuard(int posX, int posY, Movement movement)
-	{
+	/**
+	 * @brief DrunkenGuard constructor
+	 * @param posX Initial DrunkenGuard's x-position
+	 * @param posY Initial DrunkenGuard's y-position
+	 * @param movement DrunkenGuard's list of movements
+	 * 
+	 * Initially the DrunkenGuard's movement is not reversed.
+	 */
+	public DrunkenGuard(int posX, int posY, Movement movement) {
 		super(posX, posY, movement);
 		rand = new Random();
 		reversed = false;
 	}
 	
-	
+	/**
+	 * @brief Gets DrunkenGuard's next movement
+	 * @return DrunkenGuard's next movement
+	 * 
+	 * DrunkenGuard's movement alternates between sequential and
+	 * reversed. It randomly falls asleep and when wakes up there's
+	 * a chance that it'll revert his path.
+	 */	
 	@Override
 	protected Direction nextMove() {
 		Direction direction = NONE;
@@ -27,15 +41,13 @@ public class DrunkenGuard extends Guard {
 		int chance = rand.nextInt(100);
 
 		if (active) {
-			
-			/* sleep chance */
+	
 			if (chance < 20) {
 				putToSleep();
 			}
 			
 		} else {
 			
-			/* wake up chance */
 			if (chance < 80) {
 				wakeUp();
 				if (revertPath()) {
@@ -57,21 +69,30 @@ public class DrunkenGuard extends Guard {
 		return direction;
 	}
 
-	
-	public void putToSleep()
-	{
+	/**
+	 * @brief Puts DrunkenGuard to sleep
+	 * 
+	 * Sets its symbol to 'g', meaning it's not active.
+	 */
+	public void putToSleep() {
 		active = false;
 		currentSymbol = 'g';
 	}
 
-	
-	public void wakeUp() 
-	{
+	/**
+	 * @brief Wakes up DrunkenGuard
+	 * 
+	 * Sets its symbol to 'G', meaning it's active.
+	 */
+	public void wakeUp() {
 		active = true;
 		currentSymbol = 'G';
 	}
 	
-
+	/**
+	 * @brief Gives probability for the DrunkenGuard's path reversibility
+	 * @return Returns true if path gets reverted, false otherwise
+	 */
 	protected boolean revertPath() {
 		return (rand.nextInt(100) > 50);
 	}

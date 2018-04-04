@@ -7,16 +7,24 @@ public class Input {
 	
 	private static IOInterface ioInterface;
 	
-	
+	/**
+	 * @brief Sets the GUI as the IOinterface
+	 */
 	public static void setGraphicInput() {
 		ioInterface = new Graphic();
 	}
 
-	
+	/**
+	 * @brief Sets the CLI as the IOinterface
+	 */
 	public static void setCliInput() {
 		ioInterface = new CLI();
 	}
 	
+	/**
+	 * @brief Returns a direction from the available IOinterface
+	 * @return Returns the direction if there's an interface, NONE otherwise
+	 */
 	public static Direction getDirection() {
 		Direction direction = Direction.NONE;
 		
@@ -26,11 +34,13 @@ public class Input {
 		return direction;
 	}
 	
+	/**
+	 * @brief Adds a direction from the available IOinterface
+	 * @param direction Direction retrieved
+	 */
 	public static void addDirection(Direction direction) {
 		if(ioInterface != null) {
 			ioInterface.addDirection(direction);
 		}
 	}
-	
-	
 }

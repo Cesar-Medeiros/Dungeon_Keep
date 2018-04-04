@@ -13,16 +13,10 @@ public class Level2 extends Level{
 	
 	private static final long serialVersionUID = 1L;
 
-	//Hero
 	protected Hero hero;
-	
-	//Ogre
 	protected Vector<Ogre> ogres;
 	protected int numOgres;
-	
-	//Club
 	protected MoveObj club;	
-	
 	
 	protected static char[][] boardMap = new char[][] {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -36,23 +30,31 @@ public class Level2 extends Level{
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 	};
 	
+	/**
+	 * @brief Keep level constructor
+	 * @param numberOgres Level's number of ogres
+	 */
 	public Level2(int numOgres) {
 		setBoard(new Board(boardMap));
 		this.numOgres = numOgres;
 	}
 
+	/**
+	 * @brief Keep level constructor
+	 */
 	public Level2() {
+		
 	}
 	
+	/**
+	 * @brief Creates level moving objects (Hero, Ogres & Club)
+	 */
 	@Override
 	public void setup() {
-		//Hero
 		hero = new Hero(1,7);
 		
-		//Club
 		club = new MoveObj(1,6, '*');
 		
-		//Ogre
 		ogres = new Vector<Ogre>();
 		for(int i = 0; i < numOgres; i++) {
 			Ogre ogre = new Ogre(4,1);
@@ -62,6 +64,9 @@ public class Level2 extends Level{
 		pushElements();
 	}
 	
+	/**
+	 * @brief Stores objects of the Keep level
+	 */
 	public void pushElements() {
 		int memory = 1 + 1 + 2*ogres.size();
 		levelObjs = new MoveObj[memory];
@@ -82,6 +87,12 @@ public class Level2 extends Level{
 		}
 	}
 	
+	/**
+	 * @brief Updates keep level iteration
+	 * 
+	 * On every iteration, verifies if the hero has reached its
+	 * objectives or if somehow it got hit by an ogre's club. 
+	 */
 	@Override
 	public void update() {
 		
@@ -136,9 +147,13 @@ public class Level2 extends Level{
 		}
 	}
 	
-	
+	/**
+	 * @brief Checks if moving object is hit by a club
+	 * @param moveObj Moving object to be compared
+	 * @return Returns true if object is over the club, false otherwise
+	 */
 	public boolean onClub(MoveObj moveObj) {
 		return moveObj.getPosX() == club.getPosX() && moveObj.getPosY() == club.getPosY();
 	}
-	
 }
+

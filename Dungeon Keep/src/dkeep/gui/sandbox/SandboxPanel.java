@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import dkeep.gui.load_save.LoadSaveGame;
 import dkeep.logic.board.Board;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Ogre;
@@ -39,7 +40,6 @@ public class SandboxPanel extends JDialog {
 	private JButton saveBtn;
 	private JSlider dimensionSlider;
 	
-	
     private Image wall;
     private Image floor;
     private Image hero;
@@ -48,20 +48,19 @@ public class SandboxPanel extends JDialog {
     private Image closedDoor;
     private Image openDoor;
 
-	
 	private SandboxController controller;
 	public static final Dimension PREFERREDSIZE = new Dimension(650,500);
 	
-	
+	/**
+	 * @brief Sandbox's panel constructor
+	 * @param controller Sandbox's panel controller
+	 */
 	public SandboxPanel(SandboxController controller) {
 		super(null, "Custom level creator", ModalityType.APPLICATION_MODAL);
 		setModal(true);
         setPreferredSize(PREFERREDSIZE);
 
-        //Center the frame
         setLocationRelativeTo(null);
-        
-        //Display the window.
         pack();
         
         this.controller = controller;
@@ -74,7 +73,9 @@ public class SandboxPanel extends JDialog {
         setVisible(true);
 	}
 	
-	
+	/**
+	 * @brief Loads all the required images for the sandbox
+	 */
     public void loadImages() {
         try {
             wall = ImageIO.read(new File("res/Board/Wall.png"));
@@ -90,7 +91,9 @@ public class SandboxPanel extends JDialog {
         }
     }
 	
-
+    /**
+	 * @brief Sandbox's panel layout configuration
+	 */
 	private void configureLayout() {
 		((JPanel)getContentPane()).setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -101,7 +104,11 @@ public class SandboxPanel extends JDialog {
 		setLayout(gbl_contentPane);
 	}
 	
-	
+	/**
+	 * @brief Sandbox's panel inner components configuration
+	 *
+	 * Creates and configures the sandbox's panel and its buttons.
+	 */
 	private void configure(){
 		
 		JPanel elementsPanel = new JPanel();
@@ -151,6 +158,12 @@ public class SandboxPanel extends JDialog {
 		add(saveBtn, gbc_saveBtn);
 	}
 	
+	/**
+	 * @brief Sandbox's panel buttons listeners registration
+	 *
+	 * Registers listeners for the interaction with the several buttons on the
+	 * sandbox's panel (Buttons of the game elements, Save & DimensionSlider).
+	 */
 	private void registerListeners(){
 		
 		canvasPanel.addMouseListener(controller);
@@ -210,6 +223,14 @@ public class SandboxPanel extends JDialog {
 		});
 	}
 	
+	/**
+	 * @brief Creates a new button with an icon
+	 * @param x Button's x grid-position
+	 * @param y Button's y grid-position
+	 * @param image Button's icon
+	 * @param elementsPanel Panel containing the buttons
+	 * @return Button created
+	 */
 	public JButton newIconButton(int x, int y, Image image, JPanel elementsPanel) {
 		JButton button = new JButton();
 		button.setIcon(new ImageIcon(image));
@@ -224,12 +245,19 @@ public class SandboxPanel extends JDialog {
 		return button;
 	}
 	
+	/**
+	 * @brief Returns the canvas's panel graphics
+	 * @return Canvas's panel graphics
+	 */
 	public Graphics getBoardGrahics(){
 		return canvasPanel.getGraphics();
 	}
 	
+	/**
+	 * @brief Returns the canvas's size
+	 * @return Canvas size
+	 */
 	public Dimension getBoardSize(){
 		return canvasPanel.getSize();
 	}
-	
 }
