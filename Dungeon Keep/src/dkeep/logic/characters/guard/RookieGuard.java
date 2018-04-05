@@ -8,7 +8,7 @@ public class RookieGuard extends Guard {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @brief RookieGuard constructor
+	 * RookieGuard constructor
 	 * @param posX Initial RookieGuard's x-position
 	 * @param posY Initial RookieGuard's y-position
 	 * @param movement RookieGuard's set of movements
@@ -18,10 +18,8 @@ public class RookieGuard extends Guard {
 	}
 	
 	/**
-	 * @brief Gets RookieGuard's next movement
+	 * Gets RookieGuard's next movement, which is sequential
 	 * @return RookieGuard's next movement
-	 * 
-	 * RookieGuard's movement is sequential.
 	 */
 	@Override
 	protected Direction nextMove() {

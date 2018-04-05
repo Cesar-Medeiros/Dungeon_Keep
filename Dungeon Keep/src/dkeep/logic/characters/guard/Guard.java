@@ -17,7 +17,7 @@ public abstract class Guard extends MoveObj {
 	protected abstract Direction nextMove();
 	
 	/**
-	 * @brief Guard constructor
+	 * Guard constructor
 	 * @param posX Initial guard's x-position
 	 * @param posY Initial guard's y-position
 	 * @param movement Guard's list of movements
@@ -29,7 +29,7 @@ public abstract class Guard extends MoveObj {
 	}
 	
 	/**
-	 * @brief Indicates guard's turn state
+	 * Indicates guard's turn state
 	 * @return Returns true if guard's turn has finished, false otherwise
 	 */
 	public boolean hasFinishedTurn() {
@@ -37,7 +37,7 @@ public abstract class Guard extends MoveObj {
 	}
 	
 	/**
-	 * @brief Returns guard's patrol state
+	 * Returns guard's patrol state
 	 * @return Returns true if guard is active, false otherwise
 	 */
 	public boolean isActive() {
@@ -45,7 +45,7 @@ public abstract class Guard extends MoveObj {
 	}
 
 	/*
-	 * @brief Moves guard on the board
+	 * Moves guard on the board
 	 * @param board Game board
 	 */
 	public void move(Board board) {		

@@ -10,7 +10,7 @@ public class GameConfig implements Serializable {
 	private char[][] customLevel;
 	
 	/**
-	 * @brief GameConfig constructor
+	 * GameConfig constructor
 	 * @param typeGuard Index of the type of guard in-game
 	 * @param numOgres Number of ogres in-game
 	 */
@@ -20,7 +20,7 @@ public class GameConfig implements Serializable {
 	}
 
 	/**
-	 * @brief GameConfig constructor
+	 * GameConfig constructor
 	 * @param typeGuard Index of the type of guard in-game
 	 * @param numOgres Number of ogres in-game
 	 * @param customLevel Custom board created
@@ -32,7 +32,7 @@ public class GameConfig implements Serializable {
 	}
 	
 	/**
-	 * @brief Gets custom level board
+	 * Gets custom level board
 	 * @return Custom level board
 	 */
 	public char[][] getCustomLevel() {
@@ -40,7 +40,7 @@ public class GameConfig implements Serializable {
 	}
 
 	/**
-	 * @brief Returns game's number of ogres
+	 * Returns game's number of ogres
 	 * @return Game's number of ogres
 	 */
 	public int getNumOgres() {
@@ -48,7 +48,7 @@ public class GameConfig implements Serializable {
 	}
 
 	/**
-	 * @brief Returns index of the game's type of guard
+	 * Returns index of the game's type of guard
 	 * @return Index of the game's type of guard
 	 */
 	public int getTypeGuard() {

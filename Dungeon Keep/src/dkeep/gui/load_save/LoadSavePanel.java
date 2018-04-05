@@ -31,7 +31,7 @@ public class LoadSavePanel extends JDialog {
 	private JComboBox<String> comboBoxLoadName;
 	
 	/**
-	 * @brief Creates and shows load/save dialog box
+	 * Creates and shows load/save dialog box
 	 * @param dk DungeonKeep's game
 	 * @return DungeonKeep game associated with the dialog box
 	 */
@@ -43,7 +43,7 @@ public class LoadSavePanel extends JDialog {
 	}
 
 	/**
-	 * @brief Load/save dialog box constructor
+	 * Load/save dialog box constructor
 	 * @param dk DungeonKeep's game
 	 */
 	public LoadSavePanel(DungeonKeep dk) {
@@ -63,7 +63,7 @@ public class LoadSavePanel extends JDialog {
 	}
 
 	/**
-	 * @brief Load/save dialog box layout configuration
+	 * Load/save dialog box layout configuration
 	 */
 	private void configureLayout() {
 		contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -77,7 +77,7 @@ public class LoadSavePanel extends JDialog {
 	}
 
 	/**
-	 * @brief Creates and configures dialog box buttons
+	 * Creates and configures dialog box buttons
 	 */
 	private void configure() {
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -111,8 +111,6 @@ public class LoadSavePanel extends JDialog {
 	}
 
 	/**
-	 * @brief Dialog box buttons listeners registration
-	 *
 	 * Registers listeners for the interaction with the two buttons
 	 * on the dialog box (Save/Load).
 	 */
@@ -133,9 +131,8 @@ public class LoadSavePanel extends JDialog {
 	}
 
 	/**
-	 * @brief Searches for existent saved game files
-	 * 
-	 * Saved game files are shown on the window's comboBox.
+	 * Searches for existent saved game files, which
+	 * are shown on the window's comboBox.
 	 */
 	private void searchSaveGame() {
 		File f =  new File("./SaveGame");

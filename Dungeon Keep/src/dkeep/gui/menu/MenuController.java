@@ -10,10 +10,8 @@ public class MenuController {
 	private MenuPanel mainPanel;
 	
 	/**
-	 * @brief Menu's controller constructor
+	 * Menu's controller constructor
 	 * @param mainJFrame Menu's frame
-	 *
-	 * Creates a controller to the menu window frame.
 	 */
 	public MenuController(MainJFrame mainJFrame) {
 		mainPanel = new MenuPanel(this);
@@ -21,11 +19,9 @@ public class MenuController {
 	}
 
 	/**
-	 * @brief Handles action performed on the play button
-	 *
-	 * Creates a game controller responsible for initializing a
-	 * new game, and changes the current panel of the frame to 
-	 * the game's panel.
+	 * Handles action performed on the play button, creating a
+	 * game controller responsible for initializing a new game,
+	 * changing the current panel of the frame to the game's panel.
 	 */
 	public void pressPlay() {
 		GameController gameController = new GameController();
@@ -33,9 +29,8 @@ public class MenuController {
 	}
 	
 	/**
-	 * @brief Handles action performed on the exit button
-	 *
-	 * Program exits successfully with code 0, by user's intention
+	 * Handles action performed on the exit button. Program
+	 * exits successfully with code 0, by user's intention
 	 * of leaving the game.
 	 */
 	public void pressExit() {
@@ -43,7 +38,7 @@ public class MenuController {
 	}
 	
 	/**
-	 * @brief Returns menu's main panel
+	 * Returns menu's main panel
 	 * @return Menu's main panel
 	 */
 	public JPanel getMainPanel() {

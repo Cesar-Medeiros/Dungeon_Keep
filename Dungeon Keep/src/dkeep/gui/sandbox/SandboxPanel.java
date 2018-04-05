@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 
 public class SandboxPanel extends JDialog {
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel canvasPanel;
 	private JButton wallBtn;
@@ -39,7 +40,6 @@ public class SandboxPanel extends JDialog {
 	private JButton deleteBtn;
 	private JSlider dimensionSlider;
 	
-	
     private Image wall;
 	private Image floor;
     private Image hero;
@@ -48,13 +48,11 @@ public class SandboxPanel extends JDialog {
     private Image closedDoor;
     private Image openDoor;
 
-	
 	private SandboxController controller;
 	public static final Dimension PREFERREDSIZE = new Dimension(800,500);
 	
-	
 	/**
-	 * @brief Sandbox's panel constructor
+	 * Sandbox's panel constructor
 	 * @param controller Sandbox's panel controller
 	 */
 	public SandboxPanel(SandboxController controller) {
@@ -83,25 +81,25 @@ public class SandboxPanel extends JDialog {
 	
 	
 	/**
-	 * @brief Loads all the required images for the sandbox
+	 * Loads all the required images for the sandbox
 	 */
     public void loadImages() {
         try {
-            wall = ImageIO.read(new File("res/Board/Wall.png"));
-            floor = ImageIO.read(new File("res/Board/Floor.png"));
-            hero = ImageIO.read(new File("res/Board/Hero.png"));
-            ogre = ImageIO.read(new File("res/Board/Ogre.png"));
-            key = ImageIO.read(new File("res/Board/Key.png"));
-            closedDoor = ImageIO.read(new File("res/Board/ClosedDoor.png"));
-            openDoor = ImageIO.read(new File("res/Board/OpenDoor.png"));
+            wall = ImageIO.read(new File("Dungeon Keep/res/Board/Wall.png"));
+            floor = ImageIO.read(new File("Dungeon Keep/res/Board/Floor.png"));
+            hero = ImageIO.read(new File("Dungeon Keep/res/Board/Hero.png"));
+            ogre = ImageIO.read(new File("Dungeon Keep/res/Board/Ogre.png"));
+            key = ImageIO.read(new File("Dungeon Keep/res/Board/Key.png"));
+            closedDoor = ImageIO.read(new File("Dungeon Keep/res/Board/ClosedDoor.png"));
+            openDoor = ImageIO.read(new File("Dungeon Keep/res/Board/OpenDoor.png"));
         } catch (IOException e) {
             System.err.println("Error: Could not load images");
             e.printStackTrace();
         }
     }
 	
-    	/**
-	 * @brief Sandbox's panel layout configuration
+    /**
+	 * Sandbox's panel layout configuration
 	 */
 	private void configureLayout() {
 		((JPanel)getContentPane()).setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -114,8 +112,6 @@ public class SandboxPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Sandbox's panel inner components configuration
-	 *
 	 * Creates and configures the sandbox's panel and its buttons.
 	 */
 	private void configure(){
@@ -175,8 +171,6 @@ public class SandboxPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Sandbox's panel buttons listeners registration
-	 *
 	 * Registers listeners for the interaction with the several buttons on the
 	 * sandbox's panel (Buttons of the game elements, Save & DimensionSlider).
 	 */
@@ -247,7 +241,7 @@ public class SandboxPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Creates a new button with an icon
+	 * Creates a new button with an icon
 	 * @param x Button's x grid-position
 	 * @param y Button's y grid-position
 	 * @param image Button's icon
@@ -269,14 +263,14 @@ public class SandboxPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Repaint board area
+	 * Repaint board area
 	 */
 	public void repaint() {
 		canvasPanel.repaint();
 	}
 	
 	/**
-	 * @brief Returns the canvas's size
+	 * Returns the canvas's size
 	 * @return Canvas size
 	 */
 	public Dimension getBoardSize(){

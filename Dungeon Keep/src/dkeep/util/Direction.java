@@ -4,7 +4,7 @@ public enum Direction {
 	UP, RIGHT, DOWN, LEFT, NONE;
 	
 	/**
-	 * @brief Inverts a direction
+	 * Inverts a direction
 	 * @return Inverted direction
 	 */
 	public Direction revertDirection() {
@@ -23,7 +23,7 @@ public enum Direction {
 	}
 	
 	/**
-	 * @brief Gets direction from an input char
+	 * Gets direction from an input char
 	 * @param charD Input movement char
 	 * @return Returns the char's correspondent direction
 	 */

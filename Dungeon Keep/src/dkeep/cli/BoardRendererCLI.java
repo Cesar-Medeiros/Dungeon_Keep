@@ -6,9 +6,8 @@ import dkeep.logic.board.BoardRenderer;
 public class BoardRendererCLI implements BoardRenderer{
 	
 	/**
-	 * @brief Renders game graphics on the CLI
-	 * 
-	 * Prints game's board on the console interface.
+	 * Renders game graphics on the CLI, printing the
+	 * game's board on the console interface.
 	 */
 	@Override
 	public void render(Board board) {

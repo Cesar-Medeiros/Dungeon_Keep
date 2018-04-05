@@ -20,9 +20,7 @@ public class GameController extends KeyAdapter {
 	
 	
 	/**
-	 * @brief Game's controller constructor
-	 *
-	 * Creates a GamePanel to be controlled by itself.
+	 * Game's controller constructor
 	 */
 	public GameController(){
 		gamePanel = new GamePanel(this);
@@ -30,10 +28,8 @@ public class GameController extends KeyAdapter {
 	}
 	
 	/**
-	 * @brief Creates a new game
-	 *
-	 * Creates a game based on the configuration chosen
-	 * on the dialog box OptionsPanel.
+	 * Creates a new game based on the configuration 
+	 * chosen on the dialog box OptionsPanel.
 	 */
 	public void newGame() {
 		GameConfig gameConfig = OptionsPanel.getGameConfig();
@@ -47,9 +43,7 @@ public class GameController extends KeyAdapter {
 	}
 	
 	/**
-	 * @brief Initializes a new game
-	 *
-	 * Initializes a game, enabling buttons, loading game
+	 * Initializes a new game, enabling buttons, loading game
 	 * graphics and setting the graphical input interface.
 	 */
 	public void initializeGame() {
@@ -60,11 +54,9 @@ public class GameController extends KeyAdapter {
 	}
 	
 	/**
-	 * @brief Handles a direction input
-	 * @param direction Input direction
-	 *
 	 * Appends a direction input via the interface in use,
 	 * to a list of movements performed by the user.
+	 * @param direction Input direction
 	 */
 	public void directionPressed(Direction direction) {
 		Input.addDirection(direction);
@@ -72,7 +64,7 @@ public class GameController extends KeyAdapter {
 	}
 	
 	/**
-	 * @brief Updates game's current state
+	 * Updates game's current state
 	 */
 	public void update() {
 		dk.update();
@@ -83,7 +75,7 @@ public class GameController extends KeyAdapter {
 		
 	
 	/**
-	 * @brief Creates load/save dialog box
+	 * Creates load/save dialog box
 	 */
 	public void loadSave() {
 		dk = LoadSavePanel.createAndShowGUI(dk);
@@ -92,7 +84,7 @@ public class GameController extends KeyAdapter {
 	
 	
 	/**
-	 * @brief render game graphics
+	 * Renders game graphics
 	 * @param g Graphics received from paintComponent
 	 */
 	public void render(Graphics g) {
@@ -104,12 +96,10 @@ public class GameController extends KeyAdapter {
 	
 	
 	/**
-	 * @brief Handles keyboard's key pressed events
-	 * @param e KeyEvent received from the keyboard
-	 *
 	 * Receives events in result of a key being pressed
 	 * on the keyboard, handling those representing
 	 * meaningful movement keys for the game (W,A,S,D).
+	 * @param e KeyEvent received from the keyboard
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -130,7 +120,7 @@ public class GameController extends KeyAdapter {
 	}
 	
 	/**
-	 * @brief Returns the game's panel
+	 * Returns the game's panel
 	 * @return Game's panel
 	 */
 	public GamePanel getGamePanel() {

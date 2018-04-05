@@ -8,8 +8,7 @@ public class Graphic implements IOInterface {
 	protected Queue<Direction> directions;
 	
 	/**
-	 * @brief Graphic interface constructor
-	 * 
+	 * Graphic interface constructor.
 	 * Creates a list to store directions retrieved from the GUI.
 	 */
 	public Graphic(){
@@ -17,7 +16,7 @@ public class Graphic implements IOInterface {
 	}
 	
 	/**
-	 * @brief Gets the head direction of the list
+	 * Gets the head direction of the list
 	 * @return Direction removed from the direction's list
 	 */
 	public Direction getDirection() {
@@ -29,7 +28,7 @@ public class Graphic implements IOInterface {
 	}
 	
 	/**
-	 * @brief Adds direction to the list
+	 * Adds direction to the list
 	 * @param direction Direction to be inserted on the list
 	 */
 	public void addDirection(Direction direction) {

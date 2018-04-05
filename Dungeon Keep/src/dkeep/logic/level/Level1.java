@@ -49,7 +49,7 @@ public class Level1 extends Level{
 	};
 
 	/**
-	 * @brief Dungeon level constructor
+	 * Dungeon level constructor
 	 * @param guardIndex Index of the type of guard
 	 */
 	public Level1(int guardIndex) {
@@ -58,7 +58,7 @@ public class Level1 extends Level{
 	}
 
 	/**
-	 * @brief Creates level moving objects (Hero, Guards and Lever)
+	 * Creates level moving objects (Hero, Guards and Lever)
 	 */
 	@Override
 	public void setup() {
@@ -82,10 +82,8 @@ public class Level1 extends Level{
 	}
 
 	/**
-	 * @brief Updates dungeon level iteration
-	 * 
-	 * On every iteration, verifies if the hero has reached its
-	 * objectives or if somehow it got caught by the guard. 
+	 * Updates dungeon level iteration, verifying if the hero
+	 * has reached its objectives or if somehow it got caught by the guard. 
 	 */
 	@Override
 	public void update() {
@@ -111,7 +109,7 @@ public class Level1 extends Level{
 	}
 
 	/**
-	 * @brief Changes to the next guard of the dungeon
+	 * Changes to the next guard of the dungeon
 	 */
 	public void pickNextGuard() {
 		guardIndex = (guardIndex + 1) % 3;

@@ -13,7 +13,7 @@ public class MainJFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * @brief Main menu's window constructor
+	 * Main menu's window constructor
 	 */
 	public MainJFrame() {
 		super("Dungeon Keep");
@@ -22,8 +22,6 @@ public class MainJFrame extends JFrame {
 	}
 	
 	/**
-	 * @brief Creates the game's GUI
-	 *
 	 * Sets up the graphical interface for the game,
 	 * creating a new window frame.
 	 */
@@ -41,11 +39,9 @@ public class MainJFrame extends JFrame {
     }
 	
 	/**
-	 * @brief Changes the main JFrame's content panel
-	 * @param jPanel Panel to be portrayed
-	 *
 	 * Replaces the current panel being shown in the game's
 	 * main frame for the one passed as a parameter.
+	 * @param jPanel Panel to be portrayed
 	 */
 	public void changeContentPane(JPanel jPanel) {
 		setContentPane(jPanel);

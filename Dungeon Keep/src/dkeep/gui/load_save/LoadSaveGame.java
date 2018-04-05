@@ -14,7 +14,7 @@ import dkeep.logic.game.DungeonKeep;
 public class LoadSaveGame {
 	
 	/**
-	 * @brief Saves the current game state of the DungeonKeep game
+	 * Saves the current game state of the DungeonKeep game
 	 * @param dk DungeonKeep's current game
 	 * @param savename Save's filename
 	 */
@@ -34,13 +34,12 @@ public class LoadSaveGame {
 	}
 	
 	/**
-	 * @brief Loads a saved DungeonKeep's game
+	 * Loads a saved DungeonKeep's game
 	 * @param dk DungeonKeep's saved game
 	 * @param loadname Save's filename
 	 * @return DungeonKeep's game loaded from file
 	 */
-	public static DungeonKeep load(DungeonKeep dk, String loadname) {
-		
+	public static DungeonKeep load(DungeonKeep dk, String loadname) {	
 		InputStream fileIn;
 		try {
 			fileIn = new FileInputStream("SaveGame/" + loadname + ".save");

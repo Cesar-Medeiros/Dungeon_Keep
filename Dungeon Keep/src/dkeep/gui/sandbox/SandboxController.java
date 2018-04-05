@@ -21,7 +21,7 @@ public class SandboxController extends MouseAdapter{
 	private Hashtable<Character, Integer[]> hashtable = new Hashtable<>();
 
 	/**
-	 * @brief Creates a sandbox controller and returns its board map
+	 * Creates a sandbox controller and returns its board map
 	 * @return Sandbox's controller board map
 	 */
 	public static char[][] getCustomLevel() {
@@ -30,9 +30,7 @@ public class SandboxController extends MouseAdapter{
 	}
 	
 	/**
-	 * @brief Sandbox's controller constructor
-	 * 
-	 * Creates a Sandbox to be controlled by itself.
+	 * Sandbox's controller constructor
 	 */
 	public SandboxController() {		
 		boardRenderer = new BoardRendererGUI();
@@ -40,9 +38,8 @@ public class SandboxController extends MouseAdapter{
 	}
 	
 	/**
-	 * @brief Creates a new custom board
-	 * 
-	 * Sets the board's default walls and floor. 
+	 * Creates a new custom board, setting the
+	 * board's default walls and floor. 
 	 */
 	public void createBoard() {
 		hashtable.put(Board.keySymbol, new Integer[]{0,1});
@@ -65,7 +62,7 @@ public class SandboxController extends MouseAdapter{
 	}
 	
 	/**
-	 * @brief Adds the selected element to desired grid's position
+	 * Adds the selected element to desired grid's position
 	 * @param x Selected element x's position
 	 * @param y Selected element y's position
 	 */
@@ -105,7 +102,7 @@ public class SandboxController extends MouseAdapter{
 	
 
 	/**
-	 * @brief Changes board's size
+	 * Changes board's size
 	 * @param value Board's new side's size
 	 */
 	public void changeBoardSize(int value) {
@@ -115,7 +112,7 @@ public class SandboxController extends MouseAdapter{
 	}
 
 	/**
-	 * @brief Selects an element
+	 * Selects an element
 	 * @param element Element selected
 	 */
 	public void selectElement(char element) {	
@@ -124,8 +121,8 @@ public class SandboxController extends MouseAdapter{
 
 	
 	/**
-	 * @brief Updates game's graphics, rendering the new board
-	*@param g Graphics received from paintComponent
+	 * Updates game's graphics, rendering the new board
+	 * @param g Graphics received from paintComponent
 	 */
 	public void render(Graphics g) {
 		if(boardMap != null) {
@@ -135,11 +132,9 @@ public class SandboxController extends MouseAdapter{
 	}
 	
 	/**
-	 * @brief Handles mouse's dragged events
-	 * @param arg0 MouseEvent received from the mouse
-	 *
 	 * Receives events in result of dragging the mouse,
 	 * adding the selected element to the desired position.
+	 * @param arg0 MouseEvent received from the mouse 
 	 */
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
@@ -149,11 +144,9 @@ public class SandboxController extends MouseAdapter{
 	
 	
 	/**
-	 * @brief Handles mouse's clicked events
-	 * @param arg0 MouseEvent received from the mouse
-	 *
 	 * Receives events in result of clicking the mouse,
 	 * adding an element to the desired position.
+	 * @param arg0 MouseEvent received from the mouse
 	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -162,7 +155,7 @@ public class SandboxController extends MouseAdapter{
 	}
 	
 	/**
-	 * @brief Sets sandbox's panel
+	 * Sets sandbox's panel
 	 * @param sandboxPanel Sandbox's panel
 	 */
 	public void setSandboxPanel(SandboxPanel sandboxPanel) {
@@ -170,15 +163,19 @@ public class SandboxController extends MouseAdapter{
 	}
 	
 	/**
-	 * @brief Gets sandbox's panel
+	 * Gets sandbox's panel
 	 * @return Sandbox's panel
 	 */
 	public SandboxPanel getSandboxPanel() {
 		return sandboxPanel;
 	}
 
+	/**
+	 * Indicates if map is valid
+	 * @return Returns true if all the necessary elements
+	 * are present, false otherwise
+	 */
 	public boolean isMapOK() {
 		return hashtable.get(Board.keySymbol)[0] == 1 && hashtable.get(Hero.heroSymbol)[0] == 1;
 	}
-	
 }

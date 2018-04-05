@@ -13,12 +13,11 @@ public class DrunkenGuard extends Guard {
 	private boolean reversed;
 	
 	/**
-	 * @brief DrunkenGuard constructor
+	 * DrunkenGuard constructor. Initially the 
+	 * DrunkenGuard's movement is not reversed.
 	 * @param posX Initial DrunkenGuard's x-position
 	 * @param posY Initial DrunkenGuard's y-position
 	 * @param movement DrunkenGuard's list of movements
-	 * 
-	 * Initially the DrunkenGuard's movement is not reversed.
 	 */
 	public DrunkenGuard(int posX, int posY, Movement movement) {
 		super(posX, posY, movement);
@@ -27,12 +26,10 @@ public class DrunkenGuard extends Guard {
 	}
 	
 	/**
-	 * @brief Gets DrunkenGuard's next movement
+	 * Gets DrunkenGuard's next movement, which alternates 
+	 * between sequential and reversed. It randomly falls asleep and
+	 * when wakes up there's a chance that it'll revert his path.
 	 * @return DrunkenGuard's next movement
-	 * 
-	 * DrunkenGuard's movement alternates between sequential and
-	 * reversed. It randomly falls asleep and when wakes up there's
-	 * a chance that it'll revert his path.
 	 */	
 	@Override
 	protected Direction nextMove() {
@@ -70,9 +67,8 @@ public class DrunkenGuard extends Guard {
 	}
 
 	/**
-	 * @brief Puts DrunkenGuard to sleep
-	 * 
-	 * Sets its symbol to 'g', meaning it's not active.
+	 * Puts DrunkenGuard to sleep setting its symbol
+	 * to 'g', meaning it's not active.
 	 */
 	public void putToSleep() {
 		active = false;
@@ -80,9 +76,8 @@ public class DrunkenGuard extends Guard {
 	}
 
 	/**
-	 * @brief Wakes up DrunkenGuard
-	 * 
-	 * Sets its symbol to 'G', meaning it's active.
+	 * Wakes up DrunkenGuard setting its symbol to 'G',
+	 * meaning it's active.
 	 */
 	public void wakeUp() {
 		active = true;
@@ -90,11 +85,10 @@ public class DrunkenGuard extends Guard {
 	}
 	
 	/**
-	 * @brief Gives probability for the DrunkenGuard's path reversibility
+	 * Gives probability for the DrunkenGuard's path reversibility
 	 * @return Returns true if path gets reverted, false otherwise
 	 */
 	protected boolean revertPath() {
 		return (rand.nextInt(100) > 50);
 	}
-
 }

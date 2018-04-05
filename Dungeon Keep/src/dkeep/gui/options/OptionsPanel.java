@@ -40,9 +40,7 @@ public class OptionsPanel extends JDialog {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * @brief Option's panel constructor
-	 *
-	 * Creates the panel to configure the game.
+	 * Option's panel constructor
 	 */
 	public OptionsPanel() {
 		super(null, "Options", ModalityType.APPLICATION_MODAL);
@@ -69,7 +67,7 @@ public class OptionsPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Returns the game's configuration chosen on the dialog box
+	 * Returns the game's configuration chosen on the dialog box
 	 * @return Game's configuration
 	 */
 	public static GameConfig getGameConfig() {
@@ -83,8 +81,6 @@ public class OptionsPanel extends JDialog {
     }
 	
 	/**
-	 * @brief Options' dialog box layout configuration
-	 *
 	 * Creates and configures the option's dialog box layout.
 	 */
 	public void configureLayout() {
@@ -100,8 +96,6 @@ public class OptionsPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Options' dialog box configuration
-	 *
 	 * Configures the option's dialog box for the user
 	 * to input the game configuration.
 	 */
@@ -161,8 +155,6 @@ public class OptionsPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Options' dialog box buttons listeners registration
-	 *
 	 * Registers listener for the buttons on the options panel
 	 * (start & createMap).
 	 */
@@ -183,11 +175,9 @@ public class OptionsPanel extends JDialog {
 	}
 
 	/**
-	 * @brief Processes and tests options validity
+	 * Processes and tests options validity, requiring the user to input
+	 * the number of ogres for the game which, by default, must fall in between 1-5.
 	 * @return Returns true if configuration is valid, false otherwise
-	 *
-	 * Requires the user to input the number of ogres for the game which,
-	 * by default, must fall in between 1-5.
 	 */
 	private boolean processOptions() {
 		try {
@@ -205,7 +195,7 @@ public class OptionsPanel extends JDialog {
 	}
 
 	/**
-	 * @brief Returns the number of ogres selected
+	 * Returns the number of ogres selected
 	 * @return Number of ogres on the correspondent text field
 	 * @throws NumberFormatException Throws NumberFormatException
 	 * if it was not possible to parse the string into a valid integer.
@@ -226,7 +216,7 @@ public class OptionsPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Returns the type of guard selected
+	 * Returns the type of guard selected
 	 * @return Type of guard retrieved from the guard's ComboBox
 	 */
 	public int getGuard(){
@@ -234,7 +224,7 @@ public class OptionsPanel extends JDialog {
 	}
 	
 	/**
-	 * @brief Sets the game's current state
+	 * Sets the game's current state
 	 * @param text Game state
 	 */
 	public void setGameStatus(String text) {

@@ -38,7 +38,7 @@ public class TestDungeonGameLogic {
 	public void testMoveHeroIntoFreeCell() {
 
 		Board board = new Board(boardMap);
-		assertEquals(board.getElement(0, 0), boardMap[0][0]);
+		assertEquals(boardMap[0][0], board.getElement(0, 0));
 		Hero hero = new Hero(1,1);
 		MoveObj[] objs = new MoveObj[] { hero };
 

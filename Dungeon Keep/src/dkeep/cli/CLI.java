@@ -10,10 +10,8 @@ import dkeep.util.Input;
 public class CLI {
 	
 	/**
-	 *	@brief Creates the game's console interface
-	 *
-	 *	Creates the game's command-line interface
-	 *	and requires user input for its configuration.
+	 * Creates the game's console interface and
+	 * requires user input for its configuration.
 	 */
 	public static void createAndShowCLI(){
 		

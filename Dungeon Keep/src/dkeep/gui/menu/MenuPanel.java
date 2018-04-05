@@ -18,7 +18,7 @@ public class MenuPanel extends JPanel{
 	private MenuController controller;
 	
 	/**
-	 * @brief Menu's panel constructor
+	 * Menu's panel constructor
 	 * @param controller Menu's panel controller
 	 */
 	public MenuPanel(MenuController controller) {
@@ -29,7 +29,7 @@ public class MenuPanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Menu's panel layout configuration
+	 * Menu's panel layout configuration
 	 */
 	private void configureLayout() {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -42,8 +42,6 @@ public class MenuPanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Menu's inner components configuration
-	 *
 	 * Creates and configures menu's panel inner control
 	 * buttons (Play & Exit).
 	 */
@@ -68,8 +66,6 @@ public class MenuPanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Menu's buttons listeners registration
-	 *
 	 * Registers listeners for the interaction with
 	 * the several buttons on the menu panel.
 	 */

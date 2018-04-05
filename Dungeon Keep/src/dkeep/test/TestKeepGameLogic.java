@@ -29,8 +29,8 @@ public class TestKeepGameLogic {
 
 		Board board = new Board(boardMap);
 		Hero hero = new Hero(1,1);
-		Ogre ogre = new Ogre(3,1);
-		MoveObj[] objs = new MoveObj[] { hero, ogre };
+		Ogre ogre = new Ogre(3,1), ogre2 = new Ogre(4,1);
+		MoveObj[] objs = new MoveObj[] { hero, ogre, ogre2 };
 
 		board.fillBoard(objs);
 		assertEquals('H', board.getElement(1, 1));

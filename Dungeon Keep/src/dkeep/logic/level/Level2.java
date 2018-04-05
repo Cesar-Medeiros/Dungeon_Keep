@@ -31,8 +31,8 @@ public class Level2 extends Level{
 	};
 	
 	/**
-	 * @brief Keep level constructor
-	 * @param numberOgres Level's number of ogres
+	 * Keep level constructor
+	 * @param numOgres Level's number of ogres
 	 */
 	public Level2(int numOgres) {
 		setBoard(new Board(boardMap));
@@ -40,14 +40,14 @@ public class Level2 extends Level{
 	}
 
 	/**
-	 * @brief Keep level constructor
+	 * Keep level constructor
 	 */
 	public Level2() {
 		
 	}
 	
 	/**
-	 * @brief Creates level moving objects (Hero, Ogres & Club)
+	 * Creates level moving objects (Hero, Ogres and Club)
 	 */
 	@Override
 	public void setup() {
@@ -65,7 +65,7 @@ public class Level2 extends Level{
 	}
 	
 	/**
-	 * @brief Stores objects of the Keep level
+	 * Stores objects of the Keep level
 	 */
 	public void pushElements() {
 		int memory = 1 + 1 + 2*ogres.size();
@@ -88,10 +88,8 @@ public class Level2 extends Level{
 	}
 	
 	/**
-	 * @brief Updates keep level iteration
-	 * 
-	 * On every iteration, verifies if the hero has reached its
-	 * objectives or if somehow it got hit by an ogre's club. 
+	 * Updates keep level iteration, verifying if the hero has
+	 * reached its objectives or if somehow it got hit by an ogre's club. 
 	 */
 	@Override
 	public void update() {
@@ -126,7 +124,6 @@ public class Level2 extends Level{
 				ogre.getClub().setSymbol(Ogre.clubSymbol);
 		}
 
-		
 		if(board.onKey(hero)) {
 			board.pickKey();
 			hero.pickKey();
@@ -148,7 +145,7 @@ public class Level2 extends Level{
 	}
 	
 	/**
-	 * @brief Checks if moving object is hit by a club
+	 * Checks if moving object is hit by a club
 	 * @param moveObj Moving object to be compared
 	 * @return Returns true if object is over the club, false otherwise
 	 */

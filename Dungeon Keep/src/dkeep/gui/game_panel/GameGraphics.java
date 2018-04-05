@@ -9,7 +9,7 @@ public class GameGraphics
 	private Graphics g;
 	
 	/**
-	 * @brief GameGraphics constructor
+	 * GameGraphics constructor
 	 * @param gamePanelDimension Game's panel dimension
 	 * @param g Graphics context of the game
 	 */
@@ -19,7 +19,7 @@ public class GameGraphics
 	}
 	
 	/**
-	 * @brief Gets game's graphics context
+	 * Gets game's graphics context
 	 * @return Game's graphics context
 	 */
 	public Graphics getGraphics() {
@@ -27,7 +27,7 @@ public class GameGraphics
 	}
 	
 	/**
-	 * @brief Gets game's panel dimension
+	 * Gets game's panel dimension
 	 * @return Game's panel dimension
 	 */
 	public Dimension getSize() {

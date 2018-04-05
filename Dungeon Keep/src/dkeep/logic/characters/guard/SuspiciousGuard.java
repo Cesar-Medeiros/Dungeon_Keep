@@ -13,12 +13,11 @@ public class SuspiciousGuard extends Guard {
 	private boolean reversed;
 	
 	/**
-	 * @brief SuspiciousGuard constructor
+	 * SuspiciousGuard constructor. Initially the 
+	 * SuspiciousGuard's movement is not reversed.
 	 * @param posX Initial SuspiciousGuard's x-position
 	 * @param posY Initial SuspiciousGuard's y-position
 	 * @param movement SuspiciousGuard's list of movements
-	 * 
-	 * Initially the SuspiciousGuard's movement is not reversed.
 	 */
 	public SuspiciousGuard(int posX, int posY, Movement movement) {
 		super(posX, posY, movement);
@@ -28,13 +27,11 @@ public class SuspiciousGuard extends Guard {
 	}
 	
 	/**
-	 * @brief Gets SuspiciousGuard's next movement
-	 * @return SuspiciousGuard's next movement
-	 * 
-	 * SuspiciousGuard's movement alternates between
-	 * sequential and reversed. The number of reversed
+	 * Gets SuspiciousGuard's next movement, which alternates
+	 * between sequential and reversed. The number of reversed
 	 * rounds ranges between 0 and 2, while the number
 	 * of sequential rounds ranges between 0 and 9.
+	 * @return SuspiciousGuard's next movement
 	 */	
 	@Override
 	protected Direction nextMove() {
@@ -54,5 +51,4 @@ public class SuspiciousGuard extends Guard {
 		
 		return direction;
 	}
-
 }
