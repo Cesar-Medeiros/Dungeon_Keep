@@ -120,12 +120,14 @@ public class LoadSavePanel extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				LoadSaveGame.save(dk, txtSaveName.getText());
 				searchSaveGame();
+				dispose();
 			}
 		});
 		
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dk = LoadSaveGame.load(dk, (String) comboBoxLoadName.getSelectedItem());
+				dispose();
 			}
 		});
 	}

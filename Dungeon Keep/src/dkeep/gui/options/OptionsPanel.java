@@ -57,12 +57,6 @@ public class OptionsPanel extends JDialog {
 		registerListeners();
 		
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-            	numOgresText.setText(null);
-            }
-        });
         setVisible(true);
 	}
 	
@@ -150,13 +144,11 @@ public class OptionsPanel extends JDialog {
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		add(lblGameStatus, gbc);
-		
-
 	}
 	
 	/**
 	 * Registers listener for the buttons on the options panel
-	 * (start & createMap).
+	 * (start & createMap & close).
 	 */
 	private void registerListeners() {
 		
@@ -172,6 +164,13 @@ public class OptionsPanel extends JDialog {
 				customLevel = SandboxController.getCustomLevel();
 			}
 		});
+		
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	numOgresText.setText(null);
+            }
+        });
 	}
 
 	/**

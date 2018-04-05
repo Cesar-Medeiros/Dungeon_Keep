@@ -11,8 +11,10 @@ import dkeep.logic.board.Board;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.MoveObj;
 import dkeep.logic.characters.Ogre;
+import dkeep.logic.level.CustomLevel2;
 import dkeep.logic.level.Level2;
 import dkeep.util.Direction;
+import dkeep.util.Input;
 
 public class TestKeepGameLogic {
 
@@ -99,7 +101,6 @@ public class TestKeepGameLogic {
 
 	@Test
 	public void testHeroMovesToExitGettingVictory() {
-
 		Level2 lvl = new Level2(1);
 
 		Board board = new Board(boardMap);
@@ -119,4 +120,23 @@ public class TestKeepGameLogic {
 		boolean successfulMove = hero.moveCharacter(board, Direction.LEFT);
 		assertTrue(successfulMove); 
 	}
+	
+
+	@Test
+	public void testCustomLevel() {
+		char[][] customMap = new char[][] {
+			{'X', 'X', 'X', 'X', 'X'},
+			{'X', 'H', 'O', 'O', 'X'},
+			{'D', 'O', 'O', ' ', 'X'},
+			{'D', 'k', ' ', ' ', 'X'},
+			{'X', 'X', 'X', 'X', 'X'}
+		};
+		
+		Level2 lvl = new CustomLevel2(customMap);
+		lvl.setup();
+		Input.addDirection(Direction.RIGHT);
+		lvl.update();
+		assertTrue(lvl.gameOver()); 
+	}
+	
 }

@@ -3,7 +3,6 @@ package dkeep.test;
 import static dkeep.util.Direction.DOWN;
 import static dkeep.util.Direction.LEFT;
 import static dkeep.util.Direction.RIGHT;
-import static dkeep.util.Direction.UP;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Field;
@@ -11,6 +10,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import dkeep.cli.BoardRendererCLI;
 import dkeep.logic.board.Board;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.MoveObj;
@@ -23,6 +23,7 @@ import dkeep.logic.game.DungeonKeep;
 import dkeep.logic.game.GameConfig;
 import dkeep.logic.level.Level1;
 import dkeep.util.Direction;
+import dkeep.util.Input;
 
 public class TestDungeonGameLogic {
 
@@ -309,12 +310,17 @@ public class TestDungeonGameLogic {
 	
 	@Test
 	public void testLevel1() throws Exception {
+		BoardRendererCLI br = new BoardRendererCLI();
+		Level1 lvl1 = new Level1(2);
+		lvl1.setup();
+		lvl1.render(br);
+		lvl1.update();
 		
-		Level1 level1 = new Level1(0);
-		
-		level1.setup();	
-		
-		
-		
+		Input.setGraphicInput();
+		Input.addDirection(RIGHT);
+		lvl1.update();
+		lvl1.render(br);
+		assertFalse(lvl1.completed());
+		assertFalse(lvl1.gameOver());
 	}
 }
