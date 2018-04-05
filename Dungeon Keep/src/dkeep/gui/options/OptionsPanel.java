@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -57,6 +59,12 @@ public class OptionsPanel extends JDialog {
 		registerListeners();
 		
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	numOgresText.setText(null);
+            }
+        });
         setVisible(true);
 	}
 	
@@ -66,7 +74,12 @@ public class OptionsPanel extends JDialog {
 	 */
 	public static GameConfig getGameConfig() {
 		OptionsPanel dialog = new OptionsPanel();
-		return new GameConfig(dialog.getGuard(), dialog.getNumOgres(), dialog.customLevel);
+		
+		if(dialog.getNumOgres() == -1) {
+			return null;
+		}
+			
+		else return new GameConfig(dialog.getGuard(), dialog.getNumOgres(), dialog.customLevel);
     }
 	
 	/**
@@ -198,8 +211,17 @@ public class OptionsPanel extends JDialog {
 	 * if it was not possible to parse the string into a valid integer.
 	 */
 	public int getNumOgres() throws NumberFormatException{
-		String numOgresStr = numOgresText.getText();
-		int numOgres = Integer.parseInt(numOgresStr);
+		String numOgresStr;
+		int numOgres;
+		
+        try {
+        	numOgresStr = numOgresText.getText();
+        	numOgres = Integer.parseInt(numOgresStr);
+        }
+        catch(NullPointerException | NumberFormatException exception) {
+        	numOgres = -1;
+        }
+		
 		return numOgres;
 	}
 	

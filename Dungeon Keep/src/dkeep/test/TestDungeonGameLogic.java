@@ -1,6 +1,9 @@
 package dkeep.test;
 
+import static dkeep.util.Direction.DOWN;
 import static dkeep.util.Direction.LEFT;
+import static dkeep.util.Direction.RIGHT;
+import static dkeep.util.Direction.UP;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Field;
@@ -35,6 +38,7 @@ public class TestDungeonGameLogic {
 	public void testMoveHeroIntoFreeCell() {
 
 		Board board = new Board(boardMap);
+		assertEquals(board.getElement(0, 0), boardMap[0][0]);
 		Hero hero = new Hero(1,1);
 		MoveObj[] objs = new MoveObj[] { hero };
 
@@ -156,13 +160,34 @@ public class TestDungeonGameLogic {
 		assertTrue(board.onOpenDoor(hero));
 	}		
 
+	
+	@Test
+	public void testMoveDrunkenGuard() {
+
+		Level1 lvl1 = new Level1(1);
+
+		Board board = new Board(boardMap);
+		DrunkenGuard guard = new DrunkenGuard(1, 1, new Movement(Arrays.asList(DOWN)));
+		MoveObj[] objs = new MoveObj[] { guard };
+
+		lvl1.setObjs(objs);
+		board.fillBoard(objs);
+
+		assertTrue(guard.isActive());
+		assertSame('G', board.getElement(1, 1));
+
+		guard.move(board);
+		board.fillBoard(objs);
+		assertSame('G', board.getElement(1, 2));
+	}
+	
 	@Test
 	public void testPutGuardToSleep() {
 
 		Level1 lvl1 = new Level1(1);
 
 		Board board = new Board(boardMap);
-		DrunkenGuard guard = new DrunkenGuard(1, 1, new Movement());
+		DrunkenGuard guard = new DrunkenGuard(1, 1, new Movement(Arrays.asList(DOWN)));
 		MoveObj[] objs = new MoveObj[] { guard };
 
 		lvl1.setObjs(objs);
@@ -176,6 +201,11 @@ public class TestDungeonGameLogic {
 
 		assertFalse(guard.isActive());
 		assertSame('g', board.getElement(1, 1));
+		
+		guard.move(board);
+		
+		assertSame('g', board.getElement(1, 1));
+
 	}
 
 	@Test
@@ -252,5 +282,39 @@ public class TestDungeonGameLogic {
 		guard.move(board);
 		board.fillBoard(objs);
 		assertEquals('G', board.getElement(2, 1));
+	}
+	
+	@Test
+	public void testBoard() throws Exception {
+		
+		Board board = new Board(boardMap);
+		
+		assertFalse(board.canMoveTo(-1, 0));
+		assertFalse(board.canMoveTo(0, -1));
+		assertFalse(board.canMoveTo(board.getNumCol(), 0));
+		assertFalse(board.canMoveTo(0, board.getNumRow()));
+		
+		assertTrue(board.canMoveTo(1, 1));
+	}
+	
+	@Test
+	public void testMovement() throws Exception {
+		
+		Movement movement = new Movement(Arrays.asList(LEFT,RIGHT));
+		
+		assertEquals(LEFT, movement.getNext());
+		assertEquals(RIGHT, movement.getNextR());
+		
+	}
+	
+	@Test
+	public void testLevel1() throws Exception {
+		
+		Level1 level1 = new Level1(0);
+		
+		level1.setup();	
+		
+		
+		
 	}
 }

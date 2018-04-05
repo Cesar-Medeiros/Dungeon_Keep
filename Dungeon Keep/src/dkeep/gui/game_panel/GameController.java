@@ -37,6 +37,11 @@ public class GameController extends KeyAdapter {
 	 */
 	public void newGame() {
 		GameConfig gameConfig = OptionsPanel.getGameConfig();
+		
+		if(gameConfig == null) {
+			return;
+		}
+		
 		dk = new DungeonKeep(gameConfig, boardRenderer);
 		update();
 	}
@@ -48,6 +53,7 @@ public class GameController extends KeyAdapter {
 	 * graphics and setting the graphical input interface.
 	 */
 	public void initializeGame() {
+		if(dk == null) return;
 		gamePanel.enableButtons();
 		Input.setGraphicInput();
 		gamePanel.repaint();

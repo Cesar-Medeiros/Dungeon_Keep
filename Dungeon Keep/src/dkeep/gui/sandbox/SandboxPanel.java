@@ -76,7 +76,7 @@ public class SandboxPanel extends JDialog {
         this.controller.changeBoardSize(dimensionSlider.getValue());
         this.controller.createBoard();
 		registerListeners();
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         setVisible(true);
 
 	}

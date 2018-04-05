@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 
@@ -25,21 +26,11 @@ public class BoardRendererGUI implements BoardRenderer{
 	private Image ogre;
 	private Image club;
 	
-	
-	private Image wallResized;
-	private Image floorResized;
-	private Image heroResized;
-	private Image closedDoorResized;
-	private Image openDoorResized;
-	private Image leverResized;
-	private Image guardResized;
-	private Image ogreResized;
-	private Image clubResized;
-	private Image heroAResized;
-	
 	private boolean resize; 
 	private Graphics graphics;
 	private GameGraphics gameGraphics;
+	private Hashtable<Character, Image> hashImage;
+	
 	
 	/**
 	 * @brief GUI board renderer constructor
@@ -64,25 +55,42 @@ public class BoardRendererGUI implements BoardRenderer{
 			System.err.println("Error: Could not load images");
 			e.printStackTrace();
 		}
+		hashImage = new Hashtable<>();
 	}
 	
 
-	
-	
-	private void resizeImages(Board board, int sizeX, int sizeY) {
+	private void resizeImages(int sizeX, int sizeY) {
+		Image wallResized = wall.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image floorResized = floor.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image heroResized = hero.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image closedDoorResized = closedDoor.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image openDoorResized = openDoor.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image leverResized = lever.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image guardResized = guard.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image ogreResized = ogre.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image clubResized = club.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		Image heroAResized = heroA.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
 		
-		wallResized = wall.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		floorResized = floor.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		heroResized = hero.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		closedDoorResized = closedDoor.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		openDoorResized = openDoor.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		leverResized = lever.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		guardResized = guard.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		ogreResized = ogre.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		clubResized = club.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
-		heroAResized = heroA.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
+		hashImage.put(Board.wallSymbol, wallResized);
+		hashImage.put(Board.floorSymbol,floorResized);
+		hashImage.put(Hero.heroSymbol, heroResized);
+		hashImage.put(Hero.withKeySymbol, heroResized);
+		hashImage.put(Hero.armedSymbol, heroAResized);
+		hashImage.put(Board.closeDoorSymbol, closedDoorResized);
+		hashImage.put(Board.openableDoorSymbol, closedDoorResized);
+		hashImage.put(Board.openDoorSymbol, openDoorResized);
+		hashImage.put(Board.keySymbol, leverResized);
+		hashImage.put('G', guardResized);
+		hashImage.put('g', guardResized);
+		hashImage.put(Ogre.ogreSymbol, ogreResized);
+		hashImage.put(Ogre.stunnedSymbol, ogreResized);
+		hashImage.put(Ogre.overKeySymbol, ogreResized);
+		hashImage.put(Ogre.clubSymbol, clubResized);
+		hashImage.put(Board.floorSymbol, floorResized);
 		this.resize = false;
 	}
+
+	
 
 	
 	/**
@@ -95,66 +103,21 @@ public class BoardRendererGUI implements BoardRenderer{
 	@Override
 	public void render(Board board) {
 		int minDimension = (int) Math.min(gameGraphics.getSize().getHeight(), gameGraphics.getSize().getWidth());
-		int height = minDimension;
-		int width = minDimension;
 		
 		int nCol = board.getNumCol();
 		int nRow = board.getNumRow();
 		
-		int sizeX = height/nRow;
-		int sizeY = width/nCol;
+		int sizeX = minDimension/nRow;
+		int sizeY = minDimension/nCol;
 		
-		if(resize) resizeImages(board, sizeX, sizeY);
+		if(resize) resizeImages(sizeX, sizeY);
 		
 		for (int j = 0; j < nRow; j++) {
 			for (int i = 0; i < nCol; i++) {
-				graphics.drawImage(floorResized, sizeX * i, sizeY * j, null);
-				switch(board.getElement(i, j)) {
-				
-				case Board.wallSymbol: 
-					graphics.drawImage(wallResized, sizeX * i, sizeY * j, null);
-					break;
-					
-				case Hero.heroSymbol: case Hero.withKeySymbol: 
-					graphics.drawImage(heroResized, sizeX * i, sizeY * j, null);
-					break;
-	
-				case Hero.armedSymbol:
-					graphics.drawImage(heroAResized, sizeX * i, sizeY * j, null);
-					break;
-					
-				case 'G': case 'g': 
-					graphics.drawImage(guardResized, sizeX * i, sizeY * j, null);
-					break;
-					
-				case Ogre.ogreSymbol: case Ogre.stunnedSymbol:
-					graphics.drawImage(ogreResized, sizeX * i, sizeY * j, null);
-					break;
-					
-				case Ogre.overKeySymbol:
-					graphics.drawImage(leverResized, sizeX * i, sizeY * j, null);
-					graphics.drawImage(ogreResized, sizeX * i, sizeY * j, null);
-					break;
-					
-				case Ogre.clubSymbol:
-					graphics.drawImage(clubResized, sizeX * i, sizeY * j, null);
-					break;
-					
-				case Board.closeDoorSymbol: case Board.openableDoorSymbol:
-					graphics.drawImage(closedDoorResized, sizeX * i, sizeY * j, null);
-					break;
-					
-				case Board.openDoorSymbol:
-					graphics.drawImage(openDoorResized, sizeX * i, sizeY * j, null);
-					break;
-					
-				case Board.keySymbol:
-					graphics.drawImage(leverResized, sizeX * i, sizeY * j, null);
-					break;
-					
-				default: 
-					graphics.drawImage(floorResized, sizeX * i, sizeY * j, null);
-					break;
+				graphics.drawImage(hashImage.get(Board.floorSymbol), sizeX * i, sizeY * j, null);
+				Image image = hashImage.get(board.getElement(i, j));
+				if( image != null) {
+					graphics.drawImage(image, sizeX * i, sizeY * j, null);
 				}
 			}
 		}
