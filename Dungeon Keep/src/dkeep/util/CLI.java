@@ -7,8 +7,7 @@ public class CLI implements IOInterface{
 	private Scanner scan;
 	
 	/**
-	 * @brief Console interface constructor
-	 * 
+	 * Console interface constructor.
 	 * Creates a scanner to input directions.
 	 */
 	public CLI(){
@@ -16,7 +15,7 @@ public class CLI implements IOInterface{
 	}
 	
 	/**
-	 * @brief Gets the next direction
+	 * Gets the next direction
 	 * @return Direction required from the user
 	 */
 	public Direction getDirection() {

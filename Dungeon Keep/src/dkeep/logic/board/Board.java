@@ -18,7 +18,7 @@ public class Board implements Serializable {
 	public static final char keySymbol = 'k';
 
 	/**
-	 * @brief Board constructor
+	 * Board constructor
 	 * @param level Level's board
 	 */
 	public Board(char[][] level) {
@@ -30,7 +30,7 @@ public class Board implements Serializable {
 	}
 	
 	/**
-	 * @brief Returns board's number of columns
+	 * Returns board's number of columns
 	 * @return Returns board's number of columns, 0 if the
 	 * board does not yet exist
 	 */
@@ -44,7 +44,7 @@ public class Board implements Serializable {
 	}
 	
 	/**
-	 * @brief Returns board's number of rows
+	 * Returns board's number of rows
 	 * @return Returns board's number of rows, 0 if the
 	 * board does not yet exist
 	 */
@@ -58,7 +58,7 @@ public class Board implements Serializable {
 	}
 
 	/**
-	 * @brief Returns board's element
+	 * Returns board's element
 	 * @param posX Element's x-position on the board
 	 * @param posY Element's y-position on the board
 	 * @return Returns board's element with coordinates
@@ -74,13 +74,11 @@ public class Board implements Serializable {
 	}
 	
 	/**
-	 * @brief Replaces element on the game board
+	 * Replaces element on the game board
 	 * @param toSearch Element's char to be replaced
 	 * @param newChar Element's new char to be inserted
-	 * @return Returns true if replacement was successful, false otherwise
 	 */
-	private boolean substChar(char toSearch, char newChar) {
-		
+	private void substChar(char toSearch, char newChar) {
 		for(int row = 0; row < boardBuffer.length; row++) {
 			for(int col = 0; col < boardBuffer[row].length; col++) {
 				if(boardBuffer[row][col] == toSearch) {
@@ -88,11 +86,10 @@ public class Board implements Serializable {
 				}
 			}	
 		}
-		return false;
 	}
 	
 	/**
-	 * @brief Inserts element on the game's board
+	 * Inserts element on the game's board
 	 * @param posX Element's x-position
 	 * @param posY Element's y-position
 	 * @param element Element's character
@@ -102,7 +99,7 @@ public class Board implements Serializable {
 	}
 	
 	/**
-	 * @brief Loads level to the game's board
+	 * Loads level to the game's board
 	 */
 	public void loadLevel() {
 		char[][] level = boardBuffer;
@@ -112,7 +109,7 @@ public class Board implements Serializable {
 	}
 	
 	/**
-	 * @brief Clones current game's board
+	 * Clones current game's board
 	 * @param board Current game's board
 	 * @return Cloned game board
 	 */
@@ -125,10 +122,8 @@ public class Board implements Serializable {
 	}
 	
 	/**
-	 * @brief Fills game board
+	 * Fills game board with its moving objects
 	 * @param objs Moving objects to be inserted on the board
-	 * 
-	 * Fills game's board with the its moving objects.
 	 */
 	public void fillBoard(MoveObj[] objs) {
 		loadLevel();
@@ -138,14 +133,14 @@ public class Board implements Serializable {
 	}
 
 	/**
-	 * @brief Opens dungeon's exit doors
+	 * Opens dungeon's exit doors
 	 */
 	public void openDoors() {
 		substChar(openableDoorSymbol, openDoorSymbol);
 	}
 	
 	/**
-	 * @brief Erases key from the map and opens exit doors
+	 * Erases key from the map and opens exit doors
 	 */
 	public void pickKey() {
 		substChar(keySymbol, ' ');
@@ -153,7 +148,7 @@ public class Board implements Serializable {
 	}
 	
 	/**
-	 * @brief Checks if moving object is on an open door
+	 * Checks if moving object is on an open door
 	 * @param moveObj Moving object to be tested
 	 * @return Returns true if object is on an open door, false otherwise
 	 */
@@ -162,7 +157,7 @@ public class Board implements Serializable {
 	}
 
 	/**
-	 * @brief Checks if there's an openable door near a moving object
+	 * Checks if there's an openable door near a moving object
 	 * @param moveObj Moving object to be tested
 	 * @param direction Direction where there's supposedly the door
 	 * @return Returns true if there's an openable door on that direction, false otherwise
@@ -182,7 +177,7 @@ public class Board implements Serializable {
 	}
 	
 	/**
-	 * @brief Checks if moving object is on a key
+	 * Checks if moving object is on a key
 	 * @param moveObj Moving object to be tested
 	 * @return Returns true if object's over a key, false otherwise
 	 */
@@ -192,12 +187,10 @@ public class Board implements Serializable {
 	}
 
 	/**
-	 * @brief Checks if board's movement to a cell is possible
+	 * Checks if board's movement to a cell is possible
 	 * @param posX Cell's x-position on the board
 	 * @param posY Cell's y-position on the board
 	 * @return Returns true if movement is possible, false otherwise
-	 * 
-	 * The player may not move against a wall or a closed door.
 	 */
 	public boolean canMoveTo(int posX, int posY) {
 		if(posX < 0 || posX >= getNumCol() || posY < 0 || posY >= getNumRow()) return false;

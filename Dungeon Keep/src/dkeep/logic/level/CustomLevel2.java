@@ -13,7 +13,7 @@ public class CustomLevel2 extends Level2 {
 	private char[][] gameMap;
 
 	/**
-	 * @brief CustomLevel2 constructor
+	 * CustomLevel2 constructor
 	 * @param gameMap Custom game map created
 	 */
 	public CustomLevel2(char[][] gameMap) {
@@ -22,7 +22,7 @@ public class CustomLevel2 extends Level2 {
 	}
 	
 	/**
-	 * @brief Sets elements on the custom game map
+	 * Sets elements on the custom game map
 	 * @param gameMap Custom game map created
 	 * @return Created game map
 	 */
@@ -53,7 +53,7 @@ public class CustomLevel2 extends Level2 {
 	}
 
 	/**
-	 * @brief Sets up the custom level
+	 * Sets up the custom level
 	 */
 	@Override
 	public void setup() {

@@ -24,7 +24,7 @@ public class Ogre extends MoveObj {
 	public static final char clubSymbol = '*';
 	
 	/**
-	 * @brief Ogre character constructor
+	 * Ogre character constructor
 	 * @param posX Initial ogre's x-position
 	 * @param posY Initial ogre's y-position
 	 * 
@@ -38,7 +38,7 @@ public class Ogre extends MoveObj {
 	}
 	
 	/**
-	 * @brief Generates a random movement direction
+	 * Generates a random movement direction
 	 * @return Generated random direction
 	 */
 	private Direction nextMove() {
@@ -52,7 +52,7 @@ public class Ogre extends MoveObj {
 	}
 	
 	/**
-	 * @brief Returns ogre's club
+	 * Returns ogre's club
 	 * @return Ogre's club
 	 */
 	public MoveObj getClub() {
@@ -60,7 +60,7 @@ public class Ogre extends MoveObj {
 	}
 
 	/**
-	 * @brief Moves randomly an object on the board
+	 * Moves randomly an object on the board
 	 * @param board Game board
 	 * @param obj Object to be moved
 	 * @return Movement's direction
@@ -76,13 +76,11 @@ public class Ogre extends MoveObj {
 	}
 
 	/**
-	 * @brief Moves an ogre on the board
+	 * Moves an ogre on the board, only if it isn't stunned.
+	 * In that case, it remains still for a set of the hero's
+	 * movement turns.
 	 * @param board Game board
 	 * @return Ogre's movement direction
-	 * 
-	 * Ogre's movement is only enabled if it isn't stunned
-	 * by the armed hero. In that case, it remains still for
-	 * a set of the hero's movement turns.
 	 */
 	public Direction move(Board board) {
 		
@@ -99,11 +97,10 @@ public class Ogre extends MoveObj {
 		move(board, club);	
 
 		return direction;
-		
 	}
 
 	/**
-	 * @brief Decreases the ogre's stunned number of turns
+	 * Decreases the ogre's stunned number of turns
 	 */
 	public void decreaseStun() {
 		if (stun == 0) {
@@ -114,7 +111,7 @@ public class Ogre extends MoveObj {
 	}
 
 	/**
-	 * @brief Indicates if ogre is stunned
+	 * Indicates if ogre is stunned
 	 * @return Returns true if ogre is stunned, false otherwise
 	 */
 	public boolean isStunned() {
@@ -122,7 +119,7 @@ public class Ogre extends MoveObj {
 	}
 
 	/**
-	 * @brief Stuns ogre
+	 * Stuns ogre
 	 * @param turns Number of turns for the ogre to be stunned
 	 */
 	public void stun(int turns) {

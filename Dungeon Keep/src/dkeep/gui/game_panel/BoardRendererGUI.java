@@ -42,23 +42,21 @@ public class BoardRendererGUI implements BoardRenderer{
 	private GameGraphics gameGraphics;
 	
 	/**
-	 * @brief GUI board renderer constructor
-	 * @param gamegraphics Game's graphics
-	 * 
-	 * Loads all necessary images for the game.
+	 * Constructs the GUI board renderer, 
+	 * loading all necessary images for the game.
 	 */
 	public BoardRendererGUI() {
 		try {
-			wall = ImageIO.read(new File("res/Board/Wall.png"));
-			floor = ImageIO.read(new File("res/Board/Floor.png"));
-			hero = ImageIO.read(new File("res/Board/Hero.png"));
-			guard = ImageIO.read(new File("res/Board/Guard.png"));
-			lever = ImageIO.read(new File("res/Board/Key.png"));
-			closedDoor = ImageIO.read(new File("res/Board/ClosedDoor.png"));
-			openDoor = ImageIO.read(new File("res/Board/OpenDoor.png"));
-			ogre = ImageIO.read(new File("res/Board/Ogre.png"));
-			club = ImageIO.read(new File("res/Board/Club.png"));
-			heroA= ImageIO.read(new File("res/Board/HeroA.png"));
+			wall = ImageIO.read(new File("Dungeon Keep/res/Board/Wall.png"));
+			floor = ImageIO.read(new File("Dungeon Keep/res/Board/Floor.png"));
+			hero = ImageIO.read(new File("Dungeon Keep/res/Board/Hero.png"));
+			guard = ImageIO.read(new File("Dungeon Keep/res/Board/Guard.png"));
+			lever = ImageIO.read(new File("Dungeon Keep/res/Board/Key.png"));
+			closedDoor = ImageIO.read(new File("Dungeon Keep/res/Board/ClosedDoor.png"));
+			openDoor = ImageIO.read(new File("Dungeon Keep/res/Board/OpenDoor.png"));
+			ogre = ImageIO.read(new File("Dungeon Keep/res/Board/Ogre.png"));
+			club = ImageIO.read(new File("Dungeon Keep/res/Board/Club.png"));
+			heroA= ImageIO.read(new File("Dungeon Keep/res/Board/HeroA.png"));
 			
 		} catch (IOException e) {
 			System.err.println("Error: Could not load images");
@@ -66,9 +64,12 @@ public class BoardRendererGUI implements BoardRenderer{
 		}
 	}
 	
-
-	
-	
+	/**
+	 * Resizes images to a certain dimension
+	 * @param board Game board
+	 * @param sizeX Image's x-dimension
+	 * @param sizeY Image's y-dimension
+	 */
 	private void resizeImages(Board board, int sizeX, int sizeY) {
 		
 		wallResized = wall.getScaledInstance(sizeX, sizeY, Image.SCALE_DEFAULT);
@@ -84,13 +85,10 @@ public class BoardRendererGUI implements BoardRenderer{
 		this.resize = false;
 	}
 
-	
 	/**
-	 * @brief Renders game graphics on the GUI
-	 * @param board Game board
-	 * 
 	 * Scales game images depending on the game's board dimension,
 	 * but maintaining its original ratio.
+	 * @param board Game board
 	 */
 	@Override
 	public void render(Board board) {
@@ -161,11 +159,9 @@ public class BoardRendererGUI implements BoardRenderer{
 	}
 	
 	/**
-	 * @brief Sets game's graphics
+	 * Sets game's graphics, composed by the game's panel
+	 * dimension and its components.
 	 * @param gameGraphics Game's graphics
-	 * 
-	 * Graphics are composed by the game's panel dimension 
-	 * and graphical components.
 	 */
 	public void updateGameGraphics(GameGraphics gameGraphics) {
 		this.graphics = gameGraphics.getGraphics();
@@ -176,6 +172,4 @@ public class BoardRendererGUI implements BoardRenderer{
 		this.resize = true;
 		this.gameGraphics = gameGraphics;
 	}
-
-
 }

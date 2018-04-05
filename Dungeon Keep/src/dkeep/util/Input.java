@@ -8,21 +8,21 @@ public class Input {
 	private static IOInterface ioInterface;
 	
 	/**
-	 * @brief Sets the GUI as the IOinterface
+	 * Sets the GUI as the IOinterface
 	 */
 	public static void setGraphicInput() {
 		ioInterface = new Graphic();
 	}
 
 	/**
-	 * @brief Sets the CLI as the IOinterface
+	 * Sets the CLI as the IOinterface
 	 */
 	public static void setCliInput() {
 		ioInterface = new CLI();
 	}
 	
 	/**
-	 * @brief Returns a direction from the available IOinterface
+	 * Returns a direction from the available IOinterface
 	 * @return Returns the direction if there's an interface, NONE otherwise
 	 */
 	public static Direction getDirection() {
@@ -35,7 +35,7 @@ public class Input {
 	}
 	
 	/**
-	 * @brief Adds a direction from the available IOinterface
+	 * Adds a direction from the available IOinterface
 	 * @param direction Direction retrieved
 	 */
 	public static void addDirection(Direction direction) {

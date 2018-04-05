@@ -18,7 +18,6 @@ import dkeep.util.Direction;
 
 public class GamePanel extends JPanel{
 	
-	
 	private static final long serialVersionUID = 1L;
 	private JLabel lblGameStatus;
 	private JPanel gamePanel;
@@ -33,7 +32,7 @@ public class GamePanel extends JPanel{
 	
 
 	/**
-	 * @brief Game's panel constructor
+	 * Game's panel constructor
 	 * @param controller Game's panel controller
 	 */
 	public GamePanel(GameController controller) {
@@ -45,7 +44,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Game's panel layout configuration
+	 * Game's panel layout configuration
 	 */
 	private void configureLayout() {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -58,8 +57,6 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Game's panel inner components configuration
-	 *
 	 * Creates and configures the game's controls panel.
 	 */
 	private void configure(){
@@ -107,7 +104,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Creates game's controls panel buttons
+	 * Creates game's controls panel buttons
 	 * @param controlPanel Game's controls panel
 	 * @param gbc Controls' panel constraints
 	 */
@@ -150,8 +147,6 @@ public class GamePanel extends JPanel{
 	
 
 	/**
-	 * @brief Controls' panel buttons listeners registration
-	 *
 	 * Registers listeners for the interaction with the several buttons on the
 	 * game's control panel (LoadSave, NewGame, Up, Down, Left, Right & Exit).
 	 */
@@ -218,7 +213,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Disables game's control buttons
+	 * Disables game's control buttons
 	 */
 	public void disableButtons() {
 		upButton.setEnabled(false);
@@ -228,7 +223,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Enables game's control buttons
+	 * Enables game's control buttons
 	 */
 	public void enableButtons() {
 		upButton.setEnabled(true);
@@ -238,17 +233,15 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * @brief Changes game's status label
+	 * Changes game's status label
 	 * @param text Game's status as text
-	 *
-	 * Changes game's status written on the label of the game panel.
 	 */
 	public void setGameStatus(String text) {
 		lblGameStatus.setText(text);
 	}
 	
 	/**
-	 * @brief Returns game's panel size
+	 * Returns game's panel size
 	 * @return Game's panel size
 	 */
 	public Dimension getBoardSize(){

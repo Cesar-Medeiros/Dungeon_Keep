@@ -18,10 +18,8 @@ public class Movement implements Serializable{
 	private List<Boolean> passedBy;
 	
 	/**
-	 * @brief Movement constructor
+	 * Movement constructor
 	 * @param list List of movement directions
-	 * 
-	 * Also creates another list to keep track of the past movements.
 	 */
 	public Movement(List<Direction> list){
 		movement = new ArrayList<Direction>(list);
@@ -30,14 +28,14 @@ public class Movement implements Serializable{
 	}
 	
 	/**
-	 * @brief Movement constructor
+	 * Movement constructor
 	 */
 	public Movement(){
 		movement = null;
 	}
 	
 	/**
-	 * @brief Pops movement's direction out of the list
+	 * Pops movement's direction out of the list
 	 * @return Direction removed from the list
 	 */
 	public Direction pop() {
@@ -45,7 +43,7 @@ public class Movement implements Serializable{
 	}
 	
 	/**
-	 * @brief Adds movement's direction to the list
+	 * Adds movement's direction to the list
 	 * @param direction Direction to be inserted to the list
 	 */
 	public void push(Direction direction) {
@@ -53,7 +51,7 @@ public class Movement implements Serializable{
 	}
 	
 	/**
-	 * @brief Gets next movement's direction
+	 * Gets next movement's direction
 	 * @return Next direction present on the list
 	 */
 	public Direction getNext() {
@@ -78,7 +76,7 @@ public class Movement implements Serializable{
 	}
 	
 	/**
-	 * @brief Gets next movement's inverted direction
+	 * Gets next movement's inverted direction
 	 * @return Next direction present on the list, but inverted
 	 */
 	public Direction getNextR() {
@@ -101,7 +99,7 @@ public class Movement implements Serializable{
 	}
 
 	/**
-	 * @brief Checks if guard is done with all its movements
+	 * Checks if guard is done with all its movements
 	 * @return Returns true if guard has finished turn, false otherwise
 	 */
 	public boolean passedByAll() {

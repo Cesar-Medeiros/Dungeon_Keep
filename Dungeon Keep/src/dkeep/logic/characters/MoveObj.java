@@ -13,12 +13,10 @@ public class MoveObj implements Serializable{
 	protected char currentSymbol;
 
 	/**
-	 * @brief Moving object constructor
+	 * Moving object constructor
 	 * @param posX Initial object's x-position
 	 * @param posY Initial object's y-position
 	 * @param symbol Object's main character
-	 * 
-	 * Creates a moving object on a specified board cell.
 	 */
 	public MoveObj(int posX, int posY, char symbol) {
 		this.posX = posX;
@@ -28,7 +26,7 @@ public class MoveObj implements Serializable{
 	}
 	
 	/**
-	 * @brief Returns the moving object's x-position
+	 * Returns the moving object's x-position
 	 * @return Object's x-position on the board
 	 */
 	public int getPosX() {
@@ -36,7 +34,7 @@ public class MoveObj implements Serializable{
 	}
 
 	/**
-	 * @brief Sets moving object's x-position
+	 * Sets moving object's x-position
 	 * @param posX Object's x-position
 	 */
 	public void setPosX(int posX) {
@@ -44,7 +42,7 @@ public class MoveObj implements Serializable{
 	}
 
 	/**
-	 * @brief Returns the moving object's y-position
+	 * Returns the moving object's y-position
 	 * @return Object's y-position on the board
 	 */
 	public int getPosY() {
@@ -52,7 +50,7 @@ public class MoveObj implements Serializable{
 	}
 
 	/**
-	 * @brief Sets moving object's y-position
+	 * Sets moving object's y-position
 	 * @param posY Object's y-position
 	 */
 	public void setPosY(int posY) {
@@ -60,7 +58,7 @@ public class MoveObj implements Serializable{
 	}
 
 	/**
-	 * @brief Returns object's current symbol
+	 * Returns object's current symbol
 	 * @return Object's current symbol
 	 */
 	public char getSymbol() {
@@ -68,41 +66,36 @@ public class MoveObj implements Serializable{
 	}
 	
 	/**
-	 * @brief Sets moving object's symbol
-	 * @param posY Object's symbol
+	 * Sets moving object's symbol
+	 * @param symbol Object's symbol
 	 */
 	public void setSymbol(char symbol) {
 		this.currentSymbol = symbol;
 	}
 	
 	/**
-	 * @brief Checks for proximity on moving objects
+	 * Checks if moving objects are near in horizontally
+	 * or vertically adjacent cells
 	 * @param obj Moving object to be compared
 	 * @return Returns true if objects are near, false otherwise
-	 * 
-	 * Checks if moving objects are near each other, i.e., if they
-	 * are present in horizontally or vertically adjacent cells.
 	 */
 	public boolean nearPos(MoveObj obj) {
 		int deltaPosX = Math.abs(this.posX - obj.posX);
 		int deltaPosY = Math.abs(this.posY - obj.posY);
-		return	(deltaPosX + deltaPosY) <= 1;
+		return (deltaPosX + deltaPosY) <= 1;
 	}
 	
 	/**
-	 * @brief Checks for moving objects collision
+	 * Checks if there's collision between 2 moving objects
 	 * @param obj Moving object to be compared
 	 * @return Returns true if there is collision, false otherwise
-	 * 
-	 * Checks if there's collision between 2 moving objects, i.e, if
-	 * they overlap on a board cell.
 	 */
 	public boolean collision(MoveObj obj) {
 		return (posX == obj.getPosX() && posY == obj.getPosY());
 	}
 	
 	/**
-	 * @brief Moves an object on the board
+	 * Moves an object on the board
 	 * @param board	Game board
 	 * @param direction Direction of movement
 	 * @return Returns true if movement was successful, false otherwise

@@ -23,7 +23,7 @@ public class DungeonKeep implements Serializable {
 	private transient BoardRenderer boardRenderer;
 	
 	/**
-	 * @brief DungeonKeep constructor
+	 * DungeonKeep constructor
 	 * @param gameConfig Game's configuration
 	 * @param boardRenderer Board renderer interface
 	 */
@@ -38,7 +38,7 @@ public class DungeonKeep implements Serializable {
 	}
 
 	/*
-	 * @brief Sets up and starts current game level
+	 * Sets up and starts current game level
 	 */
 	public void start() {
 		Level level = levels[iLevel];
@@ -47,11 +47,9 @@ public class DungeonKeep implements Serializable {
 	}
 	
 	/**
-	 * @brief Updates levels' iterations
-	 * 
-	 * Checks on each iteration if level was completed,
-	 * case in which level is updated, and also if the
-	 * game is over.
+	 * Updates levels' iterations, checking if level was
+	 * completed, case in which level is updated, and also
+	 * if the game is over.
 	 */
 	public void game() {
 		Level level = levels[iLevel];
@@ -72,7 +70,7 @@ public class DungeonKeep implements Serializable {
 	}
 	
 	/*
-	 * @brief Updates game's state
+	 * Updates game's state
 	 */
 	public void update() {
 
@@ -106,7 +104,7 @@ public class DungeonKeep implements Serializable {
 	}
 	
 	/**
-	 * @brief Renders level graphics
+	 * Renders level graphics
 	 */
 	public void render() {
 		if (state == State.WON) return;
@@ -114,7 +112,7 @@ public class DungeonKeep implements Serializable {
 	}
 
 	/**
-	 * @brief Returns current game state
+	 * Returns current game state
 	 * @return Game state as a string
 	 */
 	public String getState() {
@@ -136,7 +134,7 @@ public class DungeonKeep implements Serializable {
 	}
 
 	/**
-	 * @brief Checks for end of game 
+	 * Checks for end of game 
 	 * @return Returns true if game is over, false otherwise
 	 */
 	public boolean isEndGame() {
@@ -144,7 +142,7 @@ public class DungeonKeep implements Serializable {
 	}
 	
 	/**
-	 * @brief Sets board's renderer interface
+	 * Sets board's renderer interface
 	 * @param boardRenderer Board's renderer interface
 	 */
 	public void setBoardRenderer(BoardRenderer boardRenderer) {
@@ -152,7 +150,7 @@ public class DungeonKeep implements Serializable {
 	}
 	
 	/**
-	 * @brief Returns current game level
+	 * Returns current game level
 	 * @return Current game level
 	 */
 	public Level getLevel() {

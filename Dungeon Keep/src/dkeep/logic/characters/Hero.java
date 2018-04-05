@@ -17,12 +17,10 @@ public class Hero extends MoveObj{
 	public static final char armedSymbol = 'A';
 	
 	/**
-	 * @brief Hero character constructor
+	 * Hero character constructor. Creates an unarmed hero,
+	 * and without the key, on the specified board cell.
 	 * @param posX Initial hero's x-position
 	 * @param posY Initial hero's y-position
-	 * 
-	 * Creates an unarmed hero, and without the key,
-	 * on the specified board cell.
 	 */
 	public Hero(int posX, int posY) {
 		super(posX, posY, heroSymbol);
@@ -32,12 +30,10 @@ public class Hero extends MoveObj{
 	}
 	
 	/**
-	 * @brief Moves hero on the board
+	 * Moves hero on the board after the user inputs
+	 * a valid direction.
 	 * @param board Game board
 	 * @return Movement's direction
-	 * 
-	 * Waits for the user to input a valid direction
-	 * and afterwards moves the hero on the board.
 	 */
 	public Direction move(Board board) {
 		direction = Input.getDirection();
@@ -46,7 +42,7 @@ public class Hero extends MoveObj{
 	}
 	
 	/**
-	 * @brief Indicates if hero is armed
+	 * Indicates if hero is armed
 	 * @return Returns true if hero is armed, false otherwise
 	 */
 	public boolean isArmed(){
@@ -54,9 +50,7 @@ public class Hero extends MoveObj{
 	}
 	
 	/**
-	 * @brief Hero picks up the club 
-	 * 
-	 * The hero gets armed and its symbol is now 'A'.
+	 * Hero gets armed and its symbol is now 'A'.
 	 */
 	public void pickClub() {
 		setSymbol(armedSymbol);
@@ -64,9 +58,7 @@ public class Hero extends MoveObj{
 	}
 
 	/**
-	 * @brief Hero picks up the key
-	 * 
-	 * Hero's symbol is now 'K'.
+	 * Hero picks up the key and its symbol is now 'K'.
 	 */
 	public void pickKey() {
 		if(getSymbol() != armedSymbol)
@@ -75,9 +67,8 @@ public class Hero extends MoveObj{
 	}
 
 	/**
-	 * @brief Indicates if hero has key
-	 * 
-	 * Returns true if hero has key, false otherwise.
+	 * Indicates if hero has key
+	 * @return Returns true if hero has key, false otherwise.
 	 */
 	public boolean hasKey() {
 		return hasKey;
