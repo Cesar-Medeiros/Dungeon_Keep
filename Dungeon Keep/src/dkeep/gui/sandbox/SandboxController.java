@@ -45,6 +45,7 @@ public class SandboxController extends MouseAdapter{
 		hashtable.put(Board.keySymbol, new Integer[]{0,1});
 		hashtable.put(Hero.heroSymbol, new Integer[]{0,1});
 		hashtable.put(Ogre.ogreSymbol, new Integer[]{0,5});
+		hashtable.put(Ogre.clubSymbol, new Integer[]{0,1});
 		
 		boardMap = new char[side][side];
 		
@@ -79,7 +80,9 @@ public class SandboxController extends MouseAdapter{
 		int posY = y/sizeY;
 		
 
-		if(posX <= 0 || posX >= side - 1 || posY <= 0 || posY >= side - 1) return;
+		if(posX <= 0 || posX >= side - 1 || posY <= 0 || posY >= side - 1)
+			if(selectedElem != Board.openableDoorSymbol && selectedElem != Board.closeDoorSymbol && selectedElem != Board.wallSymbol)
+				return;
 		
 		Integer [] elemToAdd = hashtable.get(selectedElem);
 		Integer [] elemToRem = hashtable.get(boardMap[posY][posX]);

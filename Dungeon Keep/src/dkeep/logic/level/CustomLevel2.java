@@ -29,7 +29,7 @@ public class CustomLevel2 extends Level2 {
 	public char[][] setupElements(char[][] gameMap){
 
 		ogres = new Vector<Ogre>();
-		club = new MoveObj(1,1, '*');
+		club = new MoveObj(1,1, Ogre.clubSymbol);
 		char[][] boardMap = new char[gameMap.length][gameMap[0].length];
 
 		for(int row = 0; row < gameMap.length; row++) {
@@ -43,6 +43,9 @@ public class CustomLevel2 extends Level2 {
 					ogres.add(new Ogre(col, row));
 					break;
 
+				case Ogre.clubSymbol:
+					club = new MoveObj(col,row, Ogre.clubSymbol);
+					break;
 				default: 
 					boardMap[row][col] = gameMap[row][col];
 					break;

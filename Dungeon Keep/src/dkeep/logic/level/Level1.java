@@ -24,6 +24,7 @@ public class Level1 extends Level{
 	private Guard guard;
 	private MoveObj lever;
 	private int guardIndex;	//TODO: Option GUI sequential guard
+	private boolean sequential;
 
 
 	private Movement movement =  new Movement(Arrays.asList(
@@ -54,7 +55,8 @@ public class Level1 extends Level{
 	 */
 	public Level1(int guardIndex) {
 		setBoard(new Board(boardMap));
-		this.guardIndex = guardIndex;		
+		this.sequential = (guardIndex == 3);
+		this.guardIndex = sequential? 0 : guardIndex;	
 	}
 
 	/**
@@ -90,7 +92,7 @@ public class Level1 extends Level{
 		hero.move(board);
 		guard.move(board);
 
-		if (guard.hasFinishedTurn()) {
+		if (sequential && guard.hasFinishedTurn()) {
 			pickNextGuard();
 		}
 

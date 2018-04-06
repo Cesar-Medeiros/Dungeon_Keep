@@ -120,7 +120,7 @@ public class OptionsPanel extends JDialog {
 		
 
 		guardPersCombo = new JComboBox<String>();
-		guardPersCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		guardPersCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious", "Sequential"}));
 		gbc.insets = new Insets(0, 0, 5, 0);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
@@ -162,6 +162,8 @@ public class OptionsPanel extends JDialog {
 		btnCreateMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				customLevel = SandboxController.getCustomLevel();
+				numOgresText.setEnabled(false);
+				numOgresText.setText("");
 			}
 		});
 		
@@ -179,6 +181,7 @@ public class OptionsPanel extends JDialog {
 	 * @return Returns true if configuration is valid, false otherwise
 	 */
 	private boolean processOptions() {
+		
 		try {
 			nOgres = getNumOgres();
 
@@ -208,7 +211,10 @@ public class OptionsPanel extends JDialog {
         	numOgres = Integer.parseInt(numOgresStr);
         }
         catch(NullPointerException | NumberFormatException exception) {
-        	numOgres = -1;
+			if(!numOgresText.isEnabled()) {
+				numOgres = 1;
+			}
+			else numOgres = -1;
         }
 		
 		return numOgres;

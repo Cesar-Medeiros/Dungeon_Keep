@@ -9,7 +9,8 @@ public abstract class Guard extends MoveObj {
 	
 	private static final long serialVersionUID = 1L;
 
-	private static char symbol = 'G';
+	public final static char symbol = 'G';
+	public final static char sleepSymbol = 'g';
 	
 	protected boolean active;
 	protected Movement movement;

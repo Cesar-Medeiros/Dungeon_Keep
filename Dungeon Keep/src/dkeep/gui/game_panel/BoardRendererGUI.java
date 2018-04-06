@@ -12,6 +12,7 @@ import dkeep.logic.board.Board;
 import dkeep.logic.board.BoardRenderer;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.Ogre;
+import dkeep.logic.characters.guard.Guard;
 
 public class BoardRendererGUI implements BoardRenderer{
 
@@ -83,8 +84,8 @@ public class BoardRendererGUI implements BoardRenderer{
 		hashImage.put(Board.openableDoorSymbol, closedDoorResized);
 		hashImage.put(Board.openDoorSymbol, openDoorResized);
 		hashImage.put(Board.keySymbol, leverResized);
-		hashImage.put('G', guardResized);
-		hashImage.put('g', guardResized);
+		hashImage.put(Guard.symbol, guardResized);
+		hashImage.put(Guard.sleepSymbol, guardResized);
 		hashImage.put(Ogre.ogreSymbol, ogreResized);
 		hashImage.put(Ogre.stunnedSymbol, ogreResized);
 		hashImage.put(Ogre.overKeySymbol, ogreResized);

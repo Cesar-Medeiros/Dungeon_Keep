@@ -10,7 +10,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import dkeep.cli.BoardRendererCLI;
 import dkeep.logic.board.Board;
 import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.MoveObj;

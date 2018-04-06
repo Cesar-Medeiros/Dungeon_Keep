@@ -38,6 +38,7 @@ public class SandboxPanel extends JDialog {
 	private JButton keyBtn;
 	private JButton saveBtn;
 	private JButton deleteBtn;
+	private JButton clubBtn;
 	private JSlider dimensionSlider;
 	
     private Image wall;
@@ -45,6 +46,7 @@ public class SandboxPanel extends JDialog {
     private Image hero;
     private Image ogre;
     private Image key;
+    private Image club;
     private Image closedDoor;
     private Image openDoor;
 
@@ -92,6 +94,7 @@ public class SandboxPanel extends JDialog {
             key = ImageIO.read(new File("res/Board/Key.png"));
             closedDoor = ImageIO.read(new File("res/Board/ClosedDoor.png"));
             openDoor = ImageIO.read(new File("res/Board/OpenDoor.png"));
+            club = ImageIO.read(new File("res/Board/Club.png"));
         } catch (IOException e) {
             System.err.println("Error: Could not load images");
             e.printStackTrace();
@@ -151,6 +154,7 @@ public class SandboxPanel extends JDialog {
 		openDoorBtn = newIconButton(1, 5, openDoor, elementsPanel);
 		keyBtn = newIconButton(1, 3, key, elementsPanel);
 		deleteBtn = newIconButton(1, 6, floor, elementsPanel);
+		clubBtn = newIconButton(0, 6, club, elementsPanel);
 		
 		dimensionSlider = new JSlider();
 		GridBagConstraints gbc_dimensionSlider = new GridBagConstraints();
@@ -221,6 +225,12 @@ public class SandboxPanel extends JDialog {
 		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.selectElement(Board.floorSymbol);
+			}
+		});
+		
+		clubBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.selectElement(Ogre.clubSymbol);
 			}
 		});
 		
