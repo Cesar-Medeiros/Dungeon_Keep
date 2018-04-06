@@ -310,17 +310,28 @@ public class TestDungeonGameLogic {
 	
 	@Test
 	public void testLevel1() throws Exception {
-		BoardRendererCLI br = new BoardRendererCLI();
-		Level1 lvl1 = new Level1(2);
+		Level1 lvl1 = new Level1(0);
 		lvl1.setup();
-		lvl1.render(br);
 		lvl1.update();
+		assertFalse(lvl1.completed());
+		assertFalse(lvl1.gameOver());
 		
 		Input.setGraphicInput();
 		Input.addDirection(RIGHT);
+		Input.addDirection(RIGHT);
+		Input.addDirection(RIGHT);
+		Input.addDirection(DOWN);
+		Input.addDirection(DOWN);
+		Input.addDirection(DOWN);
+		Input.addDirection(DOWN);
 		lvl1.update();
-		lvl1.render(br);
+		lvl1.update();
+		lvl1.update();
+		lvl1.update();
+		lvl1.update();
+		lvl1.update();
+		lvl1.update();
 		assertFalse(lvl1.completed());
-		assertFalse(lvl1.gameOver());
+		assertTrue(lvl1.gameOver());
 	}
 }

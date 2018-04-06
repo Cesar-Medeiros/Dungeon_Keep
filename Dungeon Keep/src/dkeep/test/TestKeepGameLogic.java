@@ -1,5 +1,9 @@
 package dkeep.test;
 
+import static dkeep.util.Direction.DOWN;
+import static dkeep.util.Direction.RIGHT;
+import static dkeep.util.Direction.UP;
+import static dkeep.util.Direction.LEFT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
@@ -12,6 +16,7 @@ import dkeep.logic.characters.Hero;
 import dkeep.logic.characters.MoveObj;
 import dkeep.logic.characters.Ogre;
 import dkeep.logic.level.CustomLevel2;
+import dkeep.logic.level.Level1;
 import dkeep.logic.level.Level2;
 import dkeep.util.Direction;
 import dkeep.util.Input;
@@ -120,7 +125,28 @@ public class TestKeepGameLogic {
 		boolean successfulMove = hero.moveCharacter(board, Direction.LEFT);
 		assertTrue(successfulMove); 
 	}
-	
+	@Test
+	public void testLevel2() throws Exception {
+		Level2 lvl2 = new Level2(5);
+		lvl2.setup();
+		lvl2.update();
+		assertFalse(lvl2.completed());
+		assertFalse(lvl2.gameOver());
+		
+		while(!lvl2.gameOver()) {
+			Input.setGraphicInput();
+			Input.addDirection(UP);
+			Input.addDirection(RIGHT);
+			Input.addDirection(DOWN);
+			Input.addDirection(LEFT);
+			lvl2.update();
+			lvl2.update();
+			lvl2.update();
+			lvl2.update();
+		}
+		assertFalse(lvl2.completed());
+		assertTrue(lvl2.gameOver());
+	}
 
 	@Test
 	public void testCustomLevel() {
